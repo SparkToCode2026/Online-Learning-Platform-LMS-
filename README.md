@@ -57,7 +57,7 @@ Beyond standard CRUD logic, this backend implements two production-grade micro-f
 ## 💻 Local Quickstart
 
 ### Prerequisites
-*   .NET 8.0 / 9.0 SDK
+*   .NET 10
 *   SQL Server Express (`.\SQLEXPRESS`)
 *   Visual Studio 2022
 
