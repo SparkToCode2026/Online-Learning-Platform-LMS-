@@ -1,1 +1,3 @@
-<Solution />
+<Solution>
+  <Project Path="LMS_Server/LMS_Server.csproj" />
+</Solution>
