@@ -1,6 +1,6 @@
 # Courseflow: E-Learning Management Platform
 
-Welcome to **Courseflow**, my capstone project for the **Spark to Code 2026** bootcamp. This platform bridges the gap between learning and teaching, allowing instructors to build structured courses while enabling students to enroll, submit trackable assignments, tackle quizzes, and earn printable completion certificates.
+Welcome to **Courseflow**, our capstone project for the **Spark to Code 2026** bootcamp. This platform bridges the gap between learning and teaching, allowing instructors to build structured courses while enabling students to enroll, submit trackable assignments, tackle quizzes, and earn printable completion certificates.
 
 This project represents the accumulation of everything covered throughout the bootcamp, alongside key self-study architectural milestones (JWT Auth and Email Services) required for production backend deployment.
 
