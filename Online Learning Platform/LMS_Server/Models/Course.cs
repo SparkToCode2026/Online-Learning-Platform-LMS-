@@ -35,6 +35,9 @@ namespace LMS_Server.Models
         // 1:M relationship between Course & Quiz
         public List<Quiz>? Quizzes { get; set; } = new List<Quiz>();
 
+        // 1:M relationship between Course & Assignment
+        public List<Assignment>? Assignment { get; set; } = new List<Assignment>();
+
 
     }
 }
