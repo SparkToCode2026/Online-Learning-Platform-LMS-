@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace LMS_Server.Models
@@ -17,8 +18,14 @@ namespace LMS_Server.Models
 
 
         //1:M relationship with Course
+        [ForeignKey("Category")]
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
+        
+        // 1:M relationship with Quiz
+        public List<Quiz>? Quizzes { get; set; }
+
+        // 1:M relationship with Assignment
 
 
         // 1:M relationship with Enrollment
@@ -28,5 +35,9 @@ namespace LMS_Server.Models
         // 1:M relationship with Assignment
         [JsonIgnore]
         public List<Assignment>? Assignments { get; set; }
+
+        
+
+
     }
 }
