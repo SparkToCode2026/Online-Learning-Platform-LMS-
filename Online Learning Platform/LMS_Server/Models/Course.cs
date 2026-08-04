@@ -22,5 +22,9 @@ namespace LMS_Server.Models
         // 1:M relationship with Assignment
         [JsonIgnore]
         public List<Assignment>? Assignments { get; set; }
+        
+        // 1:M relationship with Module
+        [JsonIgnore]
+        public List<Module> Modules { get; set; } = new();
     }
 }
