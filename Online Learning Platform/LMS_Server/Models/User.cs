@@ -1,29 +1,47 @@
-﻿namespace LMS_Server.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace LMS_Server.Models
 {
     public class User
     {
+        [Key]
+        [JsonIgnore]
         public int UserId { get; set; }
+
+        [Required]
         public string UserName { get; set; }
+
+        [Required]
         public string UserEmail { get; set; }
+
+        [Required]
         public string UserPassword { get; set; }
+
+        [Required]
         public string UserRole { get; set; }
 
 
         // 1:M submit relationship
-        public List<Submission> submissions { get; set; }
+        [JsonIgnore]
+        public List<Submission>? submissions { get; set; }
 
 
         // 1:M register relationship
-        public List<Enrollment> enrollments { get; set; }
+        [JsonIgnore]
+        public List<Enrollment>? enrollments { get; set; }
 
         // 1:M Earn relationship
-        public List<Certificate> certificates { get; set; }
+        [JsonIgnore]
+        public List<Certificate>? certificates { get; set; }
 
 
         // 1:M undertake relationship
-        public List<QuizAttempt> quizAttempts { get; set; }
+        [JsonIgnore]
+        public List<QuizAttempt>? quizAttempts { get; set; }
 
         // 1:1 create relationship
-        public InstructorProfile instructorProfile { get; set; }
+        [JsonIgnore]
+        public InstructorProfile? instructorProfile { get; set; }
     }
 }
