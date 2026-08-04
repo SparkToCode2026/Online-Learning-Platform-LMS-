@@ -12,5 +12,9 @@
         // 1:M submit relationship
         public List<Submission> submissions { get; set; }
 
+
+        // 1:M register relationship
+        public List<Enrollment> enrollments { get; set; }
+
     }
 }
