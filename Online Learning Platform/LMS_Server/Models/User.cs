@@ -22,5 +22,8 @@
 
         // 1:M undertake relationship
         public List<QuizAttempt> quizAttempts { get; set; }
+
+        // 1:1 create relationship
+        public InstructorProfile instructorProfile { get; set; }
     }
 }

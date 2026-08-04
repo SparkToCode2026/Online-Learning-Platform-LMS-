@@ -1,6 +1,12 @@
-﻿namespace LMS_Server.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace LMS_Server.Models
 {
     public class InstructorProfile
     {
+        // 1:M create relationship
+        [ForeignKey("user")]
+        public int UserId { get; set; }
+        public User user { get; set; }
     }
 }
