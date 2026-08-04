@@ -29,5 +29,12 @@ namespace LMS_Server.Models
         // 1:M relationship has with Submission
         [JsonIgnore]
         public List<Submission>? Submissions { get; set; }
+
+        //1:M relationship between Course & Assignment
+        [JsonIgnore]
+        public Course? Course { get; set; }
+        
+       
+
     }
 }

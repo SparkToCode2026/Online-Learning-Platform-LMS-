@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace LMS_Server.Models
 {
@@ -15,7 +16,8 @@ namespace LMS_Server.Models
         public DateTime IssudAT { get; set; }
 
         //course relationship
+        [JsonIgnore]
         public int CourseId { get; set; }
-        public Course course { get; set; }
+        public Course? course { get; set; }
     }
 }
