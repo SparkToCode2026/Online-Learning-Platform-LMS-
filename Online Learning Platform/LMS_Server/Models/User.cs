@@ -16,5 +16,11 @@
         // 1:M register relationship
         public List<Enrollment> enrollments { get; set; }
 
+        // 1:M Earn relationship
+        public List<Certificate> certificates { get; set; }
+
+
+        // 1:M undertake relationship
+        public List<QuizAttempt> quizAttempts { get; set; }
     }
 }
