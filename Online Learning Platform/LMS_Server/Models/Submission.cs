@@ -17,13 +17,19 @@ namespace LMS_Server.Models
         public string SubmissionGrade { get; set; }
 
 
-        // 1:M submit relationship
+        // 1:M submit relationship with User
         [ForeignKey("user")]
         [Required]
         public int UserId { get; set; }
+        public User user { get; set; }
 
 
-        [JsonIgnore]
-        public User? user { get; set; }
+
+        // 1:M submit relationship with Assignment
+        [ForeignKey("assignment")]
+        [Required]
+        public int AssignmentId { get; set; }
+        public Assignment assignment { get; set; }
+
     }
 }
