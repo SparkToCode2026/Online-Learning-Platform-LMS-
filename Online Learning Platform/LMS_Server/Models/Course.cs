@@ -38,6 +38,9 @@ namespace LMS_Server.Models
         // 1:M relationship between Course & Assignment
         public List<Assignment>? Assignment { get; set; } = new List<Assignment>();
 
+        // 1:M relationship between Course & Certificate
+        public List<Certificate>? certificates { get; set; } = new List<Certificate>();
+
 
     }
 }
