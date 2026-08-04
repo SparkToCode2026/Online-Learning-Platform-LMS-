@@ -15,6 +15,12 @@ namespace LMS_Server.Models
         [Required]
         public double CoursePrice { get; set; }
 
+
+        //1:M relationship with Course
+        public int CategoryId { get; set; }
+        public Category? Category { get; set; }
+
+
         // 1:M relationship with Enrollment
         [JsonIgnore]
         public List<Enrollment>? Enrollments { get; set; }
