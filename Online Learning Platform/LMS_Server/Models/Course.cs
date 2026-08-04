@@ -31,5 +31,10 @@ namespace LMS_Server.Models
         [JsonIgnore]
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
+
+        // 1:M relationship between Course & Quiz
+        public List<Quiz>? Quizzes { get; set; } = new List<Quiz>();
+
+
     }
 }
