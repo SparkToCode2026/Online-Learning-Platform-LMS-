@@ -27,6 +27,9 @@ namespace LMS_Server.Models
         // 1:M relationship with Module
         public List<Module>? Modules { get; set; }
 
+        // 1:M Relationship with Course
+        public List<Certificate>? certificates { get; set; }
+
 
         // 1:M relationship with Enrollment
         [JsonIgnore]
