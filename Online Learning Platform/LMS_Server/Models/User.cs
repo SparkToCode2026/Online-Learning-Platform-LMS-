@@ -8,5 +8,9 @@
         public string UserPassword { get; set; }
         public string UserRole { get; set; }
 
+
+        // 1:M submit relationship
+        public List<Submission> submissions { get; set; }
+
     }
 }
