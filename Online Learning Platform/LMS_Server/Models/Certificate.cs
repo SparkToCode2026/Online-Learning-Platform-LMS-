@@ -10,6 +10,12 @@ namespace LMS_Server.Models
         public int UserId { get; set; }
         public User user { get; set; }
 
-        
+        public int CertificateId { get; set; }
+        public string CertificateCode { get; set; }
+        public DateTime IssudAT { get; set; }
+
+        //course relationship
+        public int CourseId { get; set; }
+        public Course course { get; set; }
     }
 }
