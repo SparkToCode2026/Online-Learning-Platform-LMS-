@@ -26,5 +26,10 @@ namespace LMS_Server.Models
         // 1:M relationship with Module
         [JsonIgnore]
         public List<Module> Modules { get; set; } = new();
+
+        //1:M relationship between Course & Category
+        [JsonIgnore]
+        public int CategoryId { get; set; }
+        public Category? Category { get; set; }
     }
 }
