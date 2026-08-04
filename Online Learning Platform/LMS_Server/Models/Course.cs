@@ -18,14 +18,14 @@ namespace LMS_Server.Models
 
 
         //1:M relationship with Course
-        [ForeignKey("Category")]
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         
         // 1:M relationship with Quiz
         public List<Quiz>? Quizzes { get; set; }
 
-        // 1:M relationship with Assignment
+        // 1:M relationship with Module
+        public List<Module>? Modules { get; set; }
 
 
         // 1:M relationship with Enrollment
