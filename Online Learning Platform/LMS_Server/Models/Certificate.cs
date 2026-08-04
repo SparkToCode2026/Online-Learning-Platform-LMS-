@@ -9,5 +9,7 @@ namespace LMS_Server.Models
         [ForeignKey("user")]
         public int UserId { get; set; }
         public User user { get; set; }
+
+        
     }
 }
