@@ -140,6 +140,17 @@ namespace LMS_Server.Controllers
             return Ok(courses.ToList());
         }
 
+        // 8. GET: Top 5 highest-priced courses
+        [HttpGet("Top5ExpensiveCourses")]
+        public IActionResult Top5ExpensiveCourses()
+        {
+            List<Course> courses = context.Courses
+                .OrderByDescending(c => c.CoursePrice)
+                .Take(5)
+                .ToList();
+
+            return Ok(courses);
+        }
 
 
 
