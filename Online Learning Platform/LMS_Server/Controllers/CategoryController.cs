@@ -109,6 +109,26 @@ namespace LMS_Server.Controllers
             return Ok(categories);
         }
 
+        // 6. GET (Find): Get category by CategoryId
+        [HttpGet("GetCategoryById")]
+        public IActionResult GetCategoryById(int id)
+        {
+            Category category = context.categories
+                .FirstOrDefault(c => c.CategoryId == id);
+
+
+            if (category != null)
+            {
+                return Ok(category);
+            }
+            else
+            {
+                return NotFound("Category not found");
+            }
+        }
+
+
+
 
 
 
