@@ -1,7 +1,14 @@
-
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using DotNetEnv;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using MimeKit;
 
 namespace LMS_Server
 {
@@ -9,18 +16,45 @@ namespace LMS_Server
     {
         public static void Main(string[] args)
         {
+            // 1. Load environment variables from .env file
+            Env.Load();
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddDbContext<ProjectContext>(
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-             );
+            );
 
             builder.Services.AddControllers();
 
+            // 2. Register Custom Helper Services
+            builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
+
+            // 3. Configure JWT Authentication
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+                    };
+                });
+
+            // 4. Configure Swagger Gen with Bearer Security Scheme
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "LMS Server API", Version = "v1" });
+
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -58,12 +92,85 @@ namespace LMS_Server
 
             app.UseHttpsRedirection();
 
+            // 5. Authentication
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
             app.Run();
+        }
+    }
+
+ 
+    // JWT TOKEN SERVICE INTERFACE & IMPLEMENTATION
+    public interface IJwtTokenService
+    {
+        string GenerateToken(string userId, string email, string role);
+    }
+
+    public class JwtTokenService : IJwtTokenService
+    {
+        private readonly IConfiguration _config;
+
+        public JwtTokenService(IConfiguration config)
+        {
+            _config = config;
+        }
+
+        public string GenerateToken(string userId, string email, string role)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, userId),
+                new Claim(ClaimTypes.Email, email),
+                new Claim(ClaimTypes.Role, role)
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(8),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+    }
+
+
+    // EMAIL SERVICE INTERFACE & IMPLEMENTATION
+    public interface IEmailService
+    {
+        Task SendEmailAsync(string toEmail, string subject, string body);
+    }
+
+    public class EmailService : IEmailService
+    {
+        private readonly IConfiguration _config;
+
+        public EmailService(IConfiguration config)
+        {
+            _config = config;
+        }
+
+        public async Task SendEmailAsync(string toEmail, string subject, string body)
+        {
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse(_config["Smtp:SenderEmail"]));
+            email.To.Add(MailboxAddress.Parse(toEmail));
+            email.Subject = subject;
+
+            email.Body = new TextPart("html") { Text = body };
+
+            using var smtp = new SmtpClient();
+            await smtp.ConnectAsync(_config["Smtp:Host"], int.Parse(_config["Smtp:Port"]!), SecureSocketOptions.StartTls);
+            await smtp.AuthenticateAsync(_config["Smtp:SenderEmail"], _config["Smtp:SenderPassword"]);
+            await smtp.SendAsync(email);
+            await smtp.DisconnectAsync(true);
         }
     }
 }
