@@ -127,6 +127,18 @@ namespace LMS_Server.Controllers
             }
         }
 
+        // 7. GET (Filter): Search category by name
+        [HttpGet("SearchCategory")]
+        public IActionResult SearchCategory(string name)
+        {
+            List<Category> categories = context.categories
+                .Where(c => c.CategoryName.Contains(name))
+                .ToList();
+
+
+            return Ok(categories);
+        }
+
 
 
 
