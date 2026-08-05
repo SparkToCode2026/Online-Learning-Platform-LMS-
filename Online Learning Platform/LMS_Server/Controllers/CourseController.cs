@@ -98,6 +98,27 @@ namespace LMS_Server.Controllers
             return Ok(courses);
         }
 
+        // 6. GET: Get course details by CourseId
+        [HttpGet("GetCourseById")]
+        public IActionResult GetCourseById(int id)
+        {
+            Course course = context.courses
+                .Include(c => c.Category)
+                .Include(c => c.InstructorProfile)
+                .FirstOrDefault(c => c.CourseId == id);
+
+
+            if (course != null)
+            {
+                return Ok(course);
+            }
+            else
+            {
+                return NotFound("Course not found");
+            }
+        }
+
+
 
     }
 }
