@@ -7,14 +7,14 @@ namespace LMS_Server.Models
     {
         [Key]
         [JsonIgnore]
-        public int CategoryId { get; set; } // as a Primary key
+        public int CategoryId { get; set; } 
 
         [Required]
         public string CategoryName { get; set; }
 
 
         // 1:M relationship between Course & Category
-        // Navigation Property
+        [JsonIgnore]
         public List<Course>? courses { get; set; }
         
       
