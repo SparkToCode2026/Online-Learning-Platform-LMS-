@@ -47,6 +47,28 @@ namespace LMS_Server.Controllers
             }
         }
 
+        // 3. PATCH (2nd): Rename category with slug/code
+        [HttpPatch("RenameCategoryWithSlug")]
+        public IActionResult RenameCategoryWithSlug(int id, string slug)
+        {
+            Category category = context.categories
+                .FirstOrDefault(c => c.CategoryId == id);
+
+
+            if (category != null)
+            {
+                category.CategoryName = slug;
+                context.SaveChanges();
+
+                return Ok("Category renamed successfully");
+            }
+            else
+            {
+                return NotFound("Category not found");
+            }
+        }
+
+
 
 
 
