@@ -144,7 +144,7 @@ namespace LMS_Server.Controllers
         [HttpGet("Top5ExpensiveCourses")]
         public IActionResult Top5ExpensiveCourses()
         {
-            List<Course> courses = context.Courses
+            List<Course> courses = context.courses
                 .OrderByDescending(c => c.CoursePrice)
                 .Take(5)
                 .ToList();
