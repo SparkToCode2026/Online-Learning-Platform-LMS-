@@ -71,8 +71,8 @@ namespace LMS_Server.Controllers
         public async Task<ActionResult<IEnumerable<Certificate>>> GetAllWithRelations()
         {
             return await _context.Certificates
-                .Include(c => c.User)
-                .Include(c => c.Course)
+                .Include(c => c.user)
+                .Include(c => c.course)
                 .ToListAsync();
         }
 
@@ -81,8 +81,8 @@ namespace LMS_Server.Controllers
         public async Task<ActionResult<Certificate>> GetById(int id)
         {
             var cert = await _context.Certificates
-                .Include(c => c.User)
-                .Include(c => c.Course)
+                .Include(c => c.user)
+                .Include(c => c.course)
                 .FirstOrDefaultAsync(c => c.CertificateId == id);
 
             if (cert == null) return NotFound();
@@ -95,7 +95,7 @@ namespace LMS_Server.Controllers
         public async Task<ActionResult<IEnumerable<Certificate>>> FilterByDate([FromQuery] DateTime startDate)
         {
             return await _context.Certificates
-                .Where(c => c.IssuedAt >= startDate)
+                .Where(c => c.IssudAT >= startDate)
                 .ToListAsync();
         }
 
@@ -105,7 +105,7 @@ namespace LMS_Server.Controllers
         {
             var count = await _context.Certificates.CountAsync();
             var latestCertificates = await _context.Certificates
-                .OrderByDescending(c => c.IssuedAt)
+                .OrderByDescending(c => c.IssudAT)
                 .ToListAsync();
 
             return Ok(new { TotalCertificates = count, Certificates = latestCertificates });
