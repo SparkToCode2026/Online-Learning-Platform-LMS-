@@ -15,5 +15,23 @@ namespace LMS_Server.Controllers
         {
             context = _context;
         }
+
+        // 1. POST: Create new course category
+        [HttpPost("AddCategory")]
+        public IActionResult AddCategory(Category category)
+        {
+            context.categories.Add(category);
+            context.SaveChanges();
+
+            return Ok(category.CategoryId);
+        }
+
+
+
+
+
+
+
+
     }
 }
