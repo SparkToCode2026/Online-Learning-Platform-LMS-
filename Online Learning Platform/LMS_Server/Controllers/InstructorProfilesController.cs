@@ -15,6 +15,18 @@ namespace LMS_Server.Controllers
         {
             _context = context;
         }
+        // Case 1 (POST): Create a new record
+        [HttpPost]
+        public async Task<ActionResult<InstructorProfile>> Create(InstructorProfile profile)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            _context.InstructorProfiles.Add(profile);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetById), new { id = profile.InstructorId }, profile);
+        }
+
 
     }
 }
