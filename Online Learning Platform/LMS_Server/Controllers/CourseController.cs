@@ -86,7 +86,17 @@ namespace LMS_Server.Controllers
             }
         }
 
+        // 5. GET: Get all courses with Category and Instructor
+        [HttpGet("GetAllCourses")]
+        public IActionResult GetAllCourses()
+        {
+            List<Course> courses = context.courses
+                .Include(c => c.Category)
+                .Include(c => c.InstructorProfile)
+                .ToList();
 
+            return Ok(courses);
+        }
 
 
     }
