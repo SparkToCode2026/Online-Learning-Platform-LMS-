@@ -22,8 +22,7 @@ public class Module
     public int CourseId { get; set; }
     public Course Course { get; set; }
 
-
-
+    
     // One module can contain many lessons.
     [JsonIgnore]
     public List<Lesson>? Lessons { get; set; }

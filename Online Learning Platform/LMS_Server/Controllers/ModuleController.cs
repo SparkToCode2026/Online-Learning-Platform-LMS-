@@ -1,6 +1,7 @@
 using LMS_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using LMS_Server.DTOs;
 
 namespace LMS_Server.Controllers;
 
@@ -17,16 +18,20 @@ public class ModuleController : ControllerBase
 
     // Case 1: Create a new module.
     [HttpPost]
-    public async Task<IActionResult> CreateModule(Module module)
+    public async Task<IActionResult> CreateModule(CreateModuleDto dto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
         bool courseExists = await _context.courses
-            .AnyAsync(c => c.CourseId == module.CourseId);
+            .AnyAsync(c => c.CourseId == dto.CourseId);
 
         if (!courseExists)
             return NotFound("Course not found.");
+
+        Module module = new Module
+        {
+            ModuleName = dto.ModuleName,
+            OrderNumber = dto.OrderNumber,
+            CourseId = dto.CourseId
+        };
 
         _context.modules.Add(module);
         await _context.SaveChangesAsync();
