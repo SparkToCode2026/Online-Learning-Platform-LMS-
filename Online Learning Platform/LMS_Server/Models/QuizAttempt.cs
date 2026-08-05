@@ -8,5 +8,7 @@ namespace LMS_Server.Models
         [ForeignKey("user")]
         public int UserId { get; set; }
         public User user { get; set; }
+
+        // 1:M log relationship 
     }
 }

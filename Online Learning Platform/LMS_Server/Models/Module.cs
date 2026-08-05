@@ -11,14 +11,18 @@ public class Module
     public int ModuleId { get; set; }
 
     [Required]
-    public string ModuleName { get; set; } = string.Empty;
+    public string ModuleName { get; set; }
+
+    [Required]
+    public int OrderNumber { get; set; }
 
     // Foreign key that connects this module to one course.
     [Required]
     [ForeignKey("Course")]
     public int CourseId { get; set; }
-
     public Course Course { get; set; }
+
+
 
     // One module can contain many lessons.
     [JsonIgnore]

@@ -9,12 +9,15 @@ public class Lesson
     public int LessonId { get; set; }
 
     [Required]
-    public string LessonTitle { get; set; } = string.Empty;
+    public string LessonTitle { get; set; } 
+
+    [Required]
+    public string LessonURL { get; set; }
+
 
     // Foreign key that connects this lesson to one module.
     [Required]
     [ForeignKey("Module")]
     public int ModuleId { get; set; }
-
     public Module Module { get; set; }
 }
