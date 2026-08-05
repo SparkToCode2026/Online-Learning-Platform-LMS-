@@ -26,6 +26,28 @@ namespace LMS_Server.Controllers
             return Ok(category.CategoryId);
         }
 
+        // 2. PATCH: Update category name
+        [HttpPatch("UpdateCategoryName")]
+        public IActionResult UpdateCategoryName(int id, string name)
+        {
+            Category category = context.categories
+                .FirstOrDefault(c => c.CategoryId == id);
+
+
+            if (category != null)
+            {
+                category.CategoryName = name;
+                context.SaveChanges();
+
+                return Ok("Category name updated successfully");
+            }
+            else
+            {
+                return NotFound("Category not found");
+            }
+        }
+
+
 
 
 
