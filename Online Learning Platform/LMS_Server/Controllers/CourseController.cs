@@ -118,6 +118,31 @@ namespace LMS_Server.Controllers
             }
         }
 
+        // 7. GET: Filter courses by CategoryId or Max Price
+        [HttpGet("FilterCourses")]
+        public IActionResult FilterCourses(int? categoryId, double? maxPrice)
+        {
+            IQueryable<Course> courses = context.courses;
+
+
+            if (categoryId != null)
+            {
+                courses = courses.Where(c => c.CategoryId == categoryId);
+            }
+
+
+            if (maxPrice != null)
+            {
+                courses = courses.Where(c => c.CoursePrice <= maxPrice);
+            }
+
+
+            return Ok(courses.ToList());
+        }
+
+
+
+
 
 
     }
