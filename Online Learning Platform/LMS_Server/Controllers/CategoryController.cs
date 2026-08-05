@@ -139,6 +139,21 @@ namespace LMS_Server.Controllers
             return Ok(categories);
         }
 
+        // 8. GET (Sort/Aggregate): Count courses per category
+        [HttpGet("CountCoursesPerCategory")]
+        public IActionResult CountCoursesPerCategory()
+        {
+            var result = context.categories
+                .Select(c => new
+                {
+                    c.CategoryName,
+                    Count = c.courses.Count()
+                })
+                .ToList();
+
+
+            return Ok(result);
+        }
 
 
 
