@@ -97,6 +97,18 @@ namespace LMS_Server.Controllers
         }
 
 
+        // 5. GET (List + Include): Get categories with associated courses
+        [HttpGet("GetAllCategories")]
+        public IActionResult GetAllCategories()
+        {
+            List<Category> categories = context.categories
+                .Include(c => c.courses)
+                .ToList();
+
+
+            return Ok(categories);
+        }
+
 
 
 
