@@ -6,18 +6,21 @@ namespace LMS_Server.Models
 {
     public class Quiz
     {
-
-
-
-
-
-
-        // 1:M relationship between Course & Quiz
-        [ForeignKey("Course")]
+        [Key]
+        [JsonIgnore]
+        public int QuizId { get; set; }
+        [Required]
+        public string QuizTitle { get; set; }
+        [Required]
+        public int PassingScore { get; set; }
+        // 1:M relationship with Course
+        [ForeignKey("course")]
+        [Required]
         public int CourseId { get; set; }
-        public Course Course { get; set; }
-
-        // 1:M relationship between Quiz & QuizAttempt LSIE>
-
+        public Course course { get; set; }
+        // 1:M relationship with QuizAttempt
+        [JsonIgnore]
+        public List<QuizAttempt>? QuizAttempts { get; set; }
     }
 }
+
