@@ -68,6 +68,34 @@ namespace LMS_Server.Controllers
             }
         }
 
+        // 4. DELETE: Delete empty category
+        [HttpDelete("DeleteEmptyCategory")]
+        public IActionResult DeleteEmptyCategory(int id)
+        {
+            Category category = context.categories
+                .Include(c => c.courses)
+                .FirstOrDefault(c => c.CategoryId == id);
+
+
+            if (category == null)
+            {
+                return NotFound("Category not found");
+            }
+
+
+            if (category.courses == null || category.courses.Count == 0)
+            {
+                context.categories.Remove(category);
+                context.SaveChanges();
+
+                return Ok("Empty category deleted successfully");
+            }
+            else
+            {
+                return BadRequest("Cannot delete category because it contains courses");
+            }
+        }
+
 
 
 
