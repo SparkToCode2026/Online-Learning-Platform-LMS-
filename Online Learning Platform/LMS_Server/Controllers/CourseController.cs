@@ -67,6 +67,26 @@ namespace LMS_Server.Controllers
             }
         }
 
+        // 4. DELETE: Delete a course
+        [HttpDelete("DeleteCourse")]
+        public IActionResult DeleteCourse(int id)
+        {
+            Course course = context.courses.FirstOrDefault(c => c.CourseId == id);
+
+            if (course != null)
+            {
+                context.courses.Remove(course);
+                context.SaveChanges();
+
+                return Ok("Course successfully deleted");
+            }
+            else
+            {
+                return NotFound("Course not found");
+            }
+        }
+
+
 
 
     }
