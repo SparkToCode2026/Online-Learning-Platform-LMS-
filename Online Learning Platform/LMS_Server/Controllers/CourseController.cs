@@ -47,5 +47,27 @@ namespace LMS_Server.Controllers
             }
         }
 
+        // 3. PATCH (2nd): Update course category
+        [HttpPatch("UpdateCourseCategory")]
+        public IActionResult UpdateCourseCategory(int id, int categoryId)
+        {
+            Course course = context.courses.FirstOrDefault(c => c.CourseId == id);
+
+            if (course != null)
+            {
+                course.CategoryId = categoryId;
+
+                context.SaveChanges();
+
+                return Ok("Course category updated successfully");
+            }
+            else
+            {
+                return NotFound("Course not found");
+            }
+        }
+
+
+
     }
 }
