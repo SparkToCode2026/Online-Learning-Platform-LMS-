@@ -12,12 +12,16 @@ namespace LMS_Server.Models
         [Required]
         public string QuizTitle { get; set; }
         [Required]
-        public int PassingScore { get; set; }
+        public double QuizScore { get; set; }
+
+
         // 1:M relationship with Course
         [ForeignKey("course")]
         [Required]
         public int CourseId { get; set; }
         public Course course { get; set; }
+
+
         // 1:M relationship with QuizAttempt
         [JsonIgnore]
         public List<QuizAttempt>? QuizAttempts { get; set; }
