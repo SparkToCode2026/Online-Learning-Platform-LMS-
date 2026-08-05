@@ -25,5 +25,27 @@ namespace LMS_Server.Controllers
             return Ok(course.CourseId);
         }
 
+
+        // 2. PATCH: Update course title and price
+        [HttpPatch("UpdateCourse")]
+        public IActionResult UpdateCourse(int id, string title, double price)
+        {
+            Course course = context.courses.FirstOrDefault(c => c.CourseId == id);
+
+            if (course != null)
+            {
+                course.CourseName = title;
+                course.CoursePrice = price;
+
+                context.SaveChanges();
+
+                return Ok("Course updated successfully");
+            }
+            else
+            {
+                return NotFound("Course not found");
+            }
+        }
+
     }
 }
