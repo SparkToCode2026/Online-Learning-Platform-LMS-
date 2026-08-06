@@ -25,14 +25,14 @@ namespace LMS_Server.Controllers
             _context.certificates.Add(certificate);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetById), new { id = certificate.CertificateId }, certificate);
+            return CreatedAtAction(nameof(GetById), new { CertificateId = certificate.CertificateId }, certificate);
         }
 
         // Case 2 (PUT/PATCH): Full Update
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Certificate certificate)
+        [HttpPut("{CertificateId}")]
+        public async Task<IActionResult> Update(int CertificateId, Certificate certificate)
         {
-            if (id != certificate.CertificateId) return BadRequest();
+            if (CertificateId != certificate.CertificateId) return BadRequest();
 
             _context.Entry(certificate).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -41,10 +41,10 @@ namespace LMS_Server.Controllers
         }
 
         // Case 3 (PUT/PATCH): Distinct Update (Update Course FK assignment)
-        [HttpPatch("{id}/reassign-course/{newCourseId}")]
-        public async Task<IActionResult> ReassignCourse(int id, int newCourseId)
+        [HttpPatch("{CertificateId}/reassign-course/{newCourseId}")]
+        public async Task<IActionResult> ReassignCourse(int CertificateId, int newCourseId)
         {
-            var cert = await _context.certificates.FindAsync(id);
+            var cert = await _context.certificates.FindAsync(CertificateId);
             if (cert == null) return NotFound();
 
             cert.CourseId = newCourseId;
@@ -54,10 +54,10 @@ namespace LMS_Server.Controllers
         }
 
         // Case 4 (DELETE): Delete a record
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{CertificateId}")]
+        public async Task<IActionResult> Delete(int CertificateId)
         {
-            var cert = await _context.certificates.FindAsync(id);
+            var cert = await _context.certificates.FindAsync(CertificateId);
             if (cert == null) return NotFound();
 
             _context.certificates.Remove(cert);
@@ -77,13 +77,13 @@ namespace LMS_Server.Controllers
         }
 
         // Case 6 (GET find): Get single record by Id
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Certificate>> GetById(int id)
+        [HttpGet("{CertificateId}")]
+        public async Task<ActionResult<Certificate>> GetById(int CertificateId)
         {
             var cert = await _context.certificates
                 .Include(c => c.user)
                 .Include(c => c.course)
-                .FirstOrDefaultAsync(c => c.CertificateId == id);
+                .FirstOrDefaultAsync(c => c.CertificateId == CertificateId);
 
             if (cert == null) return NotFound();
 
