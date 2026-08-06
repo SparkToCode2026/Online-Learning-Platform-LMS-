@@ -24,7 +24,7 @@ namespace LMS_Server.Controllers
             _context.instructorProfiles.Add(profile);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetById), new { id = profile.InstructorId }, profile);
+            return CreatedAtAction(nameof(GetById), new { InstructorId = profile.InstructorId }, profile);
         }
         // Case 2 (PUT/PATCH): Full Update
         [HttpPut("{id}")]
@@ -40,9 +40,9 @@ namespace LMS_Server.Controllers
 
         // Case 3 (PUT/PATCH): Distinct Update (Update Biography only)
         [HttpPatch("{id}/biography")]
-        public async Task<IActionResult> UpdateBiography(int id, [FromBody] string newBio)
+        public async Task<IActionResult> UpdateBiography(int InstructorId, [FromBody] string newBio)
         {
-            var profile = await _context.instructorProfiles.FindAsync(id);
+            var profile = await _context.instructorProfiles.FindAsync(InstructorId);
             if (profile == null) return NotFound();
 
             profile.Biography = newBio;
@@ -52,10 +52,10 @@ namespace LMS_Server.Controllers
         }
 
         // Case 4 (DELETE): Delete a record
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{InstructorId}")]
+        public async Task<IActionResult> Delete(int InstructorId)
         {
-            var profile = await _context.instructorProfiles.FindAsync(id);
+            var profile = await _context.instructorProfiles.FindAsync(InstructorId);
             if (profile == null) return NotFound();
 
             _context.instructorProfiles.Remove(profile);
@@ -74,12 +74,12 @@ namespace LMS_Server.Controllers
         }
 
         // Case 6 (GET find): Get a single record by Id
-        [HttpGet("{id}")]
-        public async Task<ActionResult<InstructorProfile>> GetById(int id)
+        [HttpGet("{InstructorId}")]
+        public async Task<ActionResult<InstructorProfile>> GetById(int InstructorId)
         {
             var profile = await _context.instructorProfiles
                 .Include(p => p.user)
-                .FirstOrDefaultAsync(p => p.InstructorId == id);
+                .FirstOrDefaultAsync(p => p.InstructorId == InstructorId);
 
             if (profile == null) return NotFound();
 
