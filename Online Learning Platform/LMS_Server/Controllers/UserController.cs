@@ -148,10 +148,22 @@ namespace LMS_Server.Controllers
             if (user == null)
                 return NotFound(new ErrorResponseDto("User not found."));
 
-            _context.users.Remove(user);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.users.Remove(user);
+                await _context.SaveChangesAsync();
 
-            return Ok(new { Message = "User deleted successfully." });
+                return Ok(new { Message = "User deleted successfully." });
+            }
+            catch (DbUpdateException ex) when (ex.InnerException is Microsoft.Data.SqlClient.SqlException sqlEx && sqlEx.Number == 547)
+            {
+                // sql error 547 foreign key constraint failure
+                return BadRequest(new ErrorResponseDto("Cannot delete this user because they have active submissions or related data in the system."));
+            }
+            catch (DbUpdateException)
+            {
+                return BadRequest(new ErrorResponseDto("An error occurred while deleting the user due to related records."));
+            }
         }
 
 
