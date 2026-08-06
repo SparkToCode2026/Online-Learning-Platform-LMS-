@@ -116,6 +116,27 @@ namespace LMS_Server.Controllers
             return Ok(submissions);
         }
 
+
+        // get all submissions for a specific assignment with user details
+        [HttpGet("assignment/{assignmentId}")]
+        public async Task<IActionResult> GetSubmissionsByAssignment(int assignmentId)
+        {
+            var filteredSubmissions = await _context.submissions
+                .Where(s => s.AssignmentId == assignmentId)
+                .Include(s => s.user)
+                .Select(s => new SubmissionResponseDto(
+                    s.SubmissionId,
+                    s.SubmissionContent,
+                    s.SubmissionGrade,
+                    s.UserId,
+                    s.user.UserName,
+                    s.AssignmentId
+                ))
+                .ToListAsync();
+
+            return Ok(filteredSubmissions);
+        }
+
     }
 
     //Request DTOs
