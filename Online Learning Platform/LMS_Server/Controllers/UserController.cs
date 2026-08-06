@@ -57,7 +57,7 @@ namespace LMS_Server.Controllers
             }
             catch (Exception ex)
             {
-                // Log the error so it's visible in console — registration still succeeds
+                //error in console
                 _logger.LogError(ex, "[Email] Failed to send welcome email to {Email}", user.UserEmail);
             }
 
@@ -75,7 +75,39 @@ namespace LMS_Server.Controllers
             return Ok(response);
         }
 
-        
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto dto)
+        {
+            //check if email exists
+            var user = await _context.users.FirstOrDefaultAsync(u => u.UserEmail == dto.Email);
+            if (user == null)
+            {
+                return Unauthorized(new ErrorResponseDto("Invalid email or password."));
+            }
+
+            //Verify hashed password
+            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(dto.Password, user.UserPassword);
+            if (!isPasswordValid)
+            {
+                return Unauthorized(new ErrorResponseDto("Invalid email or password."));
+            }
+
+            //Generate JWT Token
+            var token = _jwtTokenService.GenerateToken(
+                user.UserId.ToString(),
+                user.UserEmail,
+                user.UserRole
+            );
+
+            //Map to Response DTOs
+            var userDto = new UserResponseDto(user.UserId, user.UserEmail, user.UserName, user.UserRole);
+            var response = new AuthResponseDto(token, userDto, "Login successful!");
+
+            return Ok(response);
+        }
+
+
     }
 
     //REQUEST DTOs
