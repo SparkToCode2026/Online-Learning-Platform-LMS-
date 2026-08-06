@@ -77,12 +77,17 @@ namespace LMS_Server.Controllers
         {
             var submission = await _context.submissions.FindAsync(id);
             if (submission == null)
-                return NotFound(new { Message = "Submission not found." });
+                return NotFound(new ErrorResponseDto("Submission not found."));
 
             submission.SubmissionContent = dto.Content;
             await _context.SaveChangesAsync();
 
-            return Ok(submission);
+            return Ok(new
+            {
+                Message = "Submission updated successfully.",
+                submission.SubmissionId,
+                submission.SubmissionContent
+            });
         }
 
 
