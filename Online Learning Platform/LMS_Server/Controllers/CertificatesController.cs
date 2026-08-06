@@ -9,9 +9,9 @@ namespace LMS_Server.Controllers
     [ApiController]
     public class CertificatesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ProjectContext _context;
 
-        public CertificatesController(AppDbContext context)
+        public CertificatesController(ProjectContext context)
         {
             _context = context;
         }
@@ -22,7 +22,7 @@ namespace LMS_Server.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            _context.Certificates.Add(certificate);
+            _context.certificates.Add(certificate);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { id = certificate.CertificateId }, certificate);
@@ -44,7 +44,7 @@ namespace LMS_Server.Controllers
         [HttpPatch("{id}/reassign-course/{newCourseId}")]
         public async Task<IActionResult> ReassignCourse(int id, int newCourseId)
         {
-            var cert = await _context.Certificates.FindAsync(id);
+            var cert = await _context.certificates.FindAsync(id);
             if (cert == null) return NotFound();
 
             cert.CourseId = newCourseId;
@@ -57,10 +57,10 @@ namespace LMS_Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var cert = await _context.Certificates.FindAsync(id);
+            var cert = await _context.certificates.FindAsync(id);
             if (cert == null) return NotFound();
 
-            _context.Certificates.Remove(cert);
+            _context.certificates.Remove(cert);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -70,7 +70,7 @@ namespace LMS_Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Certificate>>> GetAllWithRelations()
         {
-            return await _context.Certificates
+            return await _context.certificates
                 .Include(c => c.user)
                 .Include(c => c.course)
                 .ToListAsync();
@@ -80,7 +80,7 @@ namespace LMS_Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Certificate>> GetById(int id)
         {
-            var cert = await _context.Certificates
+            var cert = await _context.certificates
                 .Include(c => c.user)
                 .Include(c => c.course)
                 .FirstOrDefaultAsync(c => c.CertificateId == id);
@@ -94,7 +94,7 @@ namespace LMS_Server.Controllers
         [HttpGet("filter")]
         public async Task<ActionResult<IEnumerable<Certificate>>> FilterByDate([FromQuery] DateTime startDate)
         {
-            return await _context.Certificates
+            return await _context.certificates
                 .Where(c => c.IssudAT >= startDate)
                 .ToListAsync();
         }
@@ -103,8 +103,8 @@ namespace LMS_Server.Controllers
         [HttpGet("stats")]
         public async Task<IActionResult> GetStats()
         {
-            var count = await _context.Certificates.CountAsync();
-            var latestCertificates = await _context.Certificates
+            var count = await _context.certificates.CountAsync();
+            var latestCertificates = await _context.certificates
                 .OrderByDescending(c => c.IssudAT)
                 .ToListAsync();
 

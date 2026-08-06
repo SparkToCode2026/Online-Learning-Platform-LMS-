@@ -9,9 +9,9 @@ namespace LMS_Server.Controllers
     [ApiController]
     public class InstructorProfilesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ProjectContext _context;
 
-        public InstructorProfilesController(AppDbContext context)
+        public InstructorProfilesController(ProjectContext context)
         {
             _context = context;
         }
@@ -21,7 +21,7 @@ namespace LMS_Server.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            _context.InstructorProfiles.Add(profile);
+            _context.instructorProfiles.Add(profile);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { id = profile.InstructorId }, profile);
@@ -42,7 +42,7 @@ namespace LMS_Server.Controllers
         [HttpPatch("{id}/biography")]
         public async Task<IActionResult> UpdateBiography(int id, [FromBody] string newBio)
         {
-            var profile = await _context.InstructorProfiles.FindAsync(id);
+            var profile = await _context.instructorProfiles.FindAsync(id);
             if (profile == null) return NotFound();
 
             profile.Biography = newBio;
@@ -55,10 +55,10 @@ namespace LMS_Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var profile = await _context.InstructorProfiles.FindAsync(id);
+            var profile = await _context.instructorProfiles.FindAsync(id);
             if (profile == null) return NotFound();
 
-            _context.InstructorProfiles.Remove(profile);
+            _context.instructorProfiles.Remove(profile);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -68,7 +68,7 @@ namespace LMS_Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<InstructorProfile>>> GetAllWithUser()
         {
-            return await _context.InstructorProfiles
+            return await _context.instructorProfiles
                 .Include(p => p.user)
                 .ToListAsync();
         }
@@ -77,7 +77,7 @@ namespace LMS_Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<InstructorProfile>> GetById(int id)
         {
-            var profile = await _context.InstructorProfiles
+            var profile = await _context.instructorProfiles
                 .Include(p => p.user)
                 .FirstOrDefaultAsync(p => p.InstructorId == id);
 
@@ -90,7 +90,7 @@ namespace LMS_Server.Controllers
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<InstructorProfile>>> SearchByBio([FromQuery] string keyword)
         {
-            return await _context.InstructorProfiles
+            return await _context.instructorProfiles
                 .Where(p => p.Biography.Contains(keyword))
                 .ToListAsync();
         }
@@ -99,8 +99,8 @@ namespace LMS_Server.Controllers
         [HttpGet("stats")]
         public async Task<IActionResult> GetStats()
         {
-            var totalCount = await _context.InstructorProfiles.CountAsync();
-            var sortedProfiles = await _context.InstructorProfiles
+            var totalCount = await _context.instructorProfiles.CountAsync();
+            var sortedProfiles = await _context.instructorProfiles
                 .OrderByDescending(p => p.InstructorId)
                 .ToListAsync();
 
