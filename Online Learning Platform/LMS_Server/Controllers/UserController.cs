@@ -192,6 +192,32 @@ namespace LMS_Server.Controllers
             return Ok(filteredUsers);
         }
 
+
+        //get sort / count aggregate
+        [HttpGet("stats")]
+        public async Task<IActionResult> GetUserStats()
+        {
+            var totalUsers = await _context.users.CountAsync();
+
+            var usersByRole = await _context.users
+                .GroupBy(u => u.UserRole)
+                .Select(g => new { Role = g.Key, Count = g.Count() })
+                .ToListAsync();
+
+            var sortedUsers = await _context.users
+                .OrderBy(u => u.UserName)
+                .Select(u => new UserResponseDto(u.UserId, u.UserEmail, u.UserName, u.UserRole))
+                .Take(5)
+                .ToListAsync();
+
+            return Ok(new
+            {
+                TotalUsers = totalUsers,
+                RoleBreakdown = usersByRole,
+                Top5Alphabetical = sortedUsers
+            });
+        }
+
     }
 
     //REQUEST DTOs
