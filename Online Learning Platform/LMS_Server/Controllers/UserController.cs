@@ -108,6 +108,23 @@ namespace LMS_Server.Controllers
         }
 
 
+        // update name and email by id
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UpdateUserDto dto)
+        {
+            var user = await _context.users.FindAsync(id);
+            if (user == null)
+                return NotFound(new ErrorResponseDto("User not found."));
+
+            user.UserName = dto.FullName;
+            user.UserEmail = dto.Email;
+
+            await _context.SaveChangesAsync();
+
+            var userDto = new UserResponseDto(user.UserId, user.UserEmail, user.UserName, user.UserRole);
+            return Ok(userDto);
+        }
+
     }
 
     //REQUEST DTOs
@@ -118,4 +135,10 @@ namespace LMS_Server.Controllers
     public record UserResponseDto(int Id, string Email, string FullName, string Role);
     public record AuthResponseDto(string Token, UserResponseDto User, string Message);
     public record ErrorResponseDto(string Message);
+
+    // update name and email DTO
+    public record UpdateUserDto(string FullName, string Email);
+
+    // update role DTO
+    public record UpdateRoleDto(string Role);
 }
