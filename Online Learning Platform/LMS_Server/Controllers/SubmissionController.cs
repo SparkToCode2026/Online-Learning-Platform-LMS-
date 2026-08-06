@@ -81,6 +81,21 @@ namespace LMS_Server.Controllers
             return Ok(new { Message = "Grade updated successfully.", Grade = submission.SubmissionGrade });
         }
 
+
+        //Delete submission
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSubmission(int id)
+        {
+            var submission = await _context.submissions.FindAsync(id);
+            if (submission == null)
+                return NotFound(new { Message = "Submission not found." });
+
+            _context.submissions.Remove(submission);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { Message = "Submission deleted successfully." });
+        }
+
     }
 
     //Request DTOs
