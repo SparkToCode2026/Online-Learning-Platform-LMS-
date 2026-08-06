@@ -180,7 +180,17 @@ namespace LMS_Server.Controllers
         }
 
 
-        
+        // filter users by role
+        [HttpGet("filter")]
+        public async Task<IActionResult> FilterUsersByRole([FromQuery] string role)
+        {
+            var filteredUsers = await _context.users
+                .Where(u => u.UserRole.ToLower() == role.ToLower())
+                .Select(u => new UserResponseDto(u.UserId, u.UserEmail, u.UserName, u.UserRole))
+                .ToListAsync();
+
+            return Ok(filteredUsers);
+        }
 
     }
 
