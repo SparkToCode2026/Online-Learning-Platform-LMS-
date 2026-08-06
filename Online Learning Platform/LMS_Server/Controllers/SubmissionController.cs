@@ -96,6 +96,26 @@ namespace LMS_Server.Controllers
             return Ok(new { Message = "Submission deleted successfully." });
         }
 
+        //get all submissions with user and assignment details
+        [HttpGet]
+        public async Task<IActionResult> GetAllSubmissions()
+        {
+            var submissions = await _context.submissions
+                .Include(s => s.user)
+                .Include(s => s.assignment)
+                .Select(s => new SubmissionResponseDto(
+                    s.SubmissionId,
+                    s.SubmissionContent,
+                    s.SubmissionGrade,
+                    s.UserId,
+                    s.user.UserName,
+                    s.AssignmentId
+                ))
+                .ToListAsync();
+
+            return Ok(submissions);
+        }
+
     }
 
     //Request DTOs
