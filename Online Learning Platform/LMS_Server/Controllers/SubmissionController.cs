@@ -137,6 +137,39 @@ namespace LMS_Server.Controllers
             return Ok(filteredSubmissions);
         }
 
+
+        //Aggregate total counts, group by grade, and sort by Id
+        [HttpGet("stats")]
+        public async Task<IActionResult> GetSubmissionStats()
+        {
+            var totalCount = await _context.submissions.CountAsync();
+
+            var gradeBreakdown = await _context.submissions
+                .GroupBy(s => s.SubmissionGrade)
+                .Select(g => new { Grade = g.Key, Count = g.Count() })
+                .ToListAsync();
+
+            var recentSubmissions = await _context.submissions
+                .OrderByDescending(s => s.SubmissionId)
+                .Take(5)
+                .Select(s => new SubmissionResponseDto(
+                    s.SubmissionId,
+                    s.SubmissionContent,
+                    s.SubmissionGrade,
+                    s.UserId,
+                    s.user.UserName,
+                    s.AssignmentId
+                ))
+                .ToListAsync();
+
+            return Ok(new
+            {
+                TotalSubmissions = totalCount,
+                GradeDistribution = gradeBreakdown,
+                LatestSubmissions = recentSubmissions
+            });
+        }
+
     }
 
     //Request DTOs
