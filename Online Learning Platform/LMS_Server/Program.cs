@@ -151,24 +151,37 @@ namespace LMS_Server
     public class EmailService : IEmailService
     {
         private readonly IConfiguration _config;
+        private readonly ILogger<EmailService> _logger;
 
-        public EmailService(IConfiguration config)
+        public EmailService(IConfiguration config, ILogger<EmailService> logger)
         {
             _config = config;
+            _logger = logger;
         }
 
         public async Task SendEmailAsync(string toEmail, string subject, string body)
         {
+            var host = _config["Smtp:Host"];
+            var portStr = _config["Smtp:Port"];
+            var senderEmail = _config["Smtp:SenderEmail"];
+            var senderPassword = _config["Smtp:SenderPassword"];
+
+            if (string.IsNullOrWhiteSpace(host) || string.IsNullOrWhiteSpace(portStr)
+                || string.IsNullOrWhiteSpace(senderEmail) || string.IsNullOrWhiteSpace(senderPassword))
+            {
+                _logger.LogError("SMTP configuration is incomplete. Check Smtp__Host, Smtp__Port, Smtp__SenderEmail, Smtp__SenderPassword in your .env file.");
+                throw new InvalidOperationException("SMTP configuration is incomplete.");
+            }
+
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse(_config["Smtp:SenderEmail"]));
+            email.From.Add(MailboxAddress.Parse(senderEmail));
             email.To.Add(MailboxAddress.Parse(toEmail));
             email.Subject = subject;
-
             email.Body = new TextPart("html") { Text = body };
 
             using var smtp = new SmtpClient();
-            await smtp.ConnectAsync(_config["Smtp:Host"], int.Parse(_config["Smtp:Port"]!), SecureSocketOptions.StartTls);
-            await smtp.AuthenticateAsync(_config["Smtp:SenderEmail"], _config["Smtp:SenderPassword"]);
+            await smtp.ConnectAsync(host, int.Parse(portStr), SecureSocketOptions.StartTls);
+            await smtp.AuthenticateAsync(senderEmail, senderPassword);
             await smtp.SendAsync(email);
             await smtp.DisconnectAsync(true);
         }
