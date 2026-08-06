@@ -166,6 +166,22 @@ namespace LMS_Server.Controllers
             return Ok(users);
         }
 
+
+        // get user by id
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            var user = await _context.users.FindAsync(id);
+            if (user == null)
+                return NotFound(new ErrorResponseDto("User not found."));
+
+            var userDto = new UserResponseDto(user.UserId, user.UserEmail, user.UserName, user.UserRole);
+            return Ok(userDto);
+        }
+
+
+        
+
     }
 
     //REQUEST DTOs
