@@ -41,12 +41,31 @@ namespace LMS_Server.Controllers
         public async Task<IActionResult> GetSubmissionById(int id)
         {
             var submission = await _context.submissions
-                .Include(s => s.user)
-                .Include(s => s.assignment)
-                .FirstOrDefaultAsync(s => s.SubmissionId == id);
+        .Where(s => s.SubmissionId == id)
+        .Select(s => new
+        {
+            s.SubmissionId,
+            s.SubmissionContent,
+            s.SubmissionGrade,
+            Student = new
+            {
+                s.user.UserId,
+                s.user.UserName,
+                s.user.UserEmail,
+                s.user.UserRole
+            },
+            Assignment = new
+            {
+                s.assignment.AssignmentId,
+                s.assignment.AssignmentTitle,
+                s.assignment.DeadLine,
+                CourseName = s.assignment.course.CourseName
+            }
+        })
+        .FirstOrDefaultAsync();
 
             if (submission == null)
-                return NotFound(new { Message = "Submission not found." });
+                return NotFound(new ErrorResponseDto("Submission not found."));
 
             return Ok(submission);
         }
