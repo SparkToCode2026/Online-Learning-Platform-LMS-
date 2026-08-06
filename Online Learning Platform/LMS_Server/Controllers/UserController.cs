@@ -125,6 +125,35 @@ namespace LMS_Server.Controllers
             return Ok(userDto);
         }
 
+
+        // update role by id
+        [HttpPatch("{id}/role")]
+        public async Task<IActionResult> UpdateUserRole(int id, [FromBody] UpdateRoleDto dto)
+        {
+            var user = await _context.users.FindAsync(id);
+            if (user == null)
+                return NotFound(new ErrorResponseDto("User not found."));
+
+            user.UserRole = dto.Role;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { Message = $"Role updated to {dto.Role} successfully." });
+        }
+
+        // delete user by id
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await _context.users.FindAsync(id);
+            if (user == null)
+                return NotFound(new ErrorResponseDto("User not found."));
+
+            _context.users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { Message = "User deleted successfully." });
+        }
+
     }
 
     //REQUEST DTOs
