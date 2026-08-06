@@ -52,6 +52,20 @@ namespace LMS_Server.Controllers
         }
 
 
+        //update of submission content
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateSubmission(int id, [FromBody] UpdateSubmissionDto dto)
+        {
+            var submission = await _context.submissions.FindAsync(id);
+            if (submission == null)
+                return NotFound(new { Message = "Submission not found." });
+
+            submission.SubmissionContent = dto.Content;
+            await _context.SaveChangesAsync();
+
+            return Ok(submission);
+        }
+
     }
 
     //Request DTOs
