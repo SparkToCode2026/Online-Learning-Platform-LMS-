@@ -154,6 +154,18 @@ namespace LMS_Server.Controllers
             return Ok(new { Message = "User deleted successfully." });
         }
 
+
+        // get all users
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _context.users
+                .Select(u => new UserResponseDto(u.UserId, u.UserEmail, u.UserName, u.UserRole))
+                .ToListAsync();
+
+            return Ok(users);
+        }
+
     }
 
     //REQUEST DTOs
