@@ -66,6 +66,21 @@ namespace LMS_Server.Controllers
             return Ok(submission);
         }
 
+
+        //update of submission grade
+        [HttpPatch("{id}/grade")]
+        public async Task<IActionResult> GradeSubmission(int id, [FromBody] GradeSubmissionDto dto)
+        {
+            var submission = await _context.submissions.FindAsync(id);
+            if (submission == null)
+                return NotFound(new { Message = "Submission not found." });
+
+            submission.SubmissionGrade = dto.Grade;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { Message = "Grade updated successfully.", Grade = submission.SubmissionGrade });
+        }
+
     }
 
     //Request DTOs
