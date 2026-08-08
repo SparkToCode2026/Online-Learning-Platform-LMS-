@@ -17,9 +17,9 @@ namespace LMS_Server.Controllers
         private readonly ProjectContext _context;
         private readonly IJwtTokenService _jwtTokenService;
         private readonly IEmailService _emailService;
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<EnrollmentController> _logger;
 
-        public EnrollmentController(ProjectContext context, IJwtTokenService jwtTokenService, IEmailService emailService, ILogger<UserController> logger)
+        public EnrollmentController(ProjectContext context, IJwtTokenService jwtTokenService, IEmailService emailService, ILogger<EnrollmentController> logger)
         {
             _context = context;
             _jwtTokenService = jwtTokenService;
@@ -51,7 +51,7 @@ namespace LMS_Server.Controllers
             var course = await _context.courses.FindAsync(dto.CourseId);
             if (course == null)
             {
-                return NotFound("Course with ID {dto.CourseId} not found.");
+                return NotFound($"Course with ID {dto.CourseId} not found.");
             }
 
             //  Prevent duplicate enrollment
@@ -232,7 +232,7 @@ namespace LMS_Server.Controllers
         [HttpGet("GetEnrollmentsByCourse")]
         public async Task<IActionResult> GetEnrollmentsByCourse(int id)
         {
-            var enrollments = _context.enrollments
+            var enrollments = await _context.enrollments
                 .Where(e => e.CourseId == id)
                 .Select(e => new
                 {
@@ -242,7 +242,7 @@ namespace LMS_Server.Controllers
                     e.EnrolledAt,
                     StatusName = ((EnrollmentStatusEnum)e.EnrollmentStatus).ToString()
                 })
-                .ToList();
+                .ToListAsync();
             if (enrollments == null)
             {
                 return NotFound(new ErrorResponseDto("No enrollments found for the specified course."));
