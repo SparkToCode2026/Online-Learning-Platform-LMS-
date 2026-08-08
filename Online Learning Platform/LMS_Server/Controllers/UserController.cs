@@ -1,4 +1,5 @@
 using BCrypt.Net;
+using LMS_Server.DTOs;
 using LMS_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,14 +26,14 @@ namespace LMS_Server.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
-            //Check if user already exists
+            // Check if user already exists
             var existingUser = await _context.users.FirstOrDefaultAsync(u => u.UserEmail == dto.Email);
             if (existingUser != null)
             {
                 return BadRequest(new ErrorResponseDto("Email is already registered."));
             }
 
-            //Hash the password securely using BCrypt
+            // Hash the password securely using BCrypt
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
             var user = new User
@@ -46,7 +47,7 @@ namespace LMS_Server.Controllers
             _context.users.Add(user);
             await _context.SaveChangesAsync();
 
-            //Send welcome email
+            // Send welcome email
             try
             {
                 await _emailService.SendEmailAsync(
@@ -57,56 +58,53 @@ namespace LMS_Server.Controllers
             }
             catch (Exception ex)
             {
-                //error in console
                 _logger.LogError(ex, "[Email] Failed to send welcome email to {Email}", user.UserEmail);
             }
 
-            //Generate JWT token for instant login
+            // Generate JWT token for instant login
             var token = _jwtTokenService.GenerateToken(
                 user.UserId.ToString(),
                 user.UserEmail,
                 user.UserRole
             );
 
-            //Map to Response DTOs
+            // Map to Response DTOs
             var userDto = new UserResponseDto(user.UserId, user.UserEmail, user.UserName, user.UserRole);
             var response = new AuthResponseDto(token, userDto, "Registration successful!");
 
             return Ok(response);
         }
 
-
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
-            //check if email exists
+            // Check if email exists
             var user = await _context.users.FirstOrDefaultAsync(u => u.UserEmail == dto.Email);
             if (user == null)
             {
                 return Unauthorized(new ErrorResponseDto("Invalid email or password."));
             }
 
-            //Verify hashed password
+            // Verify hashed password
             bool isPasswordValid = BCrypt.Net.BCrypt.Verify(dto.Password, user.UserPassword);
             if (!isPasswordValid)
             {
                 return Unauthorized(new ErrorResponseDto("Invalid email or password."));
             }
 
-            //Generate JWT Token
+            // Generate JWT Token
             var token = _jwtTokenService.GenerateToken(
                 user.UserId.ToString(),
                 user.UserEmail,
                 user.UserRole
             );
 
-            //Map to Response DTOs
+            // Map to Response DTOs
             var userDto = new UserResponseDto(user.UserId, user.UserEmail, user.UserName, user.UserRole);
             var response = new AuthResponseDto(token, userDto, "Login successful!");
 
             return Ok(response);
         }
-
 
         // update name and email by id
         [HttpPut("{id}")]
@@ -124,7 +122,6 @@ namespace LMS_Server.Controllers
             var userDto = new UserResponseDto(user.UserId, user.UserEmail, user.UserName, user.UserRole);
             return Ok(userDto);
         }
-
 
         // update role by id
         [HttpPatch("{id}/role")]
@@ -166,7 +163,6 @@ namespace LMS_Server.Controllers
             }
         }
 
-
         // get all users
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
@@ -177,7 +173,6 @@ namespace LMS_Server.Controllers
 
             return Ok(users);
         }
-
 
         // get user by id
         [HttpGet("{id}")]
@@ -191,7 +186,6 @@ namespace LMS_Server.Controllers
             return Ok(userDto);
         }
 
-
         // filter users by role
         [HttpGet("filter")]
         public async Task<IActionResult> FilterUsersByRole([FromQuery] string role)
@@ -204,8 +198,7 @@ namespace LMS_Server.Controllers
             return Ok(filteredUsers);
         }
 
-
-        //get sort / count aggregate
+        // get sort / count aggregate
         [HttpGet("stats")]
         public async Task<IActionResult> GetUserStats()
         {
@@ -229,21 +222,5 @@ namespace LMS_Server.Controllers
                 Top5Alphabetical = sortedUsers
             });
         }
-
     }
-
-    //REQUEST DTOs
-    public record RegisterDto(string Email, string Password, string FullName, string? Role);
-    public record LoginDto(string Email, string Password);
-
-    // RESPONSE DTOs
-    public record UserResponseDto(int Id, string Email, string FullName, string Role);
-    public record AuthResponseDto(string Token, UserResponseDto User, string Message);
-    public record ErrorResponseDto(string Message);
-
-    // update name and email DTO
-    public record UpdateUserDto(string FullName, string Email);
-
-    // update role DTO
-    public record UpdateRoleDto(string Role);
 }
