@@ -101,7 +101,7 @@ namespace LMS_Server.Controllers
 
         // 2. PATCH: Update enrollment status (Pending = 0, Active = 1, Completed = 2, Dropped = 3) based on the User ID.
 
-        [HttpPatch("UpdateStatus")]
+        [HttpPatch("UpdateStatus/{id}")]
         [Authorize(Roles = "Instructor")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] UpdateEnrollmentStatusDto dto)
         {
@@ -196,7 +196,7 @@ namespace LMS_Server.Controllers
 
 
         // 4. DELETE: Enrollment/CancelEnrollment/{id}
-        [HttpDelete("CancelEnrollment")]
+        [HttpDelete("CancelEnrollment/{id}")]
         [Authorize(Roles = "Instructor")]
         public async Task<IActionResult> CancelEnrollment(int id)
         {
@@ -229,7 +229,7 @@ namespace LMS_Server.Controllers
 
         // 5. GET: Enrollment/GetEnrollmentsByCourse/{courseId}
 
-        [HttpGet("GetEnrollmentsByCourse")]
+        [HttpGet("GetEnrollmentsByCourse/{id}")]
         public async Task<IActionResult> GetEnrollmentsByCourse(int id)
         {
             var enrollments = await _context.enrollments
@@ -252,8 +252,8 @@ namespace LMS_Server.Controllers
         }
 
 
-        // 6. GET (Find): Get enrollment by EnrollmentId.
-        [HttpGet("GetEnrollmentByEnrolledAt")]
+        // 6. GET (Find): Get enrollment by EnrollmentDate.
+        [HttpGet("GetEnrollmentByEnrolledAt/{enrollmentDate}")]
         public async Task<IActionResult> GetEnrollmentByEnrolledAt(DateTime EnrollmentDate)
         {
             var enrollment = await _context.enrollments
@@ -273,7 +273,7 @@ namespace LMS_Server.Controllers
 
 
         // 7. GET: Enrollment/GetEnrollmentsByUserId
-        [HttpGet("GetEnrollmentsByUserId")]
+        [HttpGet("GetEnrollmentsByUserId/{userId}")]
         public async Task<ActionResult> GetEnrollmentsByUserId(int userId)
         {
             var enrollments = await _context.enrollments
@@ -293,7 +293,7 @@ namespace LMS_Server.Controllers
 
         // 8 . GET Enrollment statistics by course (total enrollments for a specific course)
 
-        [HttpGet("GetEnrollmentStatsByCourse")]
+        [HttpGet("GetEnrollmentStatsByCourse/{courseId}")]
         public async Task<IActionResult> GetEnrollmentStatsByCourse(int courseId)
         {
             // Validate that the course exists
