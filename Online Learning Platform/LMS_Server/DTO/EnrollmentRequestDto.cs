@@ -1,6 +1,6 @@
 ﻿namespace LMS_Server.DTO
 {
-    public class EnrollmentRequestDto
+    public record EnrollmentRequestDto
     {
        
             public int StudentId { get; set; }
