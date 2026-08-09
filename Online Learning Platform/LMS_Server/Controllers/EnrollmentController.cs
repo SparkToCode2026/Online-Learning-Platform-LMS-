@@ -32,7 +32,6 @@ namespace LMS_Server.Controllers
 
         // 1. POST: Enrollment/EnrollStudent 
         [HttpPost("EnrollStudent")]
-        [Authorize(Roles = "Instructor")]
         public async Task<IActionResult> EnrollStudent([FromBody] EnrollmentRequestDto dto)
         {
             if (dto == null)
@@ -74,7 +73,10 @@ namespace LMS_Server.Controllers
             _context.enrollments.Add(enrollment);
             await _context.SaveChangesAsync();
 
+
+
             // Trigger enrollment confirmation email using the email service (.SendEmailAsync)
+
             try
             {
                 string subject = $"Enrollment Confirmation:  {course.CourseName}";
@@ -90,7 +92,7 @@ namespace LMS_Server.Controllers
 
             return Ok(new
             {
-                Message = "<H1>Student enrolled successfully and confirmation email sent.</H1>",
+                Message = "Student enrolled successfully and confirmation email sent.",
                 EnrollmentId = enrollment.EnrollmentId
             });
 
@@ -102,7 +104,6 @@ namespace LMS_Server.Controllers
         // 2. PATCH: Update enrollment status (Pending = 0, Active = 1, Completed = 2, Dropped = 3) based on the User ID.
 
         [HttpPatch("UpdateStatus/{id}")]
-        [Authorize(Roles = "Instructor")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] UpdateEnrollmentStatusDto dto)
         {
             //  Validate if the integer exists in your enum definition
@@ -135,7 +136,6 @@ namespace LMS_Server.Controllers
 
         // 3.PATCH: Enrollment/ExtendEnrollmentDateByUserID and CourseID
         [HttpPatch("ExtendDate")]
-        [Authorize(Roles = "Instructor")]
         public async Task<IActionResult> ExtendEnrollmentDateByUser([FromBody] ExtendEnrollmentDateDto dto)
         {
             if (dto == null)
