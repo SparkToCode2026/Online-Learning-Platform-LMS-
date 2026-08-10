@@ -76,20 +76,33 @@ namespace LMS_Server.Controllers
 
         // Case 5 (GET list): Get all records with Include
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<InstructorProfile>>> GetAllWithUser()
+        public async Task<ActionResult<IEnumerable<InstructorProfileResponseDto>>> GetAllWithUser()
         {
             return await _context.instructorProfiles
-                .Include(p => p.user)
+                .Select(p => new InstructorProfileResponseDto
+                {
+                    InstructorId = p.InstructorId,
+                    Biography = p.Biography,
+                    UserId = p.UserId,
+                    UserFullName = p.user.UserName
+                })
                 .ToListAsync();
         }
 
         // Case 6 (GET find): Get a single record by Id
         [HttpGet("{InstructorId}")]
-        public async Task<ActionResult<InstructorProfile>> GetById(int InstructorId)
+        public async Task<ActionResult<InstructorProfileResponseDto>> GetById(int InstructorId)
         {
             var profile = await _context.instructorProfiles
-                .Include(p => p.user)
-                .FirstOrDefaultAsync(p => p.InstructorId == InstructorId);
+                .Where(p => p.InstructorId == InstructorId)
+                .Select(p => new InstructorProfileResponseDto
+                {
+                    InstructorId = p.InstructorId,
+                    Biography = p.Biography,
+                    UserId = p.UserId,
+                    UserFullName = p.user.UserName
+                })
+                .FirstOrDefaultAsync();
 
             if (profile == null) return NotFound();
 
@@ -98,10 +111,17 @@ namespace LMS_Server.Controllers
 
         // Case 7 (GET filter): Filter records using LINQ (Where)
         [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<InstructorProfile>>> SearchByBio([FromQuery] string keyword)
+        public async Task<ActionResult<IEnumerable<InstructorProfileResponseDto>>> SearchByBio([FromQuery] string keyword)
         {
             return await _context.instructorProfiles
                 .Where(p => p.Biography.Contains(keyword))
+                .Select(p => new InstructorProfileResponseDto
+                {
+                    InstructorId = p.InstructorId,
+                    Biography = p.Biography,
+                    UserId = p.UserId,
+                    UserFullName = p.user.UserName
+                })
                 .ToListAsync();
         }
 
@@ -112,6 +132,13 @@ namespace LMS_Server.Controllers
             var totalCount = await _context.instructorProfiles.CountAsync();
             var sortedProfiles = await _context.instructorProfiles
                 .OrderByDescending(p => p.InstructorId)
+                .Select(p => new InstructorProfileResponseDto
+                {
+                    InstructorId = p.InstructorId,
+                    Biography = p.Biography,
+                    UserId = p.UserId,
+                    UserFullName = p.user.UserName
+                })
                 .ToListAsync();
 
             return Ok(new { TotalInstructors = totalCount, Profiles = sortedProfiles });
