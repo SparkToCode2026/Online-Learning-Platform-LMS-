@@ -1,7 +1,8 @@
-﻿using LMS_Server.Models;
+using LMS_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LMS_Server.Models;
+using LMS_Server.DTO;
 
 namespace LMS_Server.Controllers
 {
@@ -18,8 +19,15 @@ namespace LMS_Server.Controllers
 
         // 1. POST: Create new course
         [HttpPost("AddCourse")]
-        public IActionResult AddCourse(Course course)
+        public IActionResult AddCourse([FromBody] CreateCourseDto dto)
         {
+            var course = new Course
+            {
+                CourseName = dto.CourseName,
+                CoursePrice = dto.CoursePrice,
+                CategoryId = dto.CategoryId,
+                InstructorId = dto.InstructorId
+            };
             context.courses.Add(course);
             context.SaveChanges();
 
@@ -91,9 +99,17 @@ namespace LMS_Server.Controllers
         [HttpGet("GetAllCourses")]
         public IActionResult GetAllCourses()
         {
-            List<Course> courses = context.courses
-                .Include(c => c.Category)
-                .Include(c => c.InstructorProfile)
+            var courses = context.courses
+                .Select(c => new CourseResponseDto
+                {
+                    CourseId = c.CourseId,
+                    CourseName = c.CourseName,
+                    CoursePrice = c.CoursePrice,
+                    CategoryId = c.CategoryId,
+                    CategoryName = c.Category.CategoryName,
+                    InstructorId = c.InstructorId,
+                    InstructorName = c.InstructorProfile.user.UserName
+                })
                 .ToList();
 
             return Ok(courses);
@@ -103,10 +119,19 @@ namespace LMS_Server.Controllers
         [HttpGet("GetCourseById")]
         public IActionResult GetCourseById(int id)
         {
-            Course course = context.courses
-                .Include(c => c.Category)
-                .Include(c => c.InstructorProfile)
-                .FirstOrDefault(c => c.CourseId == id);
+            var course = context.courses
+                .Where(c => c.CourseId == id)
+                .Select(c => new CourseResponseDto
+                {
+                    CourseId = c.CourseId,
+                    CourseName = c.CourseName,
+                    CoursePrice = c.CoursePrice,
+                    CategoryId = c.CategoryId,
+                    CategoryName = c.Category.CategoryName,
+                    InstructorId = c.InstructorId,
+                    InstructorName = c.InstructorProfile.user.UserName
+                })
+                .FirstOrDefault();
 
 
             if (course != null)
@@ -123,31 +148,52 @@ namespace LMS_Server.Controllers
         [HttpGet("FilterCourses")]
         public IActionResult FilterCourses(int? categoryId, double? maxPrice)
         {
-            IQueryable<Course> courses = context.courses;
+            IQueryable<Course> query = context.courses;
 
 
             if (categoryId != null)
             {
-                courses = courses.Where(c => c.CategoryId == categoryId);
+                query = query.Where(c => c.CategoryId == categoryId);
             }
 
 
             if (maxPrice != null)
             {
-                courses = courses.Where(c => c.CoursePrice <= maxPrice);
+                query = query.Where(c => c.CoursePrice <= maxPrice);
             }
 
+            var courses = query.Select(c => new CourseResponseDto
+            {
+                CourseId = c.CourseId,
+                CourseName = c.CourseName,
+                CoursePrice = c.CoursePrice,
+                CategoryId = c.CategoryId,
+                CategoryName = c.Category.CategoryName,
+                InstructorId = c.InstructorId,
+                InstructorName = c.InstructorProfile.user.UserName
+            }).ToList();
 
-            return Ok(courses.ToList());
+
+            return Ok(courses);
         }
 
         // 8. GET: Top 5 highest-priced courses
         [HttpGet("Top5ExpensiveCourses")]
         public IActionResult Top5ExpensiveCourses()
         {
-            List<Course> courses = context.courses
+            var courses = context.courses
                 .OrderByDescending(c => c.CoursePrice)
                 .Take(5)
+                .Select(c => new CourseResponseDto
+                {
+                    CourseId = c.CourseId,
+                    CourseName = c.CourseName,
+                    CoursePrice = c.CoursePrice,
+                    CategoryId = c.CategoryId,
+                    CategoryName = c.Category.CategoryName,
+                    InstructorId = c.InstructorId,
+                    InstructorName = c.InstructorProfile.user.UserName
+                })
                 .ToList();
 
             return Ok(courses);

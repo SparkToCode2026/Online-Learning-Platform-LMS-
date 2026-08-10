@@ -1,6 +1,7 @@
 using LMS_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using LMS_Server.DTO;
 namespace LMS_Server.Controllersi
 {
 
@@ -22,10 +23,17 @@ namespace LMS_Server.Controllersi
         // 1. POST: Create new Quiz Attempt
 
         [HttpPost("AddQuizAttempt")]
-        public IActionResult AddQuizAttempt(QuizAttempt quizAttempt)
+        public IActionResult AddQuizAttempt([FromBody] CreateQuizAttemptDto dto)
 
         {
 
+            var quizAttempt = new QuizAttempt
+            {
+                Score = dto.Score,
+                IsPassed = dto.IsPassed,
+                UserId = dto.UserId,
+                QuizId = dto.QuizId
+            };
             context.quizAttempts.Add(quizAttempt);
             context.SaveChanges();
             return Ok(quizAttempt.QuizAttemptId);
@@ -133,10 +141,17 @@ namespace LMS_Server.Controllersi
 
         {
 
-            List<QuizAttempt> quizAttempts = context.quizAttempts
-
-                .Include(q => q.user)
-                .Include(q => q.quiz)
+            var quizAttempts = context.quizAttempts
+                .Select(q => new QuizAttemptResponseDto
+                {
+                    QuizAttemptId = q.QuizAttemptId,
+                    Score = q.Score,
+                    IsPassed = q.IsPassed,
+                    UserId = q.UserId,
+                    UserFullName = q.user.UserName,
+                    QuizId = q.QuizId,
+                    QuizTitle = q.quiz.QuizTitle
+                })
                 .ToList();
 
             return Ok(quizAttempts);
@@ -151,11 +166,19 @@ namespace LMS_Server.Controllersi
 
         {
 
-            QuizAttempt quizAttempt = context.quizAttempts
-
-                .Include(q => q.user)
-                .Include(q => q.quiz)
-                .FirstOrDefault(q => q.QuizAttemptId == id);
+            var quizAttempt = context.quizAttempts
+                .Where(q => q.QuizAttemptId == id)
+                .Select(q => new QuizAttemptResponseDto
+                {
+                    QuizAttemptId = q.QuizAttemptId,
+                    Score = q.Score,
+                    IsPassed = q.IsPassed,
+                    UserId = q.UserId,
+                    UserFullName = q.user.UserName,
+                    QuizId = q.QuizId,
+                    QuizTitle = q.quiz.QuizTitle
+                })
+                .FirstOrDefault();
 
             if (quizAttempt != null)
 
@@ -183,8 +206,18 @@ namespace LMS_Server.Controllersi
 
         {
 
-            List<QuizAttempt> quizAttempts = context.quizAttempts
+            var quizAttempts = context.quizAttempts
                 .Where(q => q.QuizId == quizId)
+                .Select(q => new QuizAttemptResponseDto
+                {
+                    QuizAttemptId = q.QuizAttemptId,
+                    Score = q.Score,
+                    IsPassed = q.IsPassed,
+                    UserId = q.UserId,
+                    UserFullName = q.user.UserName,
+                    QuizId = q.QuizId,
+                    QuizTitle = q.quiz.QuizTitle
+                })
                 .ToList();
             return Ok(quizAttempts);
 
@@ -198,8 +231,18 @@ namespace LMS_Server.Controllersi
 
         {
 
-            List<QuizAttempt> quizAttempts = context.quizAttempts
+            var quizAttempts = context.quizAttempts
                 .OrderByDescending(q => q.Score)
+                .Select(q => new QuizAttemptResponseDto
+                {
+                    QuizAttemptId = q.QuizAttemptId,
+                    Score = q.Score,
+                    IsPassed = q.IsPassed,
+                    UserId = q.UserId,
+                    UserFullName = q.user.UserName,
+                    QuizId = q.QuizId,
+                    QuizTitle = q.quiz.QuizTitle
+                })
                 .ToList();
             return Ok(quizAttempts);
 

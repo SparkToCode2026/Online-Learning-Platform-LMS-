@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LMS_Server.Controllers; 
 using LMS_Server.Models;
+using LMS_Server.DTO;
 
 namespace LMS_Server.Controllers
 {
@@ -18,23 +19,45 @@ namespace LMS_Server.Controllers
 
         // Case 1 (POST): Create a new record
         [HttpPost]
-        public async Task<ActionResult<Certificate>> Create(Certificate certificate)
+        public async Task<ActionResult<Certificate>> Create([FromBody] CreateCertificateDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var certificate = new Certificate
+            {
+                CertificateCode = dto.CertificateCode,
+                IssudAT = dto.IssudAT,
+                UserId = dto.UserId,
+                CourseId = dto.CourseId
+            };
 
             _context.certificates.Add(certificate);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetById), new { CertificateId = certificate.CertificateId }, certificate);
+            var responseDto = new CertificateResponseDto
+            {
+                CertificateId = certificate.CertificateId,
+                CertificateCode = certificate.CertificateCode,
+                IssudAT = certificate.IssudAT,
+                UserId = certificate.UserId,
+                CourseId = certificate.CourseId
+            };
+
+            return CreatedAtAction(nameof(GetById), new { CertificateId = certificate.CertificateId }, responseDto);
         }
 
         // Case 2 (PUT/PATCH): Full Update
         [HttpPut("{CertificateId}")]
-        public async Task<IActionResult> Update(int CertificateId, Certificate certificate)
+        public async Task<IActionResult> Update(int CertificateId, [FromBody] UpdateCertificateDto dto)
         {
-            if (CertificateId != certificate.CertificateId) return BadRequest();
+            var certificate = await _context.certificates.FindAsync(CertificateId);
+            if (certificate == null) return NotFound();
 
-            _context.Entry(certificate).State = EntityState.Modified;
+            certificate.CertificateCode = dto.CertificateCode;
+            certificate.IssudAT = dto.IssudAT;
+            certificate.UserId = dto.UserId;
+            certificate.CourseId = dto.CourseId;
+
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -68,22 +91,39 @@ namespace LMS_Server.Controllers
 
         // Case 5 (GET list): Get all records with Include
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Certificate>>> GetAllWithRelations()
+        public async Task<ActionResult<IEnumerable<CertificateResponseDto>>> GetAllWithRelations()
         {
             return await _context.certificates
-                .Include(c => c.user)
-                .Include(c => c.course)
+                .Select(c => new CertificateResponseDto
+                {
+                    CertificateId = c.CertificateId,
+                    CertificateCode = c.CertificateCode,
+                    IssudAT = c.IssudAT,
+                    UserId = c.UserId,
+                    UserFullName = c.user.UserName,
+                    CourseId = c.CourseId,
+                    CourseName = c.course.CourseName
+                })
                 .ToListAsync();
         }
 
         // Case 6 (GET find): Get single record by Id
         [HttpGet("{CertificateId}")]
-        public async Task<ActionResult<Certificate>> GetById(int CertificateId)
+        public async Task<ActionResult<CertificateResponseDto>> GetById(int CertificateId)
         {
             var cert = await _context.certificates
-                .Include(c => c.user)
-                .Include(c => c.course)
-                .FirstOrDefaultAsync(c => c.CertificateId == CertificateId);
+                .Where(c => c.CertificateId == CertificateId)
+                .Select(c => new CertificateResponseDto
+                {
+                    CertificateId = c.CertificateId,
+                    CertificateCode = c.CertificateCode,
+                    IssudAT = c.IssudAT,
+                    UserId = c.UserId,
+                    UserFullName = c.user.UserName,
+                    CourseId = c.CourseId,
+                    CourseName = c.course.CourseName
+                })
+                .FirstOrDefaultAsync();
 
             if (cert == null) return NotFound();
 
@@ -92,10 +132,20 @@ namespace LMS_Server.Controllers
 
         // Case 7 (GET filter): Filter by issued date range or code
         [HttpGet("filter")]
-        public async Task<ActionResult<IEnumerable<Certificate>>> FilterByDate([FromQuery] DateTime startDate)
+        public async Task<ActionResult<IEnumerable<CertificateResponseDto>>> FilterByDate([FromQuery] DateTime startDate)
         {
             return await _context.certificates
                 .Where(c => c.IssudAT >= startDate)
+                .Select(c => new CertificateResponseDto
+                {
+                    CertificateId = c.CertificateId,
+                    CertificateCode = c.CertificateCode,
+                    IssudAT = c.IssudAT,
+                    UserId = c.UserId,
+                    UserFullName = c.user.UserName,
+                    CourseId = c.CourseId,
+                    CourseName = c.course.CourseName
+                })
                 .ToListAsync();
         }
 
@@ -106,6 +156,16 @@ namespace LMS_Server.Controllers
             var count = await _context.certificates.CountAsync();
             var latestCertificates = await _context.certificates
                 .OrderByDescending(c => c.IssudAT)
+                .Select(c => new CertificateResponseDto
+                {
+                    CertificateId = c.CertificateId,
+                    CertificateCode = c.CertificateCode,
+                    IssudAT = c.IssudAT,
+                    UserId = c.UserId,
+                    UserFullName = c.user.UserName,
+                    CourseId = c.CourseId,
+                    CourseName = c.course.CourseName
+                })
                 .ToListAsync();
 
             return Ok(new { TotalCertificates = count, Certificates = latestCertificates });

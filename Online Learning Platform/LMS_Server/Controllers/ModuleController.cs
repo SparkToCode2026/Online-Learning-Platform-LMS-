@@ -102,8 +102,15 @@ public class ModuleController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllModules()
     {
-        List<Module> modules = await _context.modules
-            .Include(m => m.Lessons)
+        var modules = await _context.modules
+            .Select(m => new ModuleResponseDto
+            {
+                ModuleId = m.ModuleId,
+                ModuleName = m.ModuleName,
+                OrderNumber = m.OrderNumber,
+                CourseId = m.CourseId,
+                CourseName = m.Course.CourseName
+            })
             .ToListAsync();
 
         return Ok(modules);
@@ -113,9 +120,17 @@ public class ModuleController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetModuleById(int id)
     {
-        Module? module = await _context.modules
-            .Include(m => m.Lessons)
-            .FirstOrDefaultAsync(m => m.ModuleId == id);
+        var module = await _context.modules
+            .Where(m => m.ModuleId == id)
+            .Select(m => new ModuleResponseDto
+            {
+                ModuleId = m.ModuleId,
+                ModuleName = m.ModuleName,
+                OrderNumber = m.OrderNumber,
+                CourseId = m.CourseId,
+                CourseName = m.Course.CourseName
+            })
+            .FirstOrDefaultAsync();
 
         if (module == null)
             return NotFound("Module not found.");
@@ -127,8 +142,16 @@ public class ModuleController : ControllerBase
     [HttpGet("course/{courseId}")]
     public async Task<IActionResult> GetModulesByCourse(int courseId)
     {
-        List<Module> modules = await _context.modules
+        var modules = await _context.modules
             .Where(m => m.CourseId == courseId)
+            .Select(m => new ModuleResponseDto
+            {
+                ModuleId = m.ModuleId,
+                ModuleName = m.ModuleName,
+                OrderNumber = m.OrderNumber,
+                CourseId = m.CourseId,
+                CourseName = m.Course.CourseName
+            })
             .ToListAsync();
 
         return Ok(modules);
@@ -138,8 +161,16 @@ public class ModuleController : ControllerBase
     [HttpGet("sorted")]
     public async Task<IActionResult> GetModulesSortedByOrder()
     {
-        List<Module> modules = await _context.modules
+        var modules = await _context.modules
             .OrderBy(m => m.OrderNumber)
+            .Select(m => new ModuleResponseDto
+            {
+                ModuleId = m.ModuleId,
+                ModuleName = m.ModuleName,
+                OrderNumber = m.OrderNumber,
+                CourseId = m.CourseId,
+                CourseName = m.Course.CourseName
+            })
             .ToListAsync();
 
         return Ok(modules);

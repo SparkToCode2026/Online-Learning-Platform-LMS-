@@ -1,6 +1,7 @@
 using LMS_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using LMS_Server.DTO;
 
 namespace LMS_Server.Controllers;
 
@@ -17,16 +18,23 @@ public class LessonController : ControllerBase
 
     // Case 1: Create a new lesson.
     [HttpPost]
-    public async Task<IActionResult> CreateLesson(Lesson lesson)
+    public async Task<IActionResult> CreateLesson([FromBody] CreateLessonDto dto)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
         bool moduleExists = await _context.modules
-            .AnyAsync(m => m.ModuleId == lesson.ModuleId);
+            .AnyAsync(m => m.ModuleId == dto.ModuleId);
 
         if (!moduleExists)
             return NotFound("Module not found.");
+
+        var lesson = new Lesson
+        {
+            LessonTitle = dto.LessonTitle,
+            LessonURL = dto.LessonURL,
+            ModuleId = dto.ModuleId
+        };
 
         _context.lessons.Add(lesson);
         await _context.SaveChangesAsync();
@@ -42,7 +50,7 @@ public class LessonController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateLesson(
         int id,
-        Lesson updatedLesson)
+        [FromBody] UpdateLessonDto updatedLesson)
     {
         Lesson? lesson = await _context.lessons.FindAsync(id);
 
@@ -57,6 +65,14 @@ public class LessonController : ControllerBase
 
         lesson.LessonTitle = updatedLesson.LessonTitle;
         lesson.LessonURL = updatedLesson.LessonURL;
+        
+        if (updatedLesson.ModuleId != 0)
+        {
+            bool moduleExists = await _context.modules.AnyAsync(m => m.ModuleId == updatedLesson.ModuleId);
+            if (!moduleExists)
+                return NotFound("Module not found.");
+            lesson.ModuleId = updatedLesson.ModuleId;
+        }
 
         await _context.SaveChangesAsync();
 
@@ -105,8 +121,15 @@ public class LessonController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllLessons()
     {
-        List<Lesson> lessons = await _context.lessons
-            .Include(l => l.Module)
+        var lessons = await _context.lessons
+            .Select(l => new LessonResponseDto
+            {
+                LessonId = l.LessonId,
+                LessonTitle = l.LessonTitle,
+                LessonURL = l.LessonURL,
+                ModuleId = l.ModuleId,
+                ModuleName = l.Module.ModuleName
+            })
             .ToListAsync();
 
         return Ok(lessons);
@@ -116,9 +139,17 @@ public class LessonController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetLessonById(int id)
     {
-        Lesson? lesson = await _context.lessons
-            .Include(l => l.Module)
-            .FirstOrDefaultAsync(l => l.LessonId == id);
+        var lesson = await _context.lessons
+            .Where(l => l.LessonId == id)
+            .Select(l => new LessonResponseDto
+            {
+                LessonId = l.LessonId,
+                LessonTitle = l.LessonTitle,
+                LessonURL = l.LessonURL,
+                ModuleId = l.ModuleId,
+                ModuleName = l.Module.ModuleName
+            })
+            .FirstOrDefaultAsync();
 
         if (lesson == null)
             return NotFound("Lesson not found.");
@@ -130,8 +161,16 @@ public class LessonController : ControllerBase
     [HttpGet("module/{moduleId}")]
     public async Task<IActionResult> GetLessonsByModule(int moduleId)
     {
-        List<Lesson> lessons = await _context.lessons
+        var lessons = await _context.lessons
             .Where(l => l.ModuleId == moduleId)
+            .Select(l => new LessonResponseDto
+            {
+                LessonId = l.LessonId,
+                LessonTitle = l.LessonTitle,
+                LessonURL = l.LessonURL,
+                ModuleId = l.ModuleId,
+                ModuleName = l.Module.ModuleName
+            })
             .ToListAsync();
 
         return Ok(lessons);
@@ -141,8 +180,16 @@ public class LessonController : ControllerBase
     [HttpGet("sorted")]
     public async Task<IActionResult> GetLessonsSortedByTitle()
     {
-        List<Lesson> lessons = await _context.lessons
+        var lessons = await _context.lessons
             .OrderBy(l => l.LessonTitle)
+            .Select(l => new LessonResponseDto
+            {
+                LessonId = l.LessonId,
+                LessonTitle = l.LessonTitle,
+                LessonURL = l.LessonURL,
+                ModuleId = l.ModuleId,
+                ModuleName = l.Module.ModuleName
+            })
             .ToListAsync();
 
         return Ok(lessons);

@@ -1,4 +1,4 @@
-﻿
+
 using LMS_Server.DTO;
 using LMS_Server.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -234,12 +234,12 @@ namespace LMS_Server.Controllers
         {
             var enrollments = await _context.enrollments
                 .Where(e => e.CourseId == id)
-                .Select(e => new
+                .Select(e => new EnrollmentResponseDto
                 {
-                    e.EnrollmentId,
-                    e.UserId,
-                    e.CourseId,
-                    e.EnrolledAt,
+                    EnrollmentId = e.EnrollmentId,
+                    UserId = e.UserId,
+                    CourseId = e.CourseId,
+                    EnrolledAt = e.EnrolledAt,
                     StatusName = ((EnrollmentStatusEnum)e.EnrollmentStatus).ToString()
                 })
                 .ToListAsync();
@@ -258,6 +258,14 @@ namespace LMS_Server.Controllers
         {
             var enrollment = await _context.enrollments
                 .Where(e => e.EnrolledAt == EnrollmentDate)
+                .Select(e => new EnrollmentResponseDto
+                {
+                    EnrollmentId = e.EnrollmentId,
+                    UserId = e.UserId,
+                    CourseId = e.CourseId,
+                    EnrolledAt = e.EnrolledAt,
+                    StatusName = ((EnrollmentStatusEnum)e.EnrollmentStatus).ToString()
+                })
                 .FirstOrDefaultAsync();
 
 
@@ -277,12 +285,13 @@ namespace LMS_Server.Controllers
         public async Task<ActionResult> GetEnrollmentsByUserId(int userId)
         {
             var enrollments = await _context.enrollments
-                .Where(e => e.UserId == userId).Select(e => new
+                .Where(e => e.UserId == userId)
+                .Select(e => new EnrollmentResponseDto
                 {
-                    e.EnrollmentId,
-                    e.UserId,
-                    e.CourseId,
-                    e.EnrolledAt,
+                    EnrollmentId = e.EnrollmentId,
+                    UserId = e.UserId,
+                    CourseId = e.CourseId,
+                    EnrolledAt = e.EnrolledAt,
                     StatusName = ((EnrollmentStatusEnum)e.EnrollmentStatus).ToString()
                 })
                 .ToListAsync();
