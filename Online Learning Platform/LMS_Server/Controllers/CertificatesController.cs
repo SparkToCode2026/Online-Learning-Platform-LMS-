@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LMS_Server.Controllers; 
 using LMS_Server.Models;
+using LMS_Server.DTO;
 
 namespace LMS_Server.Controllers
 {
@@ -18,9 +19,17 @@ namespace LMS_Server.Controllers
 
         // Case 1 (POST): Create a new record
         [HttpPost]
-        public async Task<ActionResult<Certificate>> Create(Certificate certificate)
+        public async Task<ActionResult<Certificate>> Create([FromBody] CreateCertificateDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var certificate = new Certificate
+            {
+                CertificateCode = dto.CertificateCode,
+                IssudAT = dto.IssudAT,
+                UserId = dto.UserId,
+                CourseId = dto.CourseId
+            };
 
             _context.certificates.Add(certificate);
             await _context.SaveChangesAsync();
@@ -30,11 +39,16 @@ namespace LMS_Server.Controllers
 
         // Case 2 (PUT/PATCH): Full Update
         [HttpPut("{CertificateId}")]
-        public async Task<IActionResult> Update(int CertificateId, Certificate certificate)
+        public async Task<IActionResult> Update(int CertificateId, [FromBody] UpdateCertificateDto dto)
         {
-            if (CertificateId != certificate.CertificateId) return BadRequest();
+            var certificate = await _context.certificates.FindAsync(CertificateId);
+            if (certificate == null) return NotFound();
 
-            _context.Entry(certificate).State = EntityState.Modified;
+            certificate.CertificateCode = dto.CertificateCode;
+            certificate.IssudAT = dto.IssudAT;
+            certificate.UserId = dto.UserId;
+            certificate.CourseId = dto.CourseId;
+
             await _context.SaveChangesAsync();
 
             return NoContent();

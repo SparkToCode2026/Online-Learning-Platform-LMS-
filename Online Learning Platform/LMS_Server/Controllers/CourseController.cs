@@ -1,7 +1,8 @@
-﻿using LMS_Server.Models;
+using LMS_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LMS_Server.Models;
+using LMS_Server.DTO;
 
 namespace LMS_Server.Controllers
 {
@@ -18,8 +19,15 @@ namespace LMS_Server.Controllers
 
         // 1. POST: Create new course
         [HttpPost("AddCourse")]
-        public IActionResult AddCourse(Course course)
+        public IActionResult AddCourse([FromBody] CreateCourseDto dto)
         {
+            var course = new Course
+            {
+                CourseName = dto.CourseName,
+                CoursePrice = dto.CoursePrice,
+                CategoryId = dto.CategoryId,
+                InstructorId = dto.InstructorId
+            };
             context.courses.Add(course);
             context.SaveChanges();
 

@@ -1,6 +1,7 @@
 using LMS_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using LMS_Server.DTO;
 
 namespace LMS_Server.Controllers;
 
@@ -17,16 +18,23 @@ public class LessonController : ControllerBase
 
     // Case 1: Create a new lesson.
     [HttpPost]
-    public async Task<IActionResult> CreateLesson(Lesson lesson)
+    public async Task<IActionResult> CreateLesson([FromBody] CreateLessonDto dto)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
         bool moduleExists = await _context.modules
-            .AnyAsync(m => m.ModuleId == lesson.ModuleId);
+            .AnyAsync(m => m.ModuleId == dto.ModuleId);
 
         if (!moduleExists)
             return NotFound("Module not found.");
+
+        var lesson = new Lesson
+        {
+            LessonTitle = dto.LessonTitle,
+            LessonURL = dto.LessonURL,
+            ModuleId = dto.ModuleId
+        };
 
         _context.lessons.Add(lesson);
         await _context.SaveChangesAsync();
@@ -42,7 +50,7 @@ public class LessonController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateLesson(
         int id,
-        Lesson updatedLesson)
+        [FromBody] UpdateLessonDto updatedLesson)
     {
         Lesson? lesson = await _context.lessons.FindAsync(id);
 
@@ -57,6 +65,14 @@ public class LessonController : ControllerBase
 
         lesson.LessonTitle = updatedLesson.LessonTitle;
         lesson.LessonURL = updatedLesson.LessonURL;
+        
+        if (updatedLesson.ModuleId != 0)
+        {
+            bool moduleExists = await _context.modules.AnyAsync(m => m.ModuleId == updatedLesson.ModuleId);
+            if (!moduleExists)
+                return NotFound("Module not found.");
+            lesson.ModuleId = updatedLesson.ModuleId;
+        }
 
         await _context.SaveChangesAsync();
 

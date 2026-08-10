@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LMS_Server.Controllers;
 using LMS_Server.Models;
+using LMS_Server.DTO;
 
 namespace LMS_Server.Controllers
 {
@@ -17,9 +18,15 @@ namespace LMS_Server.Controllers
         }
         // Case 1 (POST): Create a new record
         [HttpPost]
-        public async Task<ActionResult<InstructorProfile>> Create(InstructorProfile profile)
+        public async Task<ActionResult<InstructorProfile>> Create([FromBody] CreateInstructorProfileDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var profile = new InstructorProfile
+            {
+                Biography = dto.Biography,
+                UserId = dto.UserId
+            };
 
             _context.instructorProfiles.Add(profile);
             await _context.SaveChangesAsync();
@@ -28,11 +35,14 @@ namespace LMS_Server.Controllers
         }
         // Case 2 (PUT/PATCH): Full Update
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, InstructorProfile profile)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateInstructorProfileDto dto)
         {
-            if (id != profile.InstructorId) return BadRequest();
+            var profile = await _context.instructorProfiles.FindAsync(id);
+            if (profile == null) return NotFound();
 
-            _context.Entry(profile).State = EntityState.Modified;
+            profile.Biography = dto.Biography;
+            profile.UserId = dto.UserId;
+
             await _context.SaveChangesAsync();
 
             return NoContent();

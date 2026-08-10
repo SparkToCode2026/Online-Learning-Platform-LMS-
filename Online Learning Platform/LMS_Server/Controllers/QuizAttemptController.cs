@@ -1,6 +1,7 @@
 using LMS_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using LMS_Server.DTO;
 namespace LMS_Server.Controllersi
 {
 
@@ -22,10 +23,17 @@ namespace LMS_Server.Controllersi
         // 1. POST: Create new Quiz Attempt
 
         [HttpPost("AddQuizAttempt")]
-        public IActionResult AddQuizAttempt(QuizAttempt quizAttempt)
+        public IActionResult AddQuizAttempt([FromBody] CreateQuizAttemptDto dto)
 
         {
 
+            var quizAttempt = new QuizAttempt
+            {
+                Score = dto.Score,
+                IsPassed = dto.IsPassed,
+                UserId = dto.UserId,
+                QuizId = dto.QuizId
+            };
             context.quizAttempts.Add(quizAttempt);
             context.SaveChanges();
             return Ok(quizAttempt.QuizAttemptId);

@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LMS_Server.Models;
+using LMS_Server.DTO;
 namespace LMS_Server.Controllers
 {
     [ApiController]
@@ -18,8 +19,12 @@ namespace LMS_Server.Controllers
 
         // 1. POST: Create new course category
         [HttpPost("AddCategory")]
-        public IActionResult AddCategory(Category category)
+        public IActionResult AddCategory([FromBody] CreateCategoryDto dto)
         {
+            var category = new Category
+            {
+                CategoryName = dto.CategoryName
+            };
             context.categories.Add(category);
             context.SaveChanges();
 
