@@ -1,4 +1,4 @@
-﻿using LMS_Server.Models;
+using LMS_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LMS_Server.DTO;
@@ -104,6 +104,7 @@ namespace LMS_Server.Controllers
                 .Include(a => a.Submissions)
                 .Select(a => new AssignmentResponseDto
                 {
+                    AssignmentId = a.AssignmentId,
                     AssignmentTitle = a.AssignmentTitle,
                     DeadLine = a.DeadLine,
                     CourseId = a.CourseId,
@@ -124,7 +125,17 @@ namespace LMS_Server.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var assignment = await _context.assignments.FindAsync(id);
+            var assignment = await _context.assignments
+                .Where(a => a.AssignmentId == id)
+                .Select(a => new AssignmentResponseDto
+                {
+                    AssignmentId = a.AssignmentId,
+                    AssignmentTitle = a.AssignmentTitle,
+                    DeadLine = a.DeadLine,
+                    CourseId = a.CourseId
+                })
+                .FirstOrDefaultAsync();
+
             if (assignment == null)
                 return NotFound("Assignment not found.");
             return Ok(assignment);
@@ -134,7 +145,15 @@ namespace LMS_Server.Controllers
         [HttpGet("GetAssignmentsAll")]
         public async Task<IActionResult> GetAssignmentsAll()
         {
-            var assignments = await _context.assignments.ToListAsync();
+            var assignments = await _context.assignments
+                .Select(a => new AssignmentResponseDto
+                {
+                    AssignmentId = a.AssignmentId,
+                    AssignmentTitle = a.AssignmentTitle,
+                    DeadLine = a.DeadLine,
+                    CourseId = a.CourseId
+                })
+                .ToListAsync();
             return Ok(assignments);
         }
 
@@ -146,6 +165,13 @@ namespace LMS_Server.Controllers
         {
             var sorted = await _context.assignments
                 .OrderBy(a => a.DeadLine)
+                .Select(a => new AssignmentResponseDto
+                {
+                    AssignmentId = a.AssignmentId,
+                    AssignmentTitle = a.AssignmentTitle,
+                    DeadLine = a.DeadLine,
+                    CourseId = a.CourseId
+                })
                 .ToListAsync();
 
             return Ok(sorted);
