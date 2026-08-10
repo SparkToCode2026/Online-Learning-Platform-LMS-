@@ -106,10 +106,13 @@ namespace LMS_Server.Controllers
         [HttpGet("GetAllCategories")]
         public IActionResult GetAllCategories()
         {
-            List<Category> categories = context.categories
-                .Include(c => c.courses)
+            var categories = context.categories
+                .Select(c => new CategoryResponseDto
+                {
+                    CategoryId = c.CategoryId,
+                    CategoryName = c.CategoryName
+                })
                 .ToList();
-
 
             return Ok(categories);
         }
@@ -118,9 +121,14 @@ namespace LMS_Server.Controllers
         [HttpGet("GetCategoryById")]
         public IActionResult GetCategoryById(int id)
         {
-            Category category = context.categories
-                .FirstOrDefault(c => c.CategoryId == id);
-
+            var category = context.categories
+                .Where(c => c.CategoryId == id)
+                .Select(c => new CategoryResponseDto
+                {
+                    CategoryId = c.CategoryId,
+                    CategoryName = c.CategoryName
+                })
+                .FirstOrDefault();
 
             if (category != null)
             {
@@ -136,10 +144,14 @@ namespace LMS_Server.Controllers
         [HttpGet("SearchCategory")]
         public IActionResult SearchCategory(string name)
         {
-            List<Category> categories = context.categories
+            var categories = context.categories
                 .Where(c => c.CategoryName.Contains(name))
+                .Select(c => new CategoryResponseDto
+                {
+                    CategoryId = c.CategoryId,
+                    CategoryName = c.CategoryName
+                })
                 .ToList();
-
 
             return Ok(categories);
         }
