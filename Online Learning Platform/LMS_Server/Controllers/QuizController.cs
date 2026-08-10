@@ -87,19 +87,36 @@ namespace LMS_Server.Controllers
        [HttpGet("GetAllQuizzes")]
        public IActionResult GetAllQuizzes()
        {
-           List<Quiz> quizzes = context.quizzes
-               .Include(q => q.course)
+           var quizzes = context.quizzes
+               .Select(q => new QuizResponseDto
+               {
+                   QuizId = q.QuizId,
+                   QuizTitle = q.QuizTitle,
+                   QuizScore = q.QuizScore,
+                   CourseId = q.CourseId,
+                   CourseName = q.course.CourseName
+               })
                .ToList();
+
            return Ok(quizzes);
        }
 
-       // 6. GET: Get Quiz by QuizId
+       // 6. GET: Get Quiz by Id
        [HttpGet("GetQuizById")]
        public IActionResult GetQuizById(int id)
        {
-           Quiz quiz = context.quizzes
-               .Include(q => q.course)
-               .FirstOrDefault(q => q.QuizId == id);
+           var quiz = context.quizzes
+               .Where(q => q.QuizId == id)
+               .Select(q => new QuizResponseDto
+               {
+                   QuizId = q.QuizId,
+                   QuizTitle = q.QuizTitle,
+                   QuizScore = q.QuizScore,
+                   CourseId = q.CourseId,
+                   CourseName = q.course.CourseName
+               })
+               .FirstOrDefault();
+
            if (quiz != null)
            {
                return Ok(quiz);
@@ -114,18 +131,34 @@ namespace LMS_Server.Controllers
        [HttpGet("FilterQuizzes")]
        public IActionResult FilterQuizzes(int courseId)
        {
-           List<Quiz> quizzes = context.quizzes
+           var quizzes = context.quizzes
                .Where(q => q.CourseId == courseId)
+               .Select(q => new QuizResponseDto
+               {
+                   QuizId = q.QuizId,
+                   QuizTitle = q.QuizTitle,
+                   QuizScore = q.QuizScore,
+                   CourseId = q.CourseId,
+                   CourseName = q.course.CourseName
+               })
                .ToList();
            return Ok(quizzes);
        }
 
-       // 8. GET: Sort Quizzes by highest score
+       // 8. GET: Sort Quizzes by title alphabetically
        [HttpGet("SortedQuizzes")]
        public IActionResult SortedQuizzes()
        {
-           List<Quiz> quizzes = context.quizzes
-               .OrderByDescending(q => q.QuizScore)
+           var quizzes = context.quizzes
+               .OrderBy(q => q.QuizTitle)
+               .Select(q => new QuizResponseDto
+               {
+                   QuizId = q.QuizId,
+                   QuizTitle = q.QuizTitle,
+                   QuizScore = q.QuizScore,
+                   CourseId = q.CourseId,
+                   CourseName = q.course.CourseName
+               })
                .ToList();
            return Ok(quizzes);
        }
