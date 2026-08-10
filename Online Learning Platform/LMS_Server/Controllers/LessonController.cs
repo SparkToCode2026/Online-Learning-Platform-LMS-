@@ -121,8 +121,15 @@ public class LessonController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllLessons()
     {
-        List<Lesson> lessons = await _context.lessons
-            .Include(l => l.Module)
+        var lessons = await _context.lessons
+            .Select(l => new LessonResponseDto
+            {
+                LessonId = l.LessonId,
+                LessonTitle = l.LessonTitle,
+                LessonURL = l.LessonURL,
+                ModuleId = l.ModuleId,
+                ModuleName = l.Module.ModuleName
+            })
             .ToListAsync();
 
         return Ok(lessons);
@@ -132,9 +139,17 @@ public class LessonController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetLessonById(int id)
     {
-        Lesson? lesson = await _context.lessons
-            .Include(l => l.Module)
-            .FirstOrDefaultAsync(l => l.LessonId == id);
+        var lesson = await _context.lessons
+            .Where(l => l.LessonId == id)
+            .Select(l => new LessonResponseDto
+            {
+                LessonId = l.LessonId,
+                LessonTitle = l.LessonTitle,
+                LessonURL = l.LessonURL,
+                ModuleId = l.ModuleId,
+                ModuleName = l.Module.ModuleName
+            })
+            .FirstOrDefaultAsync();
 
         if (lesson == null)
             return NotFound("Lesson not found.");
@@ -146,8 +161,16 @@ public class LessonController : ControllerBase
     [HttpGet("module/{moduleId}")]
     public async Task<IActionResult> GetLessonsByModule(int moduleId)
     {
-        List<Lesson> lessons = await _context.lessons
+        var lessons = await _context.lessons
             .Where(l => l.ModuleId == moduleId)
+            .Select(l => new LessonResponseDto
+            {
+                LessonId = l.LessonId,
+                LessonTitle = l.LessonTitle,
+                LessonURL = l.LessonURL,
+                ModuleId = l.ModuleId,
+                ModuleName = l.Module.ModuleName
+            })
             .ToListAsync();
 
         return Ok(lessons);
@@ -157,8 +180,16 @@ public class LessonController : ControllerBase
     [HttpGet("sorted")]
     public async Task<IActionResult> GetLessonsSortedByTitle()
     {
-        List<Lesson> lessons = await _context.lessons
+        var lessons = await _context.lessons
             .OrderBy(l => l.LessonTitle)
+            .Select(l => new LessonResponseDto
+            {
+                LessonId = l.LessonId,
+                LessonTitle = l.LessonTitle,
+                LessonURL = l.LessonURL,
+                ModuleId = l.ModuleId,
+                ModuleName = l.Module.ModuleName
+            })
             .ToListAsync();
 
         return Ok(lessons);
