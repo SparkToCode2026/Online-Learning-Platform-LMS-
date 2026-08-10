@@ -1,7 +1,7 @@
 using LMS_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using LMS_Server.DTOs;
+using LMS_Server.DTO;
 
 namespace LMS_Server.Controllers;
 

@@ -1,4 +1,4 @@
-﻿namespace LMS_Server.DTOs
+namespace LMS_Server.DTO
 {
     // REQUEST DTOs
     public record RegisterDto(string Email, string Password, string FullName, string? Role);

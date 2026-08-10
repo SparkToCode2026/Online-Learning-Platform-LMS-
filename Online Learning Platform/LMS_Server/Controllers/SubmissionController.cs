@@ -1,5 +1,4 @@
-﻿using LMS_Server.DTO;
-using LMS_Server.DTOs;
+using LMS_Server.DTO;
 using LMS_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

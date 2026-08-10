@@ -1,4 +1,4 @@
-namespace LMS_Server.DTOs;
+namespace LMS_Server.DTO;
 
 public class CreateModuleDto
 {
