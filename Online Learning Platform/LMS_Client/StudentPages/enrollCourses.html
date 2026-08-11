@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScholarHub - Available Courses</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="enrollCourses.css">
+</head>
+
+<body>
+
+  <main class="courses-container">
+    <!-- Top Navigation & Search Bar -->
+    <header class="top-bar">
+      <!-- Back Button to Enrollment Page -->
+      <a href="enrollment.html" class="btn-back" title="Back to Enrollments">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </a>
+
+      <!-- Search Input Container -->
+      <div class="search-container">
+        <div class="search-box-pill">
+          <input type="text" id="search-input" class="search-input-field" placeholder="Search...">
+          <button type="button" id="search-btn" class="btn-search">Search</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Courses Grid (4 Columns, 2 Rows) -->
+    <section class="courses-grid">
+      <!-- Row 1 Card 1 -->
+      <article class="course-item-card" data-id="course-1" data-instructor="Dr. Mike Andrew">
+        <div class="card-img-wrapper">
+          <img src="images/course1.png" alt="Product 1" class="course-img">
+        </div>
+        <div class="card-content-body">
+          <h3 class="course-item-title">Product 1</h3>
+          <div class="card-meta-row">
+            <span class="course-price">Price: 50 OMR</span>
+            <span class="badge-new">New</span>
+          </div>
+          <button class="btn-add-course">Add</button>
+        </div>
+      </article>
+
+      <!-- Row 1 Card 2 -->
+      <article class="course-item-card" data-id="course-2" data-instructor="Kelly M.">
+        <div class="card-img-wrapper">
+          <img src="images/course2.png" alt="Product 2" class="course-img">
+        </div>
+        <div class="card-content-body">
+          <h3 class="course-item-title">Product 2</h3>
+          <div class="card-meta-row">
+            <span class="course-price">Price: 20 OMR</span>
+            <span class="badge-new">New</span>
+          </div>
+          <button class="btn-add-course">Add</button>
+        </div>
+      </article>
+
+      <!-- Row 1 Card 3 -->
+      <article class="course-item-card" data-id="course-3" data-instructor="Alex Rivera">
+        <div class="card-img-wrapper">
+          <img src="images/course3.png" alt="Product 3" class="course-img">
+        </div>
+        <div class="card-content-body">
+          <h3 class="course-item-title">Product 3</h3>
+          <div class="card-meta-row">
+            <span class="course-price">price: 30 OMR</span>
+            <span class="badge-new">New</span>
+          </div>
+          <button class="btn-add-course">Add</button>
+        </div>
+      </article>
+
+      <!-- Row 1 Card 4 -->
+      <article class="course-item-card" data-id="course-4" data-instructor="Prof. James Wilson">
+        <div class="card-img-wrapper">
+          <img src="images/course4.png" alt="Product 4" class="course-img">
+        </div>
+        <div class="card-content-body">
+          <h3 class="course-item-title">Product 4</h3>
+          <div class="card-meta-row">
+            <span class="course-price">Price: 40 OMR</span>
+            <span class="badge-new">New</span>
+          </div>
+          <button class="btn-add-course">Add</button>
+        </div>
+      </article>
+
+      <!-- Row 2 Card 5 -->
+      <article class="course-item-card" data-id="course-5" data-instructor="Dr. Robert Chen">
+        <div class="card-img-wrapper">
+          <img src="images/course1.png" alt="Product 1" class="course-img">
+        </div>
+        <div class="card-content-body">
+          <h3 class="course-item-title">Product 1</h3>
+          <div class="card-meta-row">
+            <span class="course-price">$29</span>
+            <span class="badge-new">New</span>
+          </div>
+          <button class="btn-add-course">Add</button>
+        </div>
+      </article>
+
+      <!-- Row 2 Card 6 -->
+      <article class="course-item-card" data-id="course-6" data-instructor="Sarah Jenkins">
+        <div class="card-img-wrapper">
+          <img src="images/course2.png" alt="Product 2" class="course-img">
+        </div>
+        <div class="card-content-body">
+          <h3 class="course-item-title">Product 2</h3>
+          <div class="card-meta-row">
+            <span class="course-price">$39</span>
+            <span class="badge-new">New</span>
+          </div>
+          <button class="btn-add-course">Add</button>
+        </div>
+      </article>
+
+      <!-- Row 2 Card 7 -->
+      <article class="course-item-card" data-id="course-7" data-instructor="Dr. Elena Rostova">
+        <div class="card-img-wrapper">
+          <img src="images/course3.png" alt="Product 3" class="course-img">
+        </div>
+        <div class="card-content-body">
+          <h3 class="course-item-title">Product 3</h3>
+          <div class="card-meta-row">
+            <span class="course-price">$49</span>
+            <span class="badge-new">New</span>
+          </div>
+          <button class="btn-add-course">Add</button>
+        </div>
+      </article>
+
+      <!-- Row 2 Card 8 -->
+      <article class="course-item-card" data-id="course-8" data-instructor="Prof. Marcus Vance">
+        <div class="card-img-wrapper">
+          <img src="images/course4.png" alt="Product 4" class="course-img">
+        </div>
+        <div class="card-content-body">
+          <h3 class="course-item-title">Product 4</h3>
+          <div class="card-meta-row">
+            <span class="course-price">$59</span>
+            <span class="badge-new">New</span>
+          </div>
+          <button class="btn-add-course">Add</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Script -->
+  <script src="enrollCourses.js"></script>
+</body>
+
+</html>
