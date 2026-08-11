@@ -2,9 +2,143 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Module Management</title>
+
+    <link rel="stylesheet" href="module-management.css">
 </head>
+
 <body>
+
+<div class="page-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            ScholarHub
+        </div>
+
+        <nav>
+            <a href="#">Dashboard</a>
+            <a href="#">Users</a>
+            <a href="#">Instructor Profiles</a>
+            <a href="#">Certificates</a>
+            <a href="#" class="active">Courses</a>
+            <a href="#">Assignments</a>
+            <a href="#">Settings</a>
+        </nav>
+
+        <div class="profile">
+            <strong>Dr. Mike Andrew</strong>
+            <span>Administrator</span>
+        </div>
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="page-header">
+            <div>
+                <h1>Module Management</h1>
+                <p>Manage course modules, lessons, and their order</p>
+            </div>
+
+            <div class="header-actions">
+                <input
+                        type="text"
+                        placeholder="Search modules..."
+                        id="searchInput"
+                >
+
+                <select id="courseFilter">
+                    <option>All Courses</option>
+                    <option>C# Programming</option>
+                    <option>Web Development</option>
+                </select>
+            </div>
+        </header>
+
+
+        <!-- Module Cards -->
+        <section class="modules-grid">
+
+            <div class="module-card">
+                <span class="order-number">1</span>
+
+                <div class="module-icon">📖</div>
+
+                <h2>Introduction to C#</h2>
+                <p>Course: C# Programming</p>
+                <p>📖 4 Lessons</p>
+
+                <div class="card-actions">
+                    <a href="module-details.html" class="view-button">
+                        View Lessons
+                    </a>
+
+                    <button class="edit-button">✎</button>
+                    <button class="delete-button">🗑</button>
+                </div>
+            </div>
+
+
+            <div class="module-card">
+                <span class="order-number">2</span>
+
+                <div class="module-icon">📖</div>
+
+                <h2>Object-Oriented Programming</h2>
+                <p>Course: C# Programming</p>
+                <p>📖 6 Lessons</p>
+
+                <div class="card-actions">
+                    <a href="module-details.html" class="view-button">
+                        View Lessons
+                    </a>
+
+                    <button class="edit-button">✎</button>
+                    <button class="delete-button">🗑</button>
+                </div>
+            </div>
+
+
+            <div class="module-card">
+                <span class="order-number">3</span>
+
+                <div class="module-icon">📖</div>
+
+                <h2>Collections & LINQ</h2>
+                <p>Course: C# Programming</p>
+                <p>📖 5 Lessons</p>
+
+                <div class="card-actions">
+                    <a href="module-details.html" class="view-button">
+                        View Lessons
+                    </a>
+
+                    <button class="edit-button">✎</button>
+                    <button class="delete-button">🗑</button>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Create Module -->
+        <div class="create-module">
+            <button id="createModuleButton">
+                + Create New Module
+            </button>
+        </div>
+
+    </main>
+
+</div>
+
+<script src="modules.js"></script>
 
 </body>
 </html>
