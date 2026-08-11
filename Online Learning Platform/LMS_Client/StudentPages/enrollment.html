@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScholarHub - My Enrollments</title>
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="enrollmentStyle.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Separate Reusable Sidebar Container -->
+    <div id="sidebar-container">
+      <aside class="sidebar" id="student-sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <div class="logo-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 12L12 22L22 12L12 2Z" fill="white"/>
+              </svg>
+            </div>
+            <span class="logo-text">ScholarHub</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a href="dashboard.html" class="nav-link" data-page="dashboard">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                  <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+                </svg>
+                <span class="nav-label">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="enrollment.html" class="nav-link active" data-page="enrollment">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <span class="nav-label">Enroll</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="assignments.html" class="nav-link" data-page="assignments">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span class="nav-label">Assignments</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="settings.html" class="nav-link" data-page="settings">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span class="nav-label">Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="user-profile">
+            <div class="avatar">
+              <span class="avatar-initials">MA</span>
+            </div>
+            <div class="user-info">
+              <span class="user-name">Dr. Mike Andrew</span>
+              <span class="user-role">Administrator</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <!-- Welcome Hero Banner -->
+        <section class="hero-banner">
+          <div class="banner-text">
+            <span class="banner-subtitle">WELCOME BACK, SARAH!</span>
+            <h1 class="banner-title">Continue your learning journey today</h1>
+            <p class="banner-description">Your coursework is looking excellent. You have 2 assignments pending.</p>
+          </div>
+          <a href="enrollCourses.html" class="btn-enroll-main" id="btn-enroll-main">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Enroll in a New Course</span>
+          </a>
+        </section>
+
+        <!-- Section Title & Controls -->
+        <section class="section-header">
+          <h2 class="section-title">My Enrollments</h2>
+          <span class="enrollment-stats" id="enrollment-count-text">3 total courses enrolled</span>
+        </section>
+
+        <!-- Enrollments List -->
+        <section class="enrollments-list" id="enrollments-container">
+          <!-- Enrollment Card 1: Advanced Web UI Design -->
+          <article class="enrollment-card">
+            <div class="card-top">
+              <div class="course-info-header">
+                <div class="course-icon-badge">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                  </svg>
+                </div>
+                <h3 class="course-title">Advanced Web UI Design</h3>
+              </div>
+              <span class="status-badge active">Active</span>
+            </div>
+            <p class="instructor-name">Instructor: Dr. Mike Andrew</p>
+            <div class="progress-container">
+              <div class="progress-header">
+                <span class="progress-label">Progress</span>
+                <span class="progress-value">78%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" data-progress="78%" style="width: 78%;"></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Enrollment Card 2: Theoretical Computer Science -->
+          <article class="enrollment-card">
+            <div class="card-top">
+              <div class="course-info-header">
+                <div class="course-icon-badge">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                </div>
+                <h3 class="course-title">Theoretical Computer Science</h3>
+              </div>
+              <span class="status-badge active">Active</span>
+            </div>
+            <p class="instructor-name">Instructor: Kelly M.</p>
+            <div class="progress-container">
+              <div class="progress-header">
+                <span class="progress-label">Progress</span>
+                <span class="progress-value">42%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" data-progress="42%" style="width: 42%;"></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Enrollment Card 3: Intro to Linear Algebra -->
+          <article class="enrollment-card">
+            <div class="card-top">
+              <div class="course-info-header">
+                <div class="course-icon-badge">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div>
+                <h3 class="course-title">Intro to Linear Algebra</h3>
+              </div>
+              <span class="status-badge completed">Completed</span>
+            </div>
+            <p class="instructor-name">Instructor: Alex Rivera</p>
+            <div class="progress-container">
+              <div class="progress-header">
+                <span class="progress-label">Progress</span>
+                <span class="progress-value">100%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" data-progress="100%" style="width: 100%;"></div>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- New Course Enrollment Modal -->
+  <div class="modal-overlay" id="enroll-modal" aria-hidden="true">
+    <div class="modal-container" role="dialog" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Available Courses to Enroll</h3>
+        <button class="close-btn" id="close-modal-btn" aria-label="Close modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="search-input-wrapper">
+          <svg class="search-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="course-search-input" class="search-input" placeholder="Search available courses or instructors...">
+        </div>
+
+        <div class="available-courses-list" id="available-courses-list">
+          <div class="available-course-card" data-title="Full-Stack Web Development" data-instructor="Prof. James Wilson" data-icon="tech">
+            <div class="course-info">
+              <h4>Full-Stack Web Development</h4>
+              <p>Instructor: Prof. James Wilson • 12 Weeks</p>
+            </div>
+            <button class="btn-enroll-card">Enroll Now</button>
+          </div>
+
+          <div class="available-course-card" data-title="Data Structures & Algorithms" data-instructor="Dr. Robert Chen" data-icon="tech">
+            <div class="course-info">
+              <h4>Data Structures & Algorithms</h4>
+              <p>Instructor: Dr. Robert Chen • 10 Weeks</p>
+            </div>
+            <button class="btn-enroll-card">Enroll Now</button>
+          </div>
+
+          <div class="available-course-card" data-title="Mobile App Development (React Native)" data-instructor="Sarah Jenkins" data-icon="book">
+            <div class="course-info">
+              <h4>Mobile App Development (React Native)</h4>
+              <p>Instructor: Sarah Jenkins • 8 Weeks</p>
+            </div>
+            <button class="btn-enroll-card">Enroll Now</button>
+          </div>
+
+          <div class="available-course-card" data-title="Machine Learning Fundamentals" data-instructor="Dr. Elena Rostova" data-icon="math">
+            <div class="course-info">
+              <h4>Machine Learning Fundamentals</h4>
+              <p>Instructor: Dr. Elena Rostova • 14 Weeks</p>
+            </div>
+            <button class="btn-enroll-card">Enroll Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="enrollmentScript.js"></script>
+</body>
+</html>

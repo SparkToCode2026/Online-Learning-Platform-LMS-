@@ -1,0 +1,226 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #FAF4EB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.card {
+  background: #FFFFFF;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 16px;
+  padding: 32px 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #EAEAEA;
+}
+
+/* Header & Logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.logo-icon {
+  width: 28px;
+  height: 28px;
+  background-color: #EE5A36;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.logo-text span {
+  color: #EE5A36;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 12px;
+  color: #777777;
+  margin-bottom: 24px;
+}
+
+/* Tab Switcher */
+.tab-switcher {
+  display: flex;
+  background-color: #F8EFE4;
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 24px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666666;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  background-color: #EE5A36;
+  color: #FFFFFF;
+}
+
+/* Form Fields */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #444444;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.forgot-link {
+  font-size: 11px;
+  color: #EE5A36;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  background-color: #FAF4EB;
+  border: 1px solid #E2D7C7;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #333333;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  border-color: #EE5A36;
+}
+
+/* Placeholder Styling */
+::placeholder {
+  color: #8C827A;
+  opacity: 0.7;
+}
+
+::-webkit-input-placeholder {
+  color: #8C827A;
+  opacity: 0.7;
+}
+
+::-moz-placeholder {
+  color: #8C827A;
+  opacity: 0.7;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666666;
+  display: flex;
+  align-items: center;
+}
+
+/* Radio Group */
+.radio-group {
+  display: flex;
+  gap: 12px;
+}
+
+.radio-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background-color: #FAF4EB;
+  border: 1px solid #E2D7C7;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333333;
+}
+
+.radio-option.selected {
+  border-color: #EE5A36;
+}
+
+.radio-option input[type="radio"] {
+  accent-color: #EE5A36;
+  width: 16px;
+  height: 16px;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #EE5A36;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: #d94a28;
+}
+
+/* View Toggle */
+.form-view {
+  display: none;
+}
+
+.form-view.active {
+  display: block;
+}
