@@ -310,24 +310,57 @@
         <!-- Create New Module -->
         <div class="create-module">
 
-            <button id="createModuleButton">
+            <a href="create-module.html" class="create-module-link">
 
-                <span class="plus-icon">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M12 5v14M5 12h14"></path>
-                    </svg>
-                </span>
+        <span class="plus-icon">
+            +
+        </span>
 
-                Create New Module
+                <span>
+            Create New Module
+        </span>
 
-            </button>
+            </a>
 
         </div>
 
     </main>
 
 </div>
+<!-- Delete Module Confirmation Modal -->
+<div id="deleteModuleModal" class="delete-modal hidden">
 
+    <div class="delete-modal-box">
+
+        <div class="delete-icon">!</div>
+
+        <h3>Delete Module?</h3>
+
+        <p>Are you sure you want to delete this module?</p>
+
+        <div class="delete-modal-actions">
+
+            <button
+                    id="cancelModuleDelete"
+                    class="cancel-delete-button"
+                    type="button"
+            >
+                Cancel
+            </button>
+
+            <button
+                    id="confirmModuleDelete"
+                    class="confirm-delete-button"
+                    type="button"
+            >
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 <!-- module-management.html -->
 <script src="module-management.js"></script>
 </body>
