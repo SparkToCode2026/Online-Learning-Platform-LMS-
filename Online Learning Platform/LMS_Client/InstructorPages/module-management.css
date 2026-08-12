@@ -129,7 +129,15 @@ select {
     color: #f56645;
     font-weight: 600;
 }
+.sidebar-nav a.active {
+    background-color: #EC5B38;
+    color: #ffffff;
+    font-weight: 600;
+}
 
+.sidebar-nav a.active svg {
+    stroke: #ffffff;
+}
 
 /* ==============================
    Logout
