@@ -22,14 +22,13 @@
 
     <!-- Create Lesson Form -->
     <section class="form-card">
-
-        <form>
+        <form id="createLessonForm">
 
             <!-- Module -->
             <div class="form-group">
                 <label for="module">Module</label>
 
-                <select id="module" name="module">
+                <select id="module" name="module" required>
                     <option value="">Select Module</option>
                     <option>Object-Oriented Programming</option>
                     <option>Introduction to C#</option>
@@ -47,6 +46,8 @@
                         id="lessonTitle"
                         name="lessonTitle"
                         placeholder="e.g. Classes and Objects"
+                        required
+
                 >
             </div>
 
@@ -60,6 +61,8 @@
                         id="orderNumber"
                         name="orderNumber"
                         placeholder="e.g. 1"
+                        required
+
                 >
             </div>
 
@@ -73,6 +76,8 @@
                         id="duration"
                         name="duration"
                         placeholder="e.g. 25"
+                        required
+
                 >
             </div>
 
