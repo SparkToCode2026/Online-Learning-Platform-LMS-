@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submissions Hub - ScholarHub</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="assignments-submissions-hub.css">
+</head>
+
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0L24 6.5L12 13L0 6.5L12 0Z" fill="#F45B3E" />
+                        <path d="M12 20L24 13.5V17L12 23.5L0 17V13.5L12 20Z" fill="#F45B3E" />
+                    </svg>
+                    <span>ScholarHub</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-border-all"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fa-solid fa-book-open"></i> Courses</a></li>
+                    <li><a href="#"><i class="fa-regular fa-folder"></i> Categories</a></li>
+                    <li><a href="#"><i class="fa-solid fa-table-columns"></i> Modules</a></li>
+                    <li><a href="#"><i class="fa-solid fa-bars-staggered"></i> Lessons</a></li>
+                    <li><a href="#" class="active"><i class="fa-regular fa-file-lines"></i> Assignments</a></li>
+                    <li><a href="#"><i class="fa-solid fa-graduation-cap"></i> Certificates</a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <h1>Submissions Hub</h1>
+                <p>Review incoming student work, apply marks, and update content templates</p>
+                <hr>
+            </header>
+
+            <div class="table-container">
+                <table class="submissions-table">
+                    <thead>
+                        <tr>
+                            <th>ASSIGNMENT TITLE</th>
+                            <th>COURSE NAME</th>
+                            <th>DEADLINE</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1 -->
+                        <tr>
+                            <td class="font-bold">React Components Lab</td>
+                            <td class="text-muted">Advanced Web UI</td>
+                            <td class="text-muted">2026-10-15</td>
+                            <td><button class="btn-review">Review</button></td>
+                        </tr>
+                        <!-- Row 2 -->
+                        <tr>
+                            <td class="font-bold">React Components Lab</td>
+                            <td class="text-muted">Advanced Web UI</td>
+                            <td class="text-muted">2026-10-15</td>
+                            <td><button class="btn-review">Review</button></td>
+                        </tr>
+                        <!-- Row 3 -->
+                        <tr>
+                            <td class="font-bold">React Components Lab</td>
+                            <td class="text-muted">Advanced Web UI</td>
+                            <td class="text-muted">2026-10-15</td>
+                            <td><button class="btn-review">Review</button></td>
+                        </tr>
+                        <!-- Row 4 -->
+                        <tr>
+                            <td class="font-bold">React Components Lab</td>
+                            <td class="text-muted">Advanced Web UI</td>
+                            <td class="text-muted">2026-10-15</td>
+                            <td><button class="btn-review">Review</button></td>
+                        </tr>
+                        <!-- Row 5 -->
+                        <tr>
+                            <td class="font-bold">React Components Lab</td>
+                            <td class="text-muted">Advanced Web UI</td>
+                            <td class="text-muted">2026-10-15</td>
+                            <td><button class="btn-review">Review</button></td>
+                        </tr>
+                        <!-- Row 6 -->
+                        <tr>
+                            <td class="font-bold">React Components Lab</td>
+                            <td class="text-muted">Advanced Web UI</td>
+                            <td class="text-muted">2026-10-15</td>
+                            <td><button class="btn-review">Review</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Link to the external JavaScript file -->
+    <script src="assignments-submissions-hub.js"></script>
+</body>
+
+</html>

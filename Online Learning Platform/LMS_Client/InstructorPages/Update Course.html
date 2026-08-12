@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Course</title>
+
+  <!-- Link to the external CSS file -->
+  <link rel="stylesheet" href="Update Course.css">
+</head>
+
+<body>
+
+  <main class="main-wrapper">
+    <!-- Back Button -->
+    <button class="btn-back" id="backBtn" aria-label="Go Back">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 12H4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M10 18L4 12L10 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+
+    <!-- Center Card -->
+    <div class="form-card">
+
+      <!-- Logo Header -->
+      <div class="logo-container">
+        <svg class="logo-icon" width="24" height="20" viewBox="0 0 24 20" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 0L24 6.5L12 13L0 6.5L12 0Z" fill="#F45B3E" />
+          <path d="M12 20L24 13.5V17L12 23.5L0 17V13.5L12 20Z" fill="#F45B3E" />
+        </svg>
+        <span class="logo-text">Scholar<span class="logo-highlight">Hub</span></span>
+      </div>
+
+      <h1 class="card-title">Update Course</h1>
+
+      <!-- Form -->
+      <form id="updateCourseForm">
+
+        <div class="input-group">
+          <label for="courseName">COURSE NAME</label>
+          <input type="text" id="courseName" name="courseName" value="C# Programming" required>
+        </div>
+
+        <div class="input-group">
+          <label for="coursePrice">COURSE PRICE</label>
+          <input type="text" id="coursePrice" name="coursePrice" value="OMR 30.0" required>
+        </div>
+
+        <div class="input-group">
+          <label for="category">CATEGORY</label>
+          <div class="select-wrapper">
+            <select id="category" name="category" required>
+              <option value="Programming" selected>Programming</option>
+              <option value="Design">Design</option>
+              <option value="Business">Business</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="instructor">INSTRUCTOR</label>
+          <div class="select-wrapper">
+            <select id="instructor" name="instructor" required>
+              <option value="Dr.Mike Andrew" selected>Dr.Mike Andrew</option>
+              <option value="Prof. Jane Doe">Prof. Jane Doe</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">Update</button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- Link to the external JavaScript file -->
+  <script src="Update Course.js"></script>
+</body>
+
+</html>

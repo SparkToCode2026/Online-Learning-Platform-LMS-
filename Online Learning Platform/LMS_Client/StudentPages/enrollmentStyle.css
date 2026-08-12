@@ -640,6 +640,15 @@ body {
   }
 }
 
+/* Clickable enrollment card wrapper link */
+.enrollment-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+
 /* Responsive Layout Adjustments (Sidebar remains fixed at 240px) */
 @media (max-width: 768px) {
   .hero-banner {
