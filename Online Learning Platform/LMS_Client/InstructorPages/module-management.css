@@ -1,4 +1,7 @@
-/* General page setup */
+/* ==============================
+   General
+============================== */
+
 * {
     box-sizing: border-box;
 }
@@ -7,7 +10,7 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     background-color: #fff8ef;
-    color: #463d3a;
+    color: #403735;
 }
 
 button,
@@ -22,7 +25,10 @@ select {
 }
 
 
-/* Sidebar */
+/* ==============================
+   Sidebar
+============================== */
+
 .sidebar {
     width: 235px;
     min-height: 100vh;
@@ -33,11 +39,11 @@ select {
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 
 /* Logo */
+
 .logo {
     display: flex;
     align-items: center;
@@ -67,17 +73,19 @@ select {
 
     fill: none;
     stroke: #ffffff;
+
     stroke-width: 1.8;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
 
 .logo-orange {
-    color: #ff7657;
+    color: #f56645;
 }
 
 
-/* Sidebar navigation */
+/* Navigation */
+
 .sidebar-nav {
     display: flex;
     flex-direction: column;
@@ -107,6 +115,7 @@ select {
 
     fill: none;
     stroke: currentColor;
+
     stroke-width: 1.7;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -117,55 +126,66 @@ select {
 }
 
 .sidebar-nav a.active {
-    background-color: #f56645;
+    color: #f56645;
+    font-weight: 600;
+}
+
+
+/* ==============================
+   Logout
+============================== */
+
+.sidebar-footer {
+    margin-top: auto;
+
+    padding-top: 24px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.logout-button {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 12px 6px;
+
+    border: none;
+    background: transparent;
+
     color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    text-align: left;
+}
+
+.logout-button svg {
+    width: 25px;
+    height: 25px;
+
+    fill: none;
+    stroke: currentColor;
+
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.logout-button:hover {
+    color: #f56645;
 }
 
 
-/* Profile */
-.profile {
-    padding-top: 20px;
+/* ==============================
+   Main Content
+============================== */
 
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-
-    display: flex;
-    align-items: center;
-    gap: 11px;
-}
-
-.profile-avatar {
-    width: 38px;
-    height: 38px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background-color: #f56645;
-
-    border-radius: 50%;
-
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.profile strong {
-    display: block;
-
-    font-size: 12px;
-
-    margin-bottom: 3px;
-}
-
-.profile span {
-    display: block;
-
-    font-size: 10px;
-    opacity: 0.7;
-}
-
-
-/* Main content */
 .main-content {
     flex: 1;
 
@@ -175,7 +195,10 @@ select {
 }
 
 
-/* Header */
+/* ==============================
+   Header
+============================== */
+
 .page-header {
     display: flex;
     align-items: flex-start;
@@ -206,7 +229,10 @@ select {
 }
 
 
-/* Search + filter */
+/* ==============================
+   Search + Filter
+============================== */
+
 .header-actions {
     display: flex;
     align-items: center;
@@ -234,6 +260,7 @@ select {
 
     fill: none;
     stroke: #8e8078;
+
     stroke-width: 1.8;
     stroke-linecap: round;
 
@@ -277,7 +304,10 @@ select {
 }
 
 
-/* Modules section */
+/* ==============================
+   Module Cards
+============================== */
+
 .modules-grid {
     display: grid;
 
@@ -288,8 +318,6 @@ select {
     margin-top: 46px;
 }
 
-
-/* Individual module card */
 .module-card {
     position: relative;
 
@@ -314,7 +342,8 @@ select {
 }
 
 
-/* Module order */
+/* Order Number */
+
 .order-number {
     position: absolute;
 
@@ -341,7 +370,8 @@ select {
 }
 
 
-/* Module icon */
+/* Module Icon */
+
 .module-icon {
     width: 50px;
     height: 50px;
@@ -358,18 +388,20 @@ select {
 }
 
 .module-icon svg {
-    width: 26px;
-    height: 26px;
+    width: 27px;
+    height: 27px;
 
     fill: none;
     stroke: #f56645;
-    stroke-width: 1.7;
+
+    stroke-width: 1.5;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
 
 
-/* Module text */
+/* Module Text */
+
 .module-card h2 {
     margin: 0 0 12px;
 
@@ -390,7 +422,8 @@ select {
 }
 
 
-/* Lesson count */
+/* Lessons */
+
 .lesson-count {
     display: flex;
     align-items: center;
@@ -405,15 +438,21 @@ select {
     width: 17px;
     height: 17px;
 
+    flex-shrink: 0;
+
     fill: none;
     stroke: #83756d;
+
     stroke-width: 1.6;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
 
 
-/* Module actions */
+/* ==============================
+   Card Actions
+============================== */
+
 .card-actions {
     display: flex;
     align-items: center;
@@ -442,8 +481,6 @@ select {
 
     font-size: 13px;
     font-weight: 600;
-
-    transition: background-color 0.2s ease;
 }
 
 .view-button:hover {
@@ -463,8 +500,6 @@ select {
     border-radius: 8px;
 
     cursor: pointer;
-
-    transition: 0.2s ease;
 }
 
 .icon-button svg {
@@ -486,10 +521,6 @@ select {
     stroke: #625651;
 }
 
-.edit-button:hover {
-    background-color: #f7f1ec;
-}
-
 .delete-button {
     border: 1px solid #f56645;
 }
@@ -498,12 +529,11 @@ select {
     stroke: #f56645;
 }
 
-.delete-button:hover {
-    background-color: #fff0eb;
-}
 
+/* ==============================
+   Create New Module
+============================== */
 
-/* Create new module box */
 .create-module {
     margin-top: 42px;
 
@@ -556,13 +586,18 @@ select {
 
     fill: none;
     stroke: #f56645;
+
     stroke-width: 2;
     stroke-linecap: round;
 }
 
 
-/* Responsive layout */
+/* ==============================
+   Responsive
+============================== */
+
 @media (max-width: 1100px) {
+
     .modules-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -588,6 +623,7 @@ select {
 
     .header-actions {
         width: 100%;
+
         flex-direction: column;
         align-items: stretch;
     }
