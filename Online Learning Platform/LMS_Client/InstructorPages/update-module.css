@@ -1,0 +1,212 @@
+/* ==============================
+   General
+============================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #FCF2E5;
+    color: #524646;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+
+/* ==============================
+   Page
+============================== */
+
+.update-module-page {
+    width: 100%;
+    max-width: 760px;
+
+    margin: 0 auto;
+    padding: 55px 30px;
+}
+
+
+/* ==============================
+   Header
+============================== */
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-label {
+    margin: 0 0 8px;
+
+    color: #EC5B38;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.page-header h1 {
+    margin: 0;
+
+    color: #524646;
+
+    font-size: 30px;
+    font-weight: 700;
+}
+
+
+/* ==============================
+   Form Card
+============================== */
+
+.form-card {
+    background-color: #ffffff;
+
+    border: 1px solid #d7c8bb;
+    border-radius: 12px;
+
+    padding: 32px;
+
+    box-shadow: 0 4px 12px rgba(82, 70, 70, 0.05);
+}
+
+
+/* ==============================
+   Form Fields
+============================== */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    color: #524646;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 14px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #b9aaa0;
+    border-radius: 8px;
+
+    color: #524646;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #EC5B38;
+
+    box-shadow: 0 0 0 2px rgba(236, 91, 56, 0.10);
+}
+
+
+/* ==============================
+   Buttons
+============================== */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 32px;
+}
+
+.cancel-button,
+.update-button {
+    min-width: 115px;
+    height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+
+/* Cancel Button */
+
+.cancel-button {
+    background-color: #ffffff;
+
+    border: 1px solid #9f9188;
+
+    color: #524646;
+}
+
+.cancel-button:hover {
+    background-color: #FCF2E5;
+}
+
+
+/* Update Module Button */
+
+.update-button {
+    border: none;
+
+    background-color: #EC5B38;
+
+    color: #ffffff;
+}
+
+.update-button:hover {
+    background-color: #d94e2e;
+}
+
+
+/* ==============================
+   Responsive
+============================== */
+
+@media (max-width: 600px) {
+
+    .update-module-page {
+        padding: 35px 18px;
+    }
+
+    .form-card {
+        padding: 24px 18px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .cancel-button,
+    .update-button {
+        width: 100%;
+    }
+}
