@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Creator</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assessment-creator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <span class="brand-name">ScholarHub</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item"><i class="fa-solid fa-border-all"></i><span>Dashboard</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-book-open"></i><span>Courses</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-folder-open"></i><span>Categories</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-cubes"></i><span>Modules</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-file-alt"></i><span>Lessons</span></a>
+                <a href="#" class="nav-item active"><i class="fa-solid fa-tasks"></i><span>Assignments</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-certificate"></i><span>Certificates</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item logout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <main class="main-wrapper">
+            <header class="page-header">
+                <div class="header-titles">
+                    <h1 class="page-heading">Assessment Creator</h1>
+                    <p class="page-subheading">Design custom graded assignments or interactive student quizzes</p>
+                </div>
+                <button type="button" id="openSimpleModalBtn" class="outline-btn">
+                    <i class="fa-solid fa-plus"></i> Quick Assignment Modal
+                </button>
+            </header>
+
+            <!-- Main Creator Container -->
+            <div class="creator-grid">
+                
+                <!-- Main Creator Card -->
+                <div class="creator-card">
+                    <!-- Tab Switcher -->
+                    <div class="tab-switcher">
+                        <button type="button" class="tab-btn active" data-tab="assignmentSection">Assignment Creator</button>
+                        <button type="button" class="tab-btn" data-tab="quizSection">Quiz Editor (Preview)</button>
+                    </div>
+
+                    <!-- 1. Assignment Form -->
+                    <div id="assignmentSection" class="tab-content active">
+                        <form id="fullAssignmentForm">
+                            <div class="form-group">
+                                <label for="fullTitle">ASSIGNMENT TITLE</label>
+                                <input type="text" id="fullTitle" value="React State Restructuring" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fullInstructions">INSTRUCTIONS</label>
+                                <textarea id="fullInstructions" rows="4">In this assignment, you'll refactor a cluttered component tree using the React Context API. Ensure there are no performance drops.</textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label for="fullDeadline">DEADLINE</label>
+                                    <input type="date" id="fullDeadline" value="2026-11-12" required>
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label for="fullPoints">TOTAL POINTS</label>
+                                    <input type="number" id="fullPoints" value="100">
+                                </div>
+                            </div>
+
+                            <div class="toggle-group">
+                                <span>Allow File Upload Submissions</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="allowFileUpload" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="primary-btn full-width-btn">Create Assignment</button>
+                        </form>
+                    </div>
+
+                    <!-- 2. Quiz Form Section -->
+                    <div id="quizSection" class="tab-content">
+                        <div class="quiz-content">
+                            <div class="form-group">
+                                <label class="section-sublabel" for="quizQuestionInput">QUESTION 1</label>
+                                <input type="text" id="quizQuestionInput" class="quiz-question-input" value="Which hook is best used for global reactive state avoidance?">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="section-sublabel">ANSWERS OPTIONS</label>
+                                <div class="radio-options">
+                                    <label class="radio-card selected">
+                                        <input type="radio" name="quiz1" checked>
+                                        <span>useContext</span>
+                                    </label>
+                                    <label class="radio-card">
+                                        <input type="radio" name="quiz1">
+                                        <span>useState</span>
+                                    </label>
+                                    <label class="radio-card">
+                                        <input type="radio" name="quiz1">
+                                        <span>useEffect</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label>PASSING SCORE (%)</label>
+                                    <input type="number" value="80">
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label>TIME LIMIT</label>
+                                    <div class="input-suffix">
+                                        <input type="number" value="15">
+                                        <span class="suffix-text">mins</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="quiz-actions">
+                                <button type="button" id="addQuestionBtn" class="outline-btn flex-1">+ Add Question</button>
+                                <button type="button" id="saveQuizBtn" class="primary-btn flex-1">Save Quiz Draft</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Quick Assignment Modal -->
+    <div id="simpleModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-title-group">
+                <h3>Create New Assignment</h3>
+                <p>Assign a brand new lab or project to your cohorts</p>
+            </div>
+
+            <form id="quickAssignmentForm">
+                <div class="form-group">
+                    <label for="quickTitle">ASSIGNMENT TITLE</label>
+                    <input type="text" id="quickTitle" placeholder="Enter assignment title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="quickCourseId">COURSE SELECTION</label>
+                    <select id="quickCourseId">
+                        <option value="1">Advanced Web UI</option>
+                        <option value="2">Relational Databases</option>
+                        <option value="3">Interaction Design</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="quickDeadline">DEADLINE DATE</label>
+                    <input type="date" id="quickDeadline" value="2026-09-15" required>
+                </div>
+
+                <div class="modal-bottom-actions">
+                    <button type="submit" class="primary-btn flex-2">Create Assignment</button>
+                    <button type="button" id="closeSimpleModalBtn" class="cancel-btn flex-1">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script connection -->
+    <script src="assessment-creator.js"></script>
+</body>
+</html>

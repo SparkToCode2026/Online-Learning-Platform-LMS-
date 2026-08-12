@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments & Submissions Hub</title>
+    <link rel="stylesheet" href="assignments-hub.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <span class="brand-name">ScholarHub</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item"><i class="fa-solid fa-border-all"></i><span>Dashboard</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-book-open"></i><span>Courses</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-folder-open"></i><span>Categories</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-cubes"></i><span>Modules</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-file-alt"></i><span>Lessons</span></a>
+                <a href="#" class="nav-item active"><i class="fa-solid fa-tasks"></i><span>Assignments</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-certificate"></i><span>Certificates</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item logout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-wrapper">
+            <header class="page-header">
+                <div class="header-titles">
+                    <h1 class="page-heading">Assignments & Submissions Hub</h1>
+                    <p class="page-subheading">Manage, review, and track all course assignments</p>
+                </div>
+                <button class="primary-btn" onclick="window.location.href='assessment-creator.html'">+ Create New Assignment</button>
+            </header>
+
+            <!-- Table Container -->
+            <div class="table-card">
+                <table class="assignments-table">
+                    <thead>
+                        <tr>
+                            <th>ASSIGNMENT TITLE</th>
+                            <th>COURSE NAME</th>
+                            <th>DEADLINE</th>
+                            <th>SUBMISSIONS</th>
+                            <th>STATUS</th>
+                            <th class="text-center">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="assignmentsTableBody">
+                        <!-- Dynamic rows loaded via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="assignments-hub.js"></script>
+</body>
+</html>
