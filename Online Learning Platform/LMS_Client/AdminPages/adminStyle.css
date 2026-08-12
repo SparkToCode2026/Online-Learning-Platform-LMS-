@@ -259,3 +259,39 @@ body {
     overflow-x: auto;
   }
 }
+
+/* Admin Footer & Logout Button */
+.admin-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 36px;
+  padding-bottom: 20px;
+}
+
+.btn-logout {
+  background-color: #EE5A36;
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(238, 90, 54, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+  background-color: #d94a28;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(238, 90, 54, 0.4);
+}
+
+.btn-logout:active {
+  transform: translateY(0);
+}

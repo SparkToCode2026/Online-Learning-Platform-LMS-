@@ -204,14 +204,14 @@ body {
 .main-content {
   flex: 1;
   margin-left: 240px;
-  padding: 40px 48px 60px 48px;
+  padding: 40px 40px 60px 40px;
   min-height: 100vh;
   width: calc(100% - 240px);
 }
 
 .content-wrapper {
-  max-width: 980px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 0;
   width: 100%;
 }
 
@@ -633,6 +633,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -647,12 +648,15 @@ body {
     gap: 20px;
     padding: 24px 20px;
   }
+
   .btn-enroll-main {
     margin-left: 0;
     width: 100%;
     justify-content: center;
   }
-  .instructor-name, .progress-container {
+
+  .instructor-name,
+  .progress-container {
     margin-left: 0;
   }
 }
