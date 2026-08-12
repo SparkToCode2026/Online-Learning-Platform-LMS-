@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Web UI Design</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="CoursePlayer.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="btn-icon primary-bg" id="backBtn" aria-label="Back to Enrollment"><i
+                        class="fa-solid fa-arrow-left"></i></button>
+                <button class="btn-icon outline" id="sidebarToggleBtn" aria-label="Toggle Sidebar"
+                    style="display: none;"><i class="fa-solid fa-bars"></i></button>
+                <h1 class="course-title">Advanced Web UI Design</h1>
+            </div>
+            <div class="header-center">
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" style="width: 45%;"></div>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="btn-outline"><i class="fa-regular fa-file-lines"></i> Notes</button>
+                <button class="btn-icon outline"><i class="fa-solid fa-gear"></i></button>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-layout">
+            <!-- SIDEBAR -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h2>MODULES</h2>
+                    <button class="btn-collapse" id="collapseBtn">
+                        <i class="fa-solid fa-chevron-up"></i> Collapse
+                    </button>
+                </div>
+
+                <div class="module-list">
+                    <!-- Module 1 -->
+                    <div class="module">
+                        <div class="module-title">
+                            <div class="module-name">
+                                <span class="module-number">1</span>
+                                <h3>Module 1 - Foundations</h3>
+                            </div>
+                            <span class="module-progress full"><i class="fa-solid fa-check-double"></i> 3/3</span>
+                        </div>
+                        <div class="lesson-items">
+                            <div class="lesson-item">
+                                <div class="lesson-info">
+                                    <div class="icon-box"><i class="fa-solid fa-video"></i></div>
+                                    <span>1.1 - Introduction to Web UI</span>
+                                </div>
+                                <i class="fa-solid fa-circle-check completed-icon"></i>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-info">
+                                    <div class="icon-box"><i class="fa-regular fa-file-lines"></i></div>
+                                    <span>1.2 - Course syllabus & resources</span>
+                                </div>
+                                <i class="fa-solid fa-circle-check completed-icon"></i>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-info">
+                                    <div class="icon-box"><i class="fa-solid fa-book-open"></i></div>
+                                    <span>1.3 - Design systems primer</span>
+                                </div>
+                                <i class="fa-solid fa-circle-check completed-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Module 2 -->
+                    <div class="module">
+                        <div class="module-title">
+                            <div class="module-name">
+                                <span class="module-number">2</span>
+                                <h3>Module 2 - Layout & Components</h3>
+                            </div>
+                            <span class="module-progress partial"><i class="fa-solid fa-check-double"></i> 2/4</span>
+                        </div>
+                        <div class="lesson-items">
+                            <div class="lesson-item">
+                                <div class="lesson-info">
+                                    <div class="icon-box"><i class="fa-solid fa-video"></i></div>
+                                    <span>2.1 - Grid systems & spacing</span>
+                                </div>
+                                <i class="fa-solid fa-circle-check completed-icon"></i>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-info">
+                                    <div class="icon-box"><i class="fa-solid fa-video"></i></div>
+                                    <span>2.2 - Component hierarchy</span>
+                                </div>
+                                <i class="fa-solid fa-circle-check completed-icon"></i>
+                            </div>
+                            <div class="lesson-item active">
+                                <div class="lesson-info">
+                                    <div class="icon-box"><i class="fa-regular fa-file-lines"></i></div>
+                                    <span>2.3 - Typography & accessibility</span>
+                                </div>
+                                <i class="fa-regular fa-circle pending-icon"></i>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-info">
+                                    <div class="icon-box"><i class="fa-solid fa-book-open"></i></div>
+                                    <span>2.4 - Component documentation</span>
+                                </div>
+                                <i class="fa-regular fa-circle pending-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Module 3 -->
+                    <div class="module">
+                        <div class="module-title">
+                            <div class="module-name">
+                                <span class="module-number">3</span>
+                                <h3>Module 3 - Interactions & State</h3>
+                            </div>
+                            <span class="module-progress empty"><i class="fa-solid fa-check-double"></i> 0/4</span>
+                        </div>
+                        <div class="lesson-items">
+                            <div class="lesson-item">
+                                <div class="lesson-info">
+                                    <div class="icon-box"><i class="fa-solid fa-video"></i></div>
+                                    <span>3.1 - Clicks, hovers, and focus</span>
+                                </div>
+                                <i class="fa-regular fa-circle pending-icon"></i>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-info">
+                                    <div class="icon-box"><i class="fa-solid fa-video"></i></div>
+                                    <span>3.2 - State machines & transitions</span>
+                                </div>
+                                <i class="fa-regular fa-circle pending-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- CONTENT AREA -->
+            <section class="content-area">
+                <!-- Video Player Container -->
+                <div class="video-container" style="background-image: url('image_1432d8.jpg');">
+                    <div class="video-overlay"></div>
+                    <div class="video-top-controls">
+                        <button class="video-btn"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="video-btn text-btn"><i class="fa-solid fa-expand"></i> Fullscreen</button>
+                    </div>
+
+                    <button class="play-btn-large">
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+
+                    <div class="video-bottom-controls">
+                        <span class="time-stamp">12:34 / 18:05</span>
+                        <button class="video-btn text-btn"><i class="fa-solid fa-bolt"></i> 1.0x</button>
+                        <button class="video-btn text-btn"><i class="fa-solid fa-closed-captioning"></i>
+                            Captions</button>
+                    </div>
+                </div>
+
+                <!-- Lesson Details Card -->
+                <div class="lesson-details-card">
+                    <div class="lesson-header">
+                        <h2>2.3 - Typography & accessibility</h2>
+                        <p class="meta-data">Module 2 • 12 min video • Updated Sep 12, 2024</p>
+                    </div>
+
+                    <div class="lesson-description">
+                        <p>In this lesson, we'll cover the core principles of readable typography in UI: scale, rhythm,
+                            contrast, and semantic meaning. You'll learn how to choose type sizes, line-heights, and
+                            spacing that work across devices, and how to audit your components for accessibility.</p>
+                    </div>
+
+                    <div class="lesson-footer">
+                        <div class="tags">
+                            <span class="tag"><i class="fa-solid fa-video"></i> Video</span>
+                            <span class="tag"><i class="fa-regular fa-clock"></i> 12 min</span>
+                        </div>
+                        <button class="btn-primary" id="markCompleteBtn">
+                            <i class="fa-solid fa-check"></i> Mark as Complete
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Link to the external JavaScript file -->
+    <script src="CoursePlayer.js"></script>
+</body>
+
+</html>

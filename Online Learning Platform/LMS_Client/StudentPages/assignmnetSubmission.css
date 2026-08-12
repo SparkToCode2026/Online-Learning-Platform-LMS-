@@ -1,0 +1,163 @@
+/* --- Base & Reset Styles --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #fdf6eb; /* Light beige background */
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 950px; /* Wide layout to match the image */
+    border: 2px solid #e3dcd4; /* Soft beige border around the container */
+    border-radius: 16px;
+    padding: 25px;
+}
+
+/* --- Header Styles --- */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.back-btn {
+    background-color: #ee5d36; /* Brand orange */
+    color: #ffffff;
+    border: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.back-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    stroke-width: 3; /* Clear and prominent stroke */
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.15s ease;
+}
+
+.back-btn:hover {
+    background-color: #d6502e;
+    transform: scale(1.06);
+}
+
+.back-btn:hover svg {
+    transform: translateX(-2px); /* Subtle slide interaction on hover */
+}
+
+.back-btn:active {
+    transform: scale(0.95);
+}
+
+.header h1 {
+    color: #1a2233; /* Dark navy/black */
+    font-size: 26px;
+    font-weight: 800;
+}
+
+/* --- Main Card Styles --- */
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e8e8e8;
+}
+
+.card h2 {
+    font-size: 14px;
+    color: #2c3545;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+/* --- Textarea Styles --- */
+.textarea-wrapper {
+    background-color: #ffffff;
+    border: 8px solid #fcf5ed; /* Thick light inner border */
+    border-radius: 12px;
+    margin-bottom: 40px;
+}
+
+textarea {
+    width: 100%;
+    height: 350px;
+    border: 1px solid #f2e9df; /* Inner thin outline */
+    border-radius: 6px;
+    padding: 20px;
+    font-size: 15px;
+    resize: none; /* Disabled resizing to lock the UI layout */
+    outline: none;
+    color: #333333;
+}
+
+textarea::placeholder {
+    color: #b3b3b3;
+}
+
+textarea:focus {
+    border-color: #e3dcd4;
+}
+
+/* --- Button Styles --- */
+.btn-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.create-btn {
+    background-color: #ee5d36; /* Brand orange */
+    color: #ffffff;
+    border: none;
+    padding: 16px 40px;
+    width: 60%;
+    max-width: 450px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(238, 93, 54, 0.35); /* Orange drop shadow */
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.create-btn:hover {
+    background-color: #d6502e;
+}
+
+.create-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 6px rgba(238, 93, 54, 0.35);
+}
+
+/* --- Responsive Styles --- */
+@media (max-width: 768px) {
+    body {
+        padding: 20px 10px;
+    }
+    .container {
+        padding: 15px;
+        border-radius: 12px;
+    }
+    .card {
+        padding: 20px;
+    }
+}

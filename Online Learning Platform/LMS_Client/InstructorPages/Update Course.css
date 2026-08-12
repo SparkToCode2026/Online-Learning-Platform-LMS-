@@ -1,0 +1,171 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #F8EFE5; /* Uniform beige background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.main-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Back Button */
+.btn-back {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  background-color: #F45B3E;
+  border: none;
+  border-radius: 8px;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(244, 91, 62, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.btn-back:hover {
+  transform: scale(1.05);
+}
+
+/* Form Card */
+.form-card {
+  background-color: #ffffff;
+  width: 420px;
+  padding: 40px 35px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: #4A443E;
+}
+
+.logo-highlight {
+  color: #F45B3E;
+}
+
+/* Title */
+.card-title {
+  color: #4A443E;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* Form Elements */
+#updateCourseForm {
+  width: 100%;
+}
+
+.input-group {
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.input-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6C665F;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.input-group input, 
+.input-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #D6CCBF;
+  border-radius: 8px;
+  background-color: #FDF9F2;
+  font-size: 14px;
+  color: #554F49;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input-group input:focus, 
+.input-group select:focus {
+  border-color: #F45B3E;
+}
+
+/* Custom Select Dropdown Arrow */
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: "▼";
+  font-size: 10px;
+  color: #6C665F;
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.input-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 30px;
+  cursor: pointer;
+}
+
+/* Action Button */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.btn-submit {
+  background-color: #F45B3E;
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px; /* Slightly different button radius based on the image */
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(244, 91, 62, 0.4);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover {
+  background-color: #e0472a;
+  transform: translateY(-2px);
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates Management - ScholarHub</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="Certificates-management.css">
+</head>
+
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0L24 6.5L12 13L0 6.5L12 0Z" fill="#F45B3E" />
+                        <path d="M12 20L24 13.5V17L12 23.5L0 17V13.5L12 20Z" fill="#F45B3E" />
+                    </svg>
+                    <span>ScholarHub</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-border-all"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fa-solid fa-book-open"></i> Courses</a></li>
+                    <li><a href="#"><i class="fa-regular fa-folder"></i> Categories</a></li>
+                    <li><a href="#"><i class="fa-solid fa-table-columns"></i> Modules</a></li>
+                    <li><a href="#"><i class="fa-solid fa-bars-staggered"></i> Lessons</a></li>
+                    <li><a href="#"><i class="fa-regular fa-file-lines"></i> Assignments</a></li>
+                    <li><a href="#" class="active"><i class="fa-solid fa-graduation-cap"></i> Certificates</a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header Section -->
+            <header class="page-header">
+                <div class="header-titles">
+                    <h1>Certificates Management</h1>
+                    <p>Manage university roster, adjust roles, and approve registrations</p>
+                </div>
+                <div class="header-controls">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchInput" placeholder="Search here...">
+                    </div>
+                    <button class="btn-create-cert" id="createCertBtn">
+                        <i class="fa-solid fa-plus"></i> Create Certificate
+                    </button>
+                </div>
+            </header>
+
+            <hr class="header-divider">
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <!-- Total Certificates Card -->
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">TOTAL CERTIFICATES</span>
+                        <i class="fa-solid fa-bars-staggered stat-icon"></i>
+                    </div>
+                    <div class="stat-value">1,247</div>
+                    <div class="stat-subtitle">+42 enrolled this week</div>
+                </div>
+
+                <!-- Latest Certificate Card -->
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">LATEST CERTIFICATE</span>
+                    </div>
+                    <div class="stat-details">
+                        <strong>Sarah Chen</strong><br>
+                        2024-05-24...
+                    </div>
+                    <i class="fa-regular fa-calendar stat-large-icon"></i>
+                </div>
+            </div>
+
+            <!-- Table Section -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Certificate ID</th>
+                            <th>Student Name</th>
+                            <th>Course Title</th>
+                            <th>Issued At</th>
+                            <th class="align-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1 -->
+                        <tr>
+                            <td>101</td>
+                            <td class="font-bold">Sarah Chen</td>
+                            <td class="text-muted">web Development</td>
+                            <td><span class="date-badge">2024-05-24</span></td>
+                            <td class="align-right">
+                                <div class="action-buttons">
+                                    <button class="btn-action btn-delete" title="Delete"><i
+                                            class="fa-regular fa-trash-can"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Row 2 -->
+                        <tr>
+                            <td>102</td>
+                            <td class="font-bold">David Brent</td>
+                            <td class="text-muted">data Science</td>
+                            <td><span class="date-badge">2024-05-24</span></td>
+                            <td class="align-right">
+                                <div class="action-buttons">
+                                    <button class="btn-action btn-delete" title="Delete"><i
+                                            class="fa-regular fa-trash-can"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Row 3 -->
+                        <tr>
+                            <td>103</td>
+                            <td class="font-bold">Kelly Mastrangelo</td>
+                            <td class="text-muted">UI/UX Design</td>
+                            <td><span class="date-badge">2024-05-24</span></td>
+                            <td class="align-right">
+                                <div class="action-buttons">
+                                    <button class="btn-action btn-delete" title="Delete"><i
+                                            class="fa-regular fa-trash-can"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Certificate Modal -->
+    <div class="modal-overlay" id="certModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-certificate"></i> Create Certificate</h2>
+                <button class="modal-close" id="modalCloseBtn">&times;</button>
+            </div>
+            <form id="createCertForm">
+                <div class="form-group">
+                    <label for="studentName">Student Name</label>
+                    <input type="text" id="studentName" placeholder="e.g. Sarah Chen" required>
+                </div>
+                <div class="form-group">
+                    <label for="courseTitle">Course Title</label>
+                    <input type="text" id="courseTitle" placeholder="e.g. Web Development" required>
+                </div>
+                <div class="form-group">
+                    <label for="issueDate">Issue Date</label>
+                    <input type="date" id="issueDate" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" id="modalCancelBtn">Cancel</button>
+                    <button type="submit" class="btn-assign"><i class="fa-solid fa-paper-plane"></i> Assign Certificate</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Link to the external JavaScript file -->
+    <script src="Certificates-management.js"></script>
+</body>
+
+</html>
