@@ -1,7 +1,7 @@
-// Get the selected module from the URL.
-// Example: create-lesson.html?module=intro
 const params = new URLSearchParams(window.location.search);
-const selectedModule = params.get("module") || "oop";
+
+// Module we came from.
+let selectedModule = params.get("module") || "oop";
 
 const createLessonForm =
     document.getElementById("createLessonForm");
@@ -10,7 +10,7 @@ const moduleSelect =
     document.getElementById("module");
 
 
-// Match the module dropdown with the selected module.
+// Default modules.
 const moduleNames = {
     intro: "Introduction to C#",
     oop: "Object-Oriented Programming",
@@ -18,71 +18,93 @@ const moduleNames = {
 };
 
 
-// Automatically show the correct module in the dropdown.
-if (moduleSelect && moduleNames[selectedModule]) {
-    moduleSelect.value = moduleNames[selectedModule];
+// Get custom modules created by the user.
+const customModules =
+    JSON.parse(localStorage.getItem("modules")) || [];
+
+
+// Add custom modules to dropdown.
+customModules.forEach(function (module, index) {
+
+    const moduleKey = `custom-${index}`;
+
+    moduleNames[moduleKey] = module.moduleTitle;
+
+    const option = document.createElement("option");
+
+    option.value = moduleKey;
+    option.textContent = module.moduleTitle;
+
+    moduleSelect.appendChild(option);
+});
+
+
+// Select the module we came from.
+if (moduleNames[selectedModule]) {
+    moduleSelect.value = selectedModule;
 }
 
 
-// When Create Lesson is clicked.
-createLessonForm.addEventListener(
-    "submit",
-    function (event) {
+// Create Lesson.
+createLessonForm.addEventListener("submit", function (event) {
 
-        event.preventDefault();
+    event.preventDefault();
 
+    // IMPORTANT:
+    // Use the module currently selected in the dropdown.
+    selectedModule = moduleSelect.value;
 
-        // Get form values.
-        const lessonTitle =
-            document
-                .getElementById("lessonTitle")
-                .value
-                .trim();
-
-        const orderNumber =
-            document
-                .getElementById("orderNumber")
-                .value;
-
-        const duration =
-            document
-                .getElementById("duration")
-                .value;
-
-
-        // Create new lesson object.
-        const newLesson = {
-            orderNumber: orderNumber,
-            lessonTitle: lessonTitle,
-            duration: duration
-        };
-
-
-        // Each module has its own localStorage key.
-        const lessonsStorageKey =
-            `lessons_${selectedModule}`;
-
-
-        // Get lessons for this module only.
-        let lessons =
-            JSON.parse(
-                localStorage.getItem(lessonsStorageKey)
-            ) || [];
-
-
-        // Add the new lesson.
-        lessons.push(newLesson);
-
-
-        // Save it under the selected module.
-        localStorage.setItem(
-            lessonsStorageKey,
-            JSON.stringify(lessons)
-        );
-
-
-        // Return to the SAME module.
-        window.location.href =
-            `module-details.html?module=${selectedModule}`;
+    if (!selectedModule) {
+        alert("Please select a module.");
+        return;
     }
-);
+
+
+    const lessonTitle =
+        document
+            .getElementById("lessonTitle")
+            .value
+            .trim();
+
+    const orderNumber =
+        document
+            .getElementById("orderNumber")
+            .value;
+
+    const duration =
+        document
+            .getElementById("duration")
+            .value;
+
+
+    const newLesson = {
+        orderNumber: orderNumber,
+        lessonTitle: lessonTitle,
+        duration: duration
+    };
+
+
+    // Each module has its own lesson list.
+    const lessonsStorageKey =
+        `lessons_${selectedModule}`;
+
+
+    let lessons =
+        JSON.parse(
+            localStorage.getItem(lessonsStorageKey)
+        ) || [];
+
+
+    lessons.push(newLesson);
+
+
+    localStorage.setItem(
+        lessonsStorageKey,
+        JSON.stringify(lessons)
+    );
+
+
+    // Return to the SAME module.
+    window.location.href =
+        `module-details.html?module=${selectedModule}`;
+});

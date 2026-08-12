@@ -2,16 +2,15 @@
 // Selected Module
 // ==========================================
 
-// Get selected module from URL.
-// Example:
-// module-details.html?module=intro
-const params = new URLSearchParams(window.location.search);
+const params =
+    new URLSearchParams(window.location.search);
 
-const selectedModule = params.get("module") || "oop";
+const selectedModule =
+    params.get("module") || "oop";
 
 
 // ==========================================
-// Module Information
+// Default Modules
 // ==========================================
 
 const moduleData = {
@@ -33,62 +32,80 @@ const moduleData = {
         course: "C# Programming",
         order: 3
     }
-
 };
 
 
-// Get selected module information.
-const currentModule = moduleData[selectedModule];
+// ==========================================
+// Custom Modules
+// ==========================================
+
+const customModules =
+    JSON.parse(localStorage.getItem("modules")) || [];
 
 
-// Change module title.
-document.querySelector(".module-header h1").textContent =
-    currentModule.title;
+// Add custom modules to moduleData.
+customModules.forEach(function (module, index) {
+
+    moduleData[`custom-${index}`] = {
+        title: module.moduleTitle,
+        course: module.courseName,
+        order: module.orderNumber
+    };
+});
 
 
-// Change course and order.
-const moduleMeta =
-    document.querySelectorAll(".module-meta span");
-
-moduleMeta[0].textContent =
-    `Course: ${currentModule.course}`;
-
-moduleMeta[1].textContent =
-    `Order: ${currentModule.order}`;
-
-
-
-
-
-
+// Get current module.
+const currentModule =
+    moduleData[selectedModule];
 
 
 // ==========================================
-// Default Lessons For Each Module
+// Update Module Information
+// ==========================================
+
+if (currentModule) {
+
+    document.querySelector(
+        ".module-header h1"
+    ).textContent = currentModule.title;
+
+
+    const moduleMeta =
+        document.querySelectorAll(
+            ".module-meta span"
+        );
+
+
+    moduleMeta[0].textContent =
+        `Course: ${currentModule.course}`;
+
+    moduleMeta[1].textContent =
+        `Order: ${currentModule.order}`;
+}
+
+
+// ==========================================
+// Default Lessons
 // ==========================================
 
 const defaultLessons = {
 
-    // Introduction to C#
     intro: [
         {
             orderNumber: 1,
             lessonTitle: "Introduction to C#",
             duration: 20
         },
-
         {
             orderNumber: 2,
             lessonTitle: "Variables and Data Types",
             duration: 25
         },
-
         {
             orderNumber: 3,
             lessonTitle: "Conditions",
             duration: 20
         },
-
         {
             orderNumber: 4,
             lessonTitle: "Loops",
@@ -96,39 +113,32 @@ const defaultLessons = {
         }
     ],
 
-
-    // Object-Oriented Programming
     oop: [
         {
             orderNumber: 1,
             lessonTitle: "Classes and Objects",
             duration: 25
         },
-
         {
             orderNumber: 2,
             lessonTitle: "Constructors",
             duration: 20
         },
-
         {
             orderNumber: 3,
             lessonTitle: "Encapsulation",
             duration: 18
         },
-
         {
             orderNumber: 4,
             lessonTitle: "Inheritance",
             duration: 22
         },
-
         {
             orderNumber: 5,
             lessonTitle: "Polymorphism",
             duration: 24
         },
-
         {
             orderNumber: 6,
             lessonTitle: "Abstraction",
@@ -136,33 +146,27 @@ const defaultLessons = {
         }
     ],
 
-
-    // Collections & LINQ
     linq: [
         {
             orderNumber: 1,
             lessonTitle: "Introduction to Collections",
             duration: 20
         },
-
         {
             orderNumber: 2,
             lessonTitle: "Lists",
             duration: 25
         },
-
         {
             orderNumber: 3,
             lessonTitle: "Dictionaries",
             duration: 20
         },
-
         {
             orderNumber: 4,
             lessonTitle: "Introduction to LINQ",
             duration: 25
         },
-
         {
             orderNumber: 5,
             lessonTitle: "LINQ Queries",
@@ -172,42 +176,37 @@ const defaultLessons = {
 };
 
 
-
-
-
-
-
-
 // ==========================================
-// Local Storage
+// Load Lessons
 // ==========================================
-
-// Each module has its own storage.
-//
-// Examples:
-// lessons_intro
-// lessons_oop
-// lessons_linq
 
 const lessonsStorageKey =
     `lessons_${selectedModule}`;
 
-
-// Get saved lessons for the selected module.
 let lessons =
     JSON.parse(
         localStorage.getItem(lessonsStorageKey)
     );
 
 
-// If this module has no saved lessons,
-// use its default lessons.
+// If no lessons exist yet.
 if (!lessons) {
 
-    lessons =
-        defaultLessons[selectedModule].map(function (lesson) {
-            return { ...lesson };
-        });
+    // Default module gets default lessons.
+    if (defaultLessons[selectedModule]) {
+
+        lessons =
+            defaultLessons[selectedModule].map(
+                function (lesson) {
+                    return { ...lesson };
+                }
+            );
+
+    } else {
+
+        // Custom module starts empty.
+        lessons = [];
+    }
 
 
     localStorage.setItem(
@@ -215,12 +214,6 @@ if (!lessons) {
         JSON.stringify(lessons)
     );
 }
-
-
-
-
-
-
 
 
 // ==========================================
@@ -239,15 +232,7 @@ const cancelDeleteButton =
 const confirmDeleteButton =
     document.getElementById("confirmDelete");
 
-
-// Keeps track of the lesson selected for deletion.
 let lessonToDelete = null;
-
-
-
-
-
-
 
 
 // ==========================================
@@ -256,22 +241,17 @@ let lessonToDelete = null;
 
 function displayLessons() {
 
-    // Remove old generated lesson rows.
     document
         .querySelectorAll(".dynamic-lesson-row")
         .forEach(function (row) {
-
             row.remove();
-
         });
 
 
-    // Create a row for every lesson.
     lessons.forEach(function (lesson, index) {
 
         const lessonRow =
             document.createElement("div");
-
 
         lessonRow.classList.add(
             "table-row",
@@ -280,21 +260,11 @@ function displayLessons() {
 
 
         lessonRow.innerHTML = `
+            <span>${lesson.orderNumber}</span>
 
-            <span>
-                ${lesson.orderNumber}
-            </span>
+            <span>${lesson.lessonTitle}</span>
 
-
-            <span>
-                ${lesson.lessonTitle}
-            </span>
-
-
-            <span>
-                ${lesson.duration} min
-            </span>
-
+            <span>${lesson.duration} min</span>
 
             <div class="lesson-actions">
 
@@ -305,7 +275,6 @@ function displayLessons() {
                     Edit
                 </a>
 
-
                 <button
                     class="delete-button"
                     data-index="${index}"
@@ -315,25 +284,18 @@ function displayLessons() {
                 </button>
 
             </div>
-
         `;
 
 
-        lessonsTable.appendChild(lessonRow);
-
+        lessonsTable.appendChild(
+            lessonRow
+        );
     });
-
 }
 
 
-
-
-
-
-
-
 // ==========================================
-// Delete Button
+// Delete Lesson
 // ==========================================
 
 lessonsTable.addEventListener(
@@ -341,7 +303,9 @@ lessonsTable.addEventListener(
     function (event) {
 
         const deleteButton =
-            event.target.closest(".delete-button");
+            event.target.closest(
+                ".delete-button"
+            );
 
 
         if (!deleteButton) {
@@ -362,21 +326,13 @@ lessonsTable.addEventListener(
             Number(index);
 
 
-        // Open custom delete modal.
         if (deleteModal) {
-
-            deleteModal.classList.remove("hidden");
-
+            deleteModal.classList.remove(
+                "hidden"
+            );
         }
-
     }
 );
-
-
-
-
-
-
 
 
 // ==========================================
@@ -391,18 +347,12 @@ if (cancelDeleteButton) {
 
             lessonToDelete = null;
 
-            deleteModal.classList.add("hidden");
-
+            deleteModal.classList.add(
+                "hidden"
+            );
         }
     );
-
 }
-
-
-
-
-
-
 
 
 // ==========================================
@@ -420,14 +370,12 @@ if (confirmDeleteButton) {
             }
 
 
-            // Remove selected lesson.
             lessons.splice(
                 lessonToDelete,
                 1
             );
 
 
-            // Save this module's lessons.
             localStorage.setItem(
                 lessonsStorageKey,
                 JSON.stringify(lessons)
@@ -436,28 +384,19 @@ if (confirmDeleteButton) {
 
             lessonToDelete = null;
 
+            deleteModal.classList.add(
+                "hidden"
+            );
 
-            // Close modal.
-            deleteModal.classList.add("hidden");
 
-
-            // Refresh table.
             displayLessons();
-
         }
     );
-
 }
 
 
-
-
-
-
-
-
 // ==========================================
-// Close Modal By Clicking Outside
+// Close Modal Outside
 // ==========================================
 
 if (deleteModal) {
@@ -470,46 +409,33 @@ if (deleteModal) {
 
                 lessonToDelete = null;
 
-                deleteModal.classList.add("hidden");
-
+                deleteModal.classList.add(
+                    "hidden"
+                );
             }
-
         }
     );
-
 }
 
 
-
-
-
-
-
-
 // ==========================================
-// Add Lesson Link
+// Add Lesson
 // ==========================================
 
-// Send the selected module to Create Lesson page.
 const addLessonButton =
-    document.querySelector(".add-lesson-button");
+    document.querySelector(
+        ".add-lesson-button"
+    );
 
 if (addLessonButton) {
 
     addLessonButton.href =
         `create-lesson.html?module=${selectedModule}`;
-
 }
 
 
-
-
-
-
-
-
 // ==========================================
-// Load Lessons
+// Display
 // ==========================================
 
 displayLessons();

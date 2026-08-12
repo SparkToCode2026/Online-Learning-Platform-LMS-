@@ -22,13 +22,13 @@
     <!-- Create module form -->
     <section class="form-card">
 
-        <form>
+        <form id="createModuleForm">
 
             <!-- Select course -->
             <div class="form-group">
                 <label for="course">Course</label>
 
-                <select id="course" name="course">
+                <select id="course" name="course" required>
                     <option value="">Select Course</option>
                     <option>C# Programming</option>
                     <option>Web Development</option>
@@ -46,6 +46,8 @@
                         id="moduleTitle"
                         name="moduleTitle"
                         placeholder="e.g. Object-Oriented Programming"
+                        required
+
                 >
             </div>
 
@@ -59,6 +61,8 @@
                         id="orderNumber"
                         name="orderNumber"
                         placeholder="e.g. 2"
+                        required
+
                 >
             </div>
 
