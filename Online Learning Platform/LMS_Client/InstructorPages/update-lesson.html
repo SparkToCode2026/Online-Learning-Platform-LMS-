@@ -2,9 +2,99 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Update Lesson</title>
+
+    <link rel="stylesheet" href="update-lesson.css">
 </head>
+
 <body>
+
+<main class="update-lesson-page">
+
+    <!-- Page title -->
+    <section class="page-header">
+        <p class="page-label">ScholarHub</p>
+        <h1>Update Lesson</h1>
+    </section>
+
+    <!-- Update lesson form -->
+    <section class="form-card">
+
+        <form>
+
+            <!-- Module -->
+            <div class="form-group">
+                <label for="module">Module</label>
+
+                <select id="module" name="module">
+                    <option>Object-Oriented Programming</option>
+                    <option>Introduction to C#</option>
+                    <option>Collections & LINQ</option>
+                </select>
+            </div>
+
+
+            <!-- Lesson title -->
+            <div class="form-group">
+                <label for="lessonTitle">Lesson Title</label>
+
+                <input
+                        type="text"
+                        id="lessonTitle"
+                        name="lessonTitle"
+                        value="Constructors"
+                >
+            </div>
+
+
+            <!-- Order number -->
+            <div class="form-group">
+                <label for="orderNumber">Order Number</label>
+
+                <input
+                        type="number"
+                        id="orderNumber"
+                        name="orderNumber"
+                        value="2"
+                >
+            </div>
+
+
+            <!-- Duration -->
+            <div class="form-group">
+                <label for="duration">Duration (minutes)</label>
+
+                <input
+                        type="number"
+                        id="duration"
+                        name="duration"
+                        value="20"
+                >
+            </div>
+
+
+            <!-- Form buttons -->
+            <div class="form-actions">
+
+                <a href="module-details.html" class="cancel-button">
+                    Cancel
+                </a>
+
+                <button type="submit" class="update-button">
+                    Update
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+<script src="modules.js"></script>
 
 </body>
 </html>
