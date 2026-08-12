@@ -6,22 +6,22 @@
 }
 
 :root {
-  --sidebar-bg: #3F3535;
+  --sidebar-bg: #524646;
   --sidebar-hover: rgba(255, 255, 255, 0.08);
-  --main-bg: #FAF3EA;
-  --card-bg: #FAF3EA;
-  --card-border: #4A3E3E;
-  --banner-bg: #3F3535;
-  --accent-orange: #EF5938;
+  --main-bg: #FCF2E5;
+  --card-bg: #FCF2E5;
+  --card-border: #524646;
+  --banner-bg: #524646;
+  --accent-orange: #EC5B38;
   --accent-orange-hover: #D9492A;
-  --text-dark: #3A3030;
+  --text-dark: #524646;
   --text-muted: #837676;
-  --text-light: #F4ECE1;
-  --badge-active-bg: #FCDBC9;
-  --badge-active-text: #D94B26;
+  --text-light: #FEDFC1;
+  --badge-active-bg: #FEDFC1;
+  --badge-active-text: #EC5B38;
   --badge-completed-bg: #EDE0D3;
-  --badge-completed-text: #6E6359;
-  --progress-track: #ECE1D4;
+  --badge-completed-text: #524646;
+  --progress-track: #FEDFC1;
   --transition-speed: 0.2s;
 }
 
