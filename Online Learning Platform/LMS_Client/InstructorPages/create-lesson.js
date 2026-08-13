@@ -1,7 +1,29 @@
-const params = new URLSearchParams(window.location.search);
+import {
+    createLesson
+} from "../APIs/LessonApi.js";
 
-// Module we came from.
-let selectedModule = params.get("module") || "oop";
+import {
+    getAllModules
+} from "../APIs/ModuleApi.js";
+
+
+// ==========================================
+// Get Module ID From URL
+// ==========================================
+
+// Example:
+// create-lesson.html?moduleId=2
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const selectedModuleId =
+    Number(params.get("moduleId"));
+
+
+// ==========================================
+// Page Elements
+// ==========================================
 
 const createLessonForm =
     document.getElementById("createLessonForm");
@@ -9,102 +31,136 @@ const createLessonForm =
 const moduleSelect =
     document.getElementById("module");
 
+const lessonTitleInput =
+    document.getElementById("lessonTitle");
 
-// Default modules.
-const moduleNames = {
-    intro: "Introduction to C#",
-    oop: "Object-Oriented Programming",
-    linq: "Collections & LINQ"
-};
+const lessonURLInput =
+    document.getElementById("lessonURL");
 
-
-// Get custom modules created by the user.
-const customModules =
-    JSON.parse(localStorage.getItem("modules")) || [];
+const cancelButton =
+    document.getElementById("cancelButton");
 
 
-// Add custom modules to dropdown.
-customModules.forEach(function (module, index) {
+// ==========================================
+// Load Modules From Backend
+// ==========================================
 
-    const moduleKey = `custom-${index}`;
+async function loadModules() {
 
-    moduleNames[moduleKey] = module.moduleTitle;
+    try {
 
-    const option = document.createElement("option");
-
-    option.value = moduleKey;
-    option.textContent = module.moduleTitle;
-
-    moduleSelect.appendChild(option);
-});
+        // Get all modules from the database.
+        const modules =
+            await getAllModules();
 
 
-// Select the module we came from.
-if (moduleNames[selectedModule]) {
-    moduleSelect.value = selectedModule;
+        // Add modules to dropdown.
+        modules.forEach(function (module) {
+
+            const option =
+                document.createElement("option");
+
+            // Backend ModuleId
+            option.value =
+                module.moduleId;
+
+            // Backend ModuleName
+            option.textContent =
+                module.moduleName;
+
+            moduleSelect.appendChild(option);
+        });
+
+
+        // If user came from a specific module,
+        // select it automatically.
+        if (selectedModuleId) {
+
+            moduleSelect.value =
+                selectedModuleId;
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Failed to load modules:",
+            error
+        );
+
+        alert(
+            "Could not load modules from the server."
+        );
+    }
 }
 
 
-// Create Lesson.
-createLessonForm.addEventListener("submit", function (event) {
+// ==========================================
+// Create Lesson
+// ==========================================
 
-    event.preventDefault();
+createLessonForm.addEventListener(
+    "submit",
+    async function (event) {
 
-    // IMPORTANT:
-    // Use the module currently selected in the dropdown.
-    selectedModule = moduleSelect.value;
+        event.preventDefault();
 
-    if (!selectedModule) {
-        alert("Please select a module.");
-        return;
+
+        const lessonData = {
+
+            lessonTitle:
+                lessonTitleInput.value.trim(),
+
+            lessonURL:
+                lessonURLInput.value.trim(),
+
+            moduleId:
+                Number(moduleSelect.value)
+        };
+
+
+        try {
+
+            // Save lesson in the database.
+            await createLesson(
+                lessonData
+            );
+
+
+            // Return to selected module.
+            window.location.href =
+                `module-details.html?moduleId=${lessonData.moduleId}`;
+
+        } catch (error) {
+
+            console.error(
+                "Failed to create lesson:",
+                error
+            );
+
+            alert(
+                "Could not create the lesson."
+            );
+        }
     }
+);
 
 
-    const lessonTitle =
-        document
-            .getElementById("lessonTitle")
-            .value
-            .trim();
+// ==========================================
+// Cancel Button
+// ==========================================
 
-    const orderNumber =
-        document
-            .getElementById("orderNumber")
-            .value;
+// If we came from Module Details,
+// Cancel returns to the same module.
 
-    const duration =
-        document
-            .getElementById("duration")
-            .value;
+if (selectedModuleId) {
+
+    cancelButton.href =
+        `module-details.html?moduleId=${selectedModuleId}`;
+}
 
 
-    const newLesson = {
-        orderNumber: orderNumber,
-        lessonTitle: lessonTitle,
-        duration: duration
-    };
+// ==========================================
+// Start Page
+// ==========================================
 
-
-    // Each module has its own lesson list.
-    const lessonsStorageKey =
-        `lessons_${selectedModule}`;
-
-
-    let lessons =
-        JSON.parse(
-            localStorage.getItem(lessonsStorageKey)
-        ) || [];
-
-
-    lessons.push(newLesson);
-
-
-    localStorage.setItem(
-        lessonsStorageKey,
-        JSON.stringify(lessons)
-    );
-
-
-    // Return to the SAME module.
-    window.location.href =
-        `module-details.html?module=${selectedModule}`;
-});
+loadModules();
