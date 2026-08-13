@@ -1,4 +1,4 @@
-import { loginUser } from '../APIs/UserAPI.js';
+import { loginUser, registerUser } from '../APIs/UserAPI.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const loginTab = document.getElementById('login-tab');
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const studentOpt = document.getElementById('student-option');
   const instructorOpt = document.getElementById('instructor-option');
   const errorMessageContainer = document.getElementById('errorMessage');
+  const regErrorMessageContainer = document.getElementById('regErrorMessage');
 
   // Tab switching logic
   if (loginTab && registerTab && loginForm && registerForm) {
@@ -102,6 +103,63 @@ document.addEventListener('DOMContentLoaded', () => {
         // Output err.message inside <div id="errorMessage"></div>
         if (errDiv) {
           errDiv.textContent = err.message || 'An error occurred during login.';
+        }
+      }
+    });
+  }
+
+  // Form submit listener for Register
+  if (registerForm) {
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const regErrDiv = document.getElementById('regErrorMessage') || regErrorMessageContainer || errorMessageContainer;
+      if (regErrDiv) {
+        regErrDiv.textContent = '';
+      }
+
+      const nameInput = document.getElementById('reg-name');
+      const emailInput = document.getElementById('reg-email');
+      const passwordInput = document.getElementById('reg-password');
+      const selectedRole = document.querySelector('input[name="role"]:checked');
+
+      const fullName = nameInput ? nameInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+      const password = passwordInput ? passwordInput.value : '';
+      const rawRole = selectedRole ? selectedRole.value : 'student';
+
+      // Format role to matching backend convention ("Student", "Instructor")
+      const role = rawRole.charAt(0).toUpperCase() + rawRole.slice(1);
+
+      try {
+        const data = await registerUser(email, password, fullName, role);
+
+        // Save token and user object into localStorage
+        if (data && data.token) {
+          localStorage.setItem('token', data.token);
+        }
+        if (data && data.user) {
+          localStorage.setItem('user', JSON.stringify(data.user));
+        }
+
+        const userRole = (data && data.user && data.user.role) ? String(data.user.role).toLowerCase() : rawRole.toLowerCase();
+
+        const roleRedirects = {
+          'admin': '../AdminPages/admin.html',
+          'student': '../StudentPages/enrollment.html',
+          'instructor': '../Instructor profile/instructor-profile-create.html'
+        };
+
+        if (roleRedirects[userRole]) {
+          window.location.href = roleRedirects[userRole];
+        } else {
+          if (regErrDiv) {
+            regErrDiv.textContent = `Registration succeeded, but unknown user role: ${data?.user?.role || 'Unspecified'}`;
+          }
+        }
+      } catch (err) {
+        if (regErrDiv) {
+          regErrDiv.textContent = err.message || 'An error occurred during registration.';
         }
       }
     });
