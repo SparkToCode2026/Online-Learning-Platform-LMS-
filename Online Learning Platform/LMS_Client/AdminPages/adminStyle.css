@@ -200,6 +200,13 @@ body {
   color: #4A281E;
 }
 
+.role-admin {
+  background-color: #E2E8F0;
+  border: 1px solid #94A3B8;
+  color: #1E293B;
+}
+
+
 /* Action Icon Buttons */
 .action-buttons {
   display: inline-flex;
