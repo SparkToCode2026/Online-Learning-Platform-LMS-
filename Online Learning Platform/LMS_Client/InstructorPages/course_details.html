@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScholarHub - Course Details</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Separate CSS File -->
+  <link rel="stylesheet" href="course_details.css">
+</head>
+<body>
+
+  <div class="details-card">
+    <!-- Action Header -->
+    <div class="details-header">
+      <button class="btn-icon" onclick="goBack()" title="Back">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <h2 class="title">Course Details</h2>
+
+      <div class="header-actions">
+        <button class="btn-icon" id="editBtn" onclick="editCourse()" title="Edit">
+          <i class="fa-regular fa-pen-to-square"></i>
+        </button>
+        <button class="btn-icon btn-delete" id="deleteBtn" onclick="deleteCourse()" title="Delete">
+          <i class="fa-regular fa-trash-can"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dynamic Content Container -->
+    <div id="detailsContainer">
+      <div class="loading-state">
+        <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+        <p style="margin-top: 10px;">Loading details...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Separate JS File -->
+  <script src="course_details.js"></script>
+</body>
+</html>

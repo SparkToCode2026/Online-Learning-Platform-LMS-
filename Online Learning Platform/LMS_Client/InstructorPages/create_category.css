@@ -1,0 +1,143 @@
+:root {
+  --bg-main: #fdf6ed;
+  --accent-orange: #f05a36;
+  --text-dark: #333333;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  color: var(--text-dark);
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-card {
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 35px 40px 45px 40px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+  border: 1px solid #7c6d62;
+  text-align: center;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+/* Primary ScholarHub Logo Style */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #4a4040;
+}
+
+.brand-icon {
+  width: 44px;
+  height: 44px;
+  background-color: var(--accent-orange);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.brand-text span {
+  color: var(--accent-orange);
+}
+
+.form-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #4a4040;
+  margin-bottom: 30px;
+}
+
+.field-group {
+  text-align: left;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #4a4040;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid #7c6d62;
+  background-color: #fbf3eb;
+  font-size: 1rem;
+  color: #4a4040;
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: #776e65;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-submit {
+  background-color: var(--accent-orange);
+  color: white;
+  border: none;
+  border-radius: 18px;
+  padding: 12px 38px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(240, 90, 54, 0.25);
+  transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: #d84b29;
+}

@@ -1,3 +1,19 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="LMS_Client/InstructorPages/course_details.css" />
+    <File Path="LMS_Client/InstructorPages/course_details.html" />
+    <File Path="LMS_Client/InstructorPages/course_details.js" />
+    <File Path="LMS_Client/InstructorPages/course_filter.css" />
+    <File Path="LMS_Client/InstructorPages/course_filter.html" />
+    <File Path="LMS_Client/InstructorPages/course_filter.js" />
+    <File Path="LMS_Client/InstructorPages/create_category.css" />
+    <File Path="LMS_Client/InstructorPages/create_category.html" />
+    <File Path="LMS_Client/InstructorPages/create_category.js" />
+    <File Path="LMS_Client/InstructorPages/git_categories.html" />
+    <File Path="LMS_Client/InstructorPages/git_categories.js" />
+    <File Path="LMS_Client/InstructorPages/rename_category.css" />
+    <File Path="LMS_Client/InstructorPages/rename_category.html" />
+    <File Path="LMS_Client/InstructorPages/rename_category.js" />
+  </Folder>
   <Project Path="LMS_Server/LMS_Server.csproj" />
 </Solution>

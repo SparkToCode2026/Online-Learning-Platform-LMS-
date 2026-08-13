@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScholarHub - Rename Category</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="rename_category.css">
+</head>
+<body>
+
+  <!-- Main View -->
+  <main>
+    <div class="form-card">
+      <a href="git_categories.html" class="close-btn">&times;</a>
+      
+      <!-- Standard ScholarHub Logo -->
+      <div class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="brand-text">Scholar<span>Hub</span></div>
+      </div>
+
+      <h2 class="form-title">Rename Course Category</h2>
+      
+      <div class="field-group">
+        <label for="editCategoryName" class="form-label">CATEGORY NEW NAME</label>
+        <input type="text" id="editCategoryName" class="form-input" placeholder="Rename Category Name">
+      </div>
+
+      <div class="btn-container">
+        <button class="btn-submit" id="renameBtn">Rename</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- External JS -->
+  <script src="rename_category.js"></script>
+</body>
+</html>
