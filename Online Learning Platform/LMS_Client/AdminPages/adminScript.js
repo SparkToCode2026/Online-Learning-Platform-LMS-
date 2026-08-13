@@ -1,4 +1,4 @@
-import { getAllUsers } from '../APIs/UserAPI.js';
+import { getAllUsers, deleteUser } from '../APIs/UserAPI.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const searchInput = document.getElementById('user-search');
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
               </button>
-              <button class="action-btn delete-btn" title="Delete User">
+              <button class="action-btn delete-btn" data-id="${id}" data-name="${escapeHtml(fullName)}" title="Delete User">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="3 6 5 6 21 6"></polyline>
                   <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -90,6 +90,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderUsers(filtered);
   }
 
+  // Handle Delete button click with confirmation popup
+  if (tableBody) {
+    tableBody.addEventListener('click', async (e) => {
+      const deleteBtn = e.target.closest('.delete-btn');
+      if (!deleteBtn) return;
+
+      const id = deleteBtn.getAttribute('data-id');
+      const name = deleteBtn.getAttribute('data-name') || 'this user';
+      const formattedId = `USR-${String(id).padStart(4, '0')}`;
+
+      const confirmed = confirm(`Are you sure you want to delete user ${name} (${formattedId})?`);
+      if (!confirmed) return;
+
+      try {
+        const result = await deleteUser(id);
+        alert(result && result.message ? result.message : `User ${name} was deleted successfully.`);
+
+        // Remove deleted user from state array and refresh table view
+        allUsers = allUsers.filter(u => {
+          const uId = u.id !== undefined ? u.id : u.Id;
+          return String(uId) !== String(id);
+        });
+        applyFilters();
+      } catch (err) {
+        alert(err.message || 'Failed to delete user.');
+      }
+    });
+  }
+
   // Fetch real users from LMS_Server
   try {
     allUsers = await getAllUsers();
@@ -108,4 +137,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (searchInput) searchInput.addEventListener('input', applyFilters);
   if (roleSelect) roleSelect.addEventListener('change', applyFilters);
-});
+});
+
