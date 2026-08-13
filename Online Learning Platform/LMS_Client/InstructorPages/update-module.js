@@ -1,31 +1,27 @@
+import {
+    getModuleById,
+    updateModuleName,
+    updateModuleOrder
+} from "../APIs/ModuleApi.js";
+
+
 // ==========================================
-// Get Module Index
+// Get Module ID From URL
 // ==========================================
 
 const params =
     new URLSearchParams(window.location.search);
 
-const moduleIndex =
-    Number(params.get("moduleIndex"));
+const moduleId =
+    Number(params.get("moduleId"));
 
 
 // ==========================================
-// Get Saved Modules
-// ==========================================
-
-let modules =
-    JSON.parse(localStorage.getItem("modules")) || [];
-
-
-// ==========================================
-// Get Form Elements
+// Page Elements
 // ==========================================
 
 const updateModuleForm =
     document.getElementById("updateModuleForm");
-
-const courseInput =
-    document.getElementById("course");
 
 const moduleTitleInput =
     document.getElementById("moduleTitle");
@@ -35,29 +31,36 @@ const orderNumberInput =
 
 
 // ==========================================
-// Get Selected Module
+// Load Module Data
 // ==========================================
 
-const selectedModule =
-    modules[moduleIndex];
+async function loadModule() {
+
+    try {
+
+        // Get module from backend by ID.
+        const module =
+            await getModuleById(moduleId);
 
 
-// If the module does not exist.
-if (!selectedModule) {
+        // Fill the form with current values.
+        moduleTitleInput.value =
+            module.moduleName;
 
-    console.log("Module not found");
+        orderNumberInput.value =
+            module.orderNumber;
 
-} else {
+    } catch (error) {
 
-    // Show the saved module information.
-    courseInput.value =
-        selectedModule.courseName;
+        console.error(
+            "Failed to load module:",
+            error
+        );
 
-    moduleTitleInput.value =
-        selectedModule.moduleTitle;
-
-    orderNumberInput.value =
-        selectedModule.orderNumber;
+        alert(
+            "Could not load the module."
+        );
+    }
 }
 
 
@@ -67,40 +70,55 @@ if (!selectedModule) {
 
 updateModuleForm.addEventListener(
     "submit",
-    function (event) {
+    async function (event) {
 
         event.preventDefault();
 
 
-        if (!selectedModule) {
-            return;
+        try {
+
+            const newModuleName =
+                moduleTitleInput.value.trim();
+
+            const newOrderNumber =
+                Number(orderNumberInput.value);
+
+
+            // Update module name in database.
+            await updateModuleName(
+                moduleId,
+                newModuleName
+            );
+
+
+            // Update module order number in database.
+            await updateModuleOrder(
+                moduleId,
+                newOrderNumber
+            );
+
+
+            // Return to Module Management.
+            window.location.href =
+                "module-management.html";
+
+        } catch (error) {
+
+            console.error(
+                "Failed to update module:",
+                error
+            );
+
+            alert(
+                "Could not update the module."
+            );
         }
-
-
-        // Update course.
-        selectedModule.courseName =
-            courseInput.value;
-
-
-        // Update module title.
-        selectedModule.moduleTitle =
-            moduleTitleInput.value.trim();
-
-
-        // Update order number.
-        selectedModule.orderNumber =
-            orderNumberInput.value;
-
-
-        // Save the updated modules.
-        localStorage.setItem(
-            "modules",
-            JSON.stringify(modules)
-        );
-
-
-        // Go back to Module Management.
-        window.location.href =
-            "module-management.html";
     }
 );
+
+
+// ==========================================
+// Start Page
+// ==========================================
+
+loadModule();
