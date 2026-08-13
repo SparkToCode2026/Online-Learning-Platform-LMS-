@@ -1,0 +1,146 @@
+:root {
+  --bg-main: #fdf6ed;
+  --accent-orange: #EC5B38;
+  --accent-orange-hover: #d84b29;
+  --text-dark: #222222;
+  --text-muted: #666666;
+  --card-bg: #ffffff;
+  --border-color: #f0eae1;
+  --danger-red: #e74c3c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  padding: 20px;
+}
+
+/* Centered Modal Card */
+.details-card {
+  background-color: var(--card-bg);
+  width: 100%;
+  max-width: 580px;
+  border-radius: 12px;
+  padding: 35px 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e8decb;
+}
+
+/* Header Bar */
+.details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: #333333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.btn-icon:hover {
+  background-color: #f5efe6;
+}
+
+.btn-icon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-delete {
+  color: var(--danger-red);
+  border: 1px solid #f9d8d6;
+  border-radius: 8px;
+}
+
+.btn-delete:hover {
+  background-color: #fdf0f0;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent-orange);
+  text-align: center;
+}
+
+/* Details List */
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-icon {
+  font-size: 1.8rem;
+  color: #3d3434;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  padding-top: 2px;
+}
+
+/* Custom Icon Colors */
+.icon-grad {
+  background: linear-gradient(135deg, #2b5876, #4e4343);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.detail-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #444444;
+  margin-bottom: 4px;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* Loading & Message State */
+.loading-state {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--text-muted);
+}
