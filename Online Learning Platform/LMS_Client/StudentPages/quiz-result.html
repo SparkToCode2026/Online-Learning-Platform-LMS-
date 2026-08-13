@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result - LMSHub</title>
+    <link rel="stylesheet" href="quiz-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <span class="brand-name">LMSHub</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item"><i class="fa-solid fa-border-all"></i><span>Dashboard</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-book-open"></i><span>My Courses</span></a>
+                <a href="assignments-hub.html" class="nav-item"><i class="fa-solid fa-tasks"></i><span>Assignments</span></a>
+                <a href="quiz-list.html" class="nav-item active"><i class="fa-solid fa-clock-rotate-left"></i><span>Quiz</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-wrapper">
+            <div class="result-card">
+                <span class="badge badge-completed" style="font-weight: 800; padding: 4px 12px; border-radius: 12px;">PASSED SUCCESSFULLY</span>
+                <h2 style="font-size: 22px; font-weight: 800; margin-top: 12px; color: #221f1e;">Quiz Completed!</h2>
+
+                <div class="score-circle">
+                    <span style="font-size: 20px; color: #221f1e;">16 / 20</span>
+                    <span style="font-size: 9px; color: #706865; text-transform: uppercase;">Points</span>
+                </div>
+
+                <h4 style="font-size: 14px; font-weight: 700; color: #221f1e; margin: 0;">8 of 10 questions correct</h4>
+                <p style="font-size: 12px; color: #706865; margin: 8px 0 24px 0;">Great job! You have demonstrated a solid understanding of encapsulation, inheritance, and basic class design patterns in C#.</p>
+
+                <button class="primary-btn" id="btnBackToQuizzes" style="width: 100%; justify-content: center;">Back to Quizzes</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="quiz-result.js"></script>
+</body>
+</html>

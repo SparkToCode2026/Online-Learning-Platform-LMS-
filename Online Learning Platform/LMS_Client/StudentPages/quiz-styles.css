@@ -1,0 +1,303 @@
+/* General Layout & Background */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #faf6f0;
+    color: #221f1e;
+}
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: #1a1817;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.brand-icon {
+    background-color: #e75a38;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.brand-name {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: #b0a8a2;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-item:hover {
+    background-color: rgba(231, 90, 56, 0.15);
+    color: #e75a38;
+}
+
+.nav-item.active {
+    background-color: #e75a38 !important;
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+/* Main Workspace */
+.main-wrapper {
+    flex-grow: 1;
+    padding: 32px;
+}
+
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-heading {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.page-subheading {
+    font-size: 14px;
+    color: #706865;
+    margin-top: 4px;
+}
+
+.primary-btn {
+    background-color: #e75a38;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.primary-btn:hover {
+    background-color: #d14a2a;
+}
+
+/* Quiz Card Elements */
+.quiz-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.quiz-card {
+    background: #fcfaf7;
+    border: 1px solid #e3dad1;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quiz-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #221f1e;
+    margin: 0;
+}
+
+.quiz-card-meta {
+    font-size: 13px;
+    color: #706865;
+    margin-top: 4px;
+}
+
+.badge {
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+.badge-not-started { background: #f1ede8; color: #554e4b; }
+.badge-in-progress { background: #fff3e0; color: #e65100; }
+.badge-completed { background: #e2f7e2; color: #2e7d32; }
+
+/* Student Quiz Question Layout */
+.quiz-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.question-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e3dad1;
+    padding: 28px;
+    margin-top: 20px;
+}
+
+.question-badge {
+    color: #e75a38;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.question-text {
+    margin: 12px 0 20px 0;
+    font-size: 16px;
+    color: #221f1e;
+}
+
+.option-item {
+    border: 1px solid #d9d0c7;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #faf8f5;
+    transition: all 0.2s;
+}
+
+.option-item:hover {
+    border-color: #e75a38;
+}
+
+.option-item.selected {
+    border-color: #e75a38;
+    background: #fdf3f0;
+}
+
+.nav-dots {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 24px 0;
+}
+
+.dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e3dad1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #e75a38;
+    color: #ffffff;
+}
+
+/* Modal Overlay & Box */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: #fcfaf7;
+    padding: 24px;
+    border-radius: 12px;
+    width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e3dad1;
+    text-align: center;
+}
+
+.modal-icon {
+    color: #e75a38;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.btn-cancel {
+    background: #e3dad1;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-save {
+    background: #e75a38;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Result Screen */
+.result-card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e3dad1;
+    padding: 40px;
+    text-align: center;
+    max-width: 420px;
+    margin: 40px auto;
+}
+
+.score-circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 6px solid #e75a38;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    font-weight: 800;
+}

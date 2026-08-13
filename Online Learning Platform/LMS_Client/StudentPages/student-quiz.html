@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOP Concepts Quiz - LMSHub</title>
+    <link rel="stylesheet" href="quiz-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <span class="brand-name">LMSHub</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item"><i class="fa-solid fa-border-all"></i><span>Dashboard</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-book-open"></i><span>My Courses</span></a>
+                <a href="assignments-hub.html" class="nav-item"><i class="fa-solid fa-tasks"></i><span>Assignments</span></a>
+                <a href="quiz-list.html" class="nav-item active"><i class="fa-solid fa-clock-rotate-left"></i><span>Quiz</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-wrapper">
+            <div class="quiz-container">
+                <header style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h1 style="font-size: 22px; font-weight: 800; margin: 0;">OOP Concepts Quiz</h1>
+                        <p style="font-size: 13px; color: #706865; margin-top: 4px;">Course: C# Programming</p>
+                    </div>
+                    <div style="display: flex; gap: 16px; font-size: 12px; font-weight: 700; color: #554e4b;">
+                        <span>Total Questions: 10</span>
+                        <span>Total Score: 20 Points</span>
+                    </div>
+                </header>
+
+                <div class="question-card">
+                    <span class="question-badge">Question 1 of 10</span>
+                    <h3 class="question-text">What is encapsulation in Object-Oriented Programming?</h3>
+
+                    <div class="option-item selected">
+                        <input type="radio" name="question1" checked>
+                        <span>A. Combining data and methods inside a class</span>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="question1">
+                        <span>B. Creating multiple objects</span>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="question1">
+                        <span>C. Deleting a class</span>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="question1">
+                        <span>D. Connecting two databases</span>
+                    </div>
+                </div>
+
+                <div class="nav-dots">
+                    <div class="dot active">1</div>
+                    <div class="dot">2</div>
+                    <div class="dot">3</div>
+                    <div class="dot">4</div>
+                    <div class="dot">5</div>
+                </div>
+
+                <div style="text-align: center;">
+                    <button class="primary-btn" id="btnOpenSubmitModal" style="width: 200px; justify-content: center;">Submit Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Submit Confirmation Modal -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-box">
+            <div class="modal-icon"><i class="fa-regular fa-circle-question"></i></div>
+            <h3 style="font-size: 18px; font-weight: 700; margin: 0 0 8px 0;">Submit Quiz?</h3>
+            <p style="font-size: 12px; color: #706865; margin-bottom: 20px;">Are you sure you want to submit your answers? You cannot change your choices after submission.</p>
+            <div style="display: flex; gap: 12px; justify-content: center;">
+                <button class="btn-cancel" id="btnCancelSubmit">Cancel</button>
+                <button class="btn-save" id="btnConfirmSubmit">Submit Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="student-quiz.js"></script>
+</body>
+</html>
