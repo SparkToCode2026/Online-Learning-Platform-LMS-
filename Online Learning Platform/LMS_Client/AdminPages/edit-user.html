@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LMSHub - Edit User</title>
+  <link rel="stylesheet" href="adminStyle.css">
+</head>
+<body>
+
+  <main class="admin-container">
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="header-titles">
+        <h1>Edit User Details</h1>
+        <p>Update full name and email for the selected user account</p>
+      </div>
+
+      <div class="header-controls">
+        <a href="admin.html" class="btn-back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Back to Users
+        </a>
+      </div>
+    </header>
+
+    <!-- Edit User Form Card -->
+    <div class="form-card">
+      <form id="edit-user-form">
+        <div id="form-message" class="form-message-box"></div>
+
+        <div class="form-group">
+          <label for="user-name">Full Name</label>
+          <input type="text" id="user-name" name="fullName" placeholder="e.g. John Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label for="user-email">Email Address</label>
+          <input type="email" id="user-email" name="email" placeholder="e.g. john.doe@university.edu" required>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" id="btn-submit" class="btn-update">
+            <span>Update User</span>
+          </button>
+          <a href="admin.html" class="btn-cancel">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script type="module" src="editUserScript.js"></script>
+</body>
+</html>

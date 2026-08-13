@@ -77,3 +77,164 @@ export async function registerUser(email, password, fullName, role = 'Student') 
 }
 
 export { registerUser as register };
+
+/**
+ * Sends a GET request to retrieve all users.
+ * @returns {Promise<Array<{id: number, email: string, fullName: string, role: string}>>}
+ */
+export async function getAllUsers() {
+  let response;
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    response = await fetch(`${API_BASE_URL}`, {
+      method: 'GET',
+      headers,
+    });
+  } catch (netErr) {
+    throw new Error(`Connection refused. Please make sure the backend server (LMS_Server) is running.`);
+  }
+
+  let data;
+  try {
+    data = await response.json();
+  } catch (err) {
+    data = [];
+  }
+
+  if (!response.ok) {
+    const errorMessage = data && data.message ? data.message : 'Failed to fetch users.';
+    throw new Error(errorMessage);
+  }
+
+  return data;
+}
+
+/**
+ * Sends a GET request to retrieve a single user by ID.
+ * @param {number|string} id - The user ID.
+ * @returns {Promise<{id: number, email: string, fullName: string, role: string}>}
+ */
+export async function getUserById(id) {
+  let response;
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    response = await fetch(`${API_BASE_URL}/${id}`, {
+      method: 'GET',
+      headers,
+    });
+  } catch (netErr) {
+    throw new Error(`Connection refused. Please make sure the backend server (LMS_Server) is running.`);
+  }
+
+  let data;
+  try {
+    data = await response.json();
+  } catch (err) {
+    data = {};
+  }
+
+  if (!response.ok) {
+    const errorMessage = data && data.message ? data.message : 'User not found.';
+    throw new Error(errorMessage);
+  }
+
+  return data;
+}
+
+/**
+ * Sends a PUT request to update a user's name and email by ID.
+ * @param {number|string} id - The user ID.
+ * @param {string} fullName - The user's updated full name.
+ * @param {string} email - The user's updated email.
+ * @returns {Promise<{id: number, email: string, fullName: string, role: string}>}
+ */
+export async function updateUser(id, fullName, email) {
+  let response;
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    response = await fetch(`${API_BASE_URL}/${id}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({ fullName, email }),
+    });
+  } catch (netErr) {
+    throw new Error(`Connection refused. Please make sure the backend server (LMS_Server) is running.`);
+  }
+
+  let data;
+  try {
+    data = await response.json();
+  } catch (err) {
+    data = {};
+  }
+
+  if (!response.ok) {
+    const errorMessage = data && data.message ? data.message : 'Failed to update user.';
+    throw new Error(errorMessage);
+  }
+
+  return data;
+}
+
+/**
+ * Sends a DELETE request to remove a user by ID.
+ * @param {number|string} id - The user ID.
+ * @returns {Promise<{message: string}>}
+ */
+export async function deleteUser(id) {
+  let response;
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    response = await fetch(`${API_BASE_URL}/${id}`, {
+      method: 'DELETE',
+      headers,
+    });
+  } catch (netErr) {
+    throw new Error(`Connection refused. Please make sure the backend server (LMS_Server) is running.`);
+  }
+
+  let data;
+  try {
+    data = await response.json();
+  } catch (err) {
+    data = {};
+  }
+
+  if (!response.ok) {
+    const errorMessage = data && data.message ? data.message : 'Failed to delete user.';
+    throw new Error(errorMessage);
+  }
+
+  return data;
+}
+
+
+
