@@ -1,49 +1,64 @@
-// Get the Create Module form.
-const createModuleForm = document.getElementById("createModuleForm");
+import {
+    createModule
+} from "../APIs/ModuleApi.js";
 
 
-// Run when the user clicks Create Module.
-createModuleForm.addEventListener("submit", function (event) {
+// Get form elements
+const createModuleForm =
+    document.getElementById("createModuleForm");
 
-    // Prevent page refresh.
-    event.preventDefault();
+const courseInput =
+    document.getElementById("course");
 
+const moduleTitleInput =
+    document.getElementById("moduleTitle");
 
-    // Get values from the form.
-    const courseName =
-        document.getElementById("course").value;
-
-    const moduleTitle =
-        document.getElementById("moduleTitle").value.trim();
-
-    const orderNumber =
-        document.getElementById("orderNumber").value;
+const orderNumberInput =
+    document.getElementById("orderNumber");
 
 
-    // Create the new module object.
-    const newModule = {
-        courseName: courseName,
-        moduleTitle: moduleTitle,
-        orderNumber: orderNumber
-    };
+// Create new module
+createModuleForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+        try {
+
+            // IMPORTANT:
+            // For now this assumes the selected course value
+            // is the real CourseId from the backend.
+            const moduleData = {
+                moduleName:
+                    moduleTitleInput.value.trim(),
+
+                orderNumber:
+                    Number(orderNumberInput.value),
+
+                courseId:
+                    Number(courseInput.value)
+            };
 
 
-    // Get existing modules from localStorage.
-    let modules =
-        JSON.parse(localStorage.getItem("modules")) || [];
+            // Send module to LMS_Server
+            await createModule(moduleData);
 
 
-    // Add the new module.
-    modules.push(newModule);
+            // Go back to Module Management
+            window.location.href =
+                "module-management.html";
 
+        } catch (error) {
 
-    // Save modules.
-    localStorage.setItem(
-        "modules",
-        JSON.stringify(modules)
-    );
+            console.error(
+                "Failed to create module:",
+                error
+            );
 
-
-    // Return to Module Management.
-    window.location.href = "module-management.html";
-});
+            alert(
+                "Could not create the module."
+            );
+        }
+    }
+);

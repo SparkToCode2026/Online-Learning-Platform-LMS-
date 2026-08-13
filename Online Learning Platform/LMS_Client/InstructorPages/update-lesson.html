@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,83 +14,88 @@
 
 <main class="update-lesson-page">
 
-    <!-- Page title -->
+    <!-- Page Header -->
     <section class="page-header">
         <p class="page-label">ScholarHub</p>
         <h1>Update Lesson</h1>
     </section>
 
-    <!-- Update lesson form -->
+
+    <!-- Update Lesson Form -->
     <section class="form-card">
 
         <form id="updateLessonForm">
 
             <!-- Module -->
             <div class="form-group">
-                <label for="module">Module</label>
 
-                <select id="module" name="module">
-                    <option>Object-Oriented Programming</option>
-                    <option>Introduction to C#</option>
-                    <option>Collections & LINQ</option>
+                <label for="module">
+                    Module
+                </label>
+
+                <select
+                        id="module"
+                        name="module"
+                        required
+                >
+                    <option value="">
+                        Select Module
+                    </option>
                 </select>
+
             </div>
 
 
-            <!-- Lesson title -->
+            <!-- Lesson Title -->
             <div class="form-group">
-                <label for="lessonTitle">Lesson Title</label>
+
+                <label for="lessonTitle">
+                    Lesson Title
+                </label>
 
                 <input
                         type="text"
                         id="lessonTitle"
                         name="lessonTitle"
-                        value="Constructors"
                         required
-
                 >
+
             </div>
 
 
-            <!-- Order number -->
+            <!-- Lesson URL -->
             <div class="form-group">
-                <label for="orderNumber">Order Number</label>
+
+                <label for="lessonURL">
+                    Lesson URL
+                </label>
 
                 <input
-                        type="number"
-                        id="orderNumber"
-                        name="orderNumber"
-                        value="2"
+                        type="url"
+                        id="lessonURL"
+                        name="lessonURL"
                         required
-
                 >
+
             </div>
 
 
-            <!-- Duration -->
-            <div class="form-group">
-                <label for="duration">Duration (minutes)</label>
-
-                <input
-                        type="number"
-                        id="duration"
-                        name="duration"
-                        value="20"
-                        required
-
-                >
-            </div>
-
-
-            <!-- Form buttons -->
+            <!-- Buttons -->
             <div class="form-actions">
 
-                <a href="module-details.html" class="cancel-button">
+                <a
+                        href="lessons.html"
+                        id="cancelButton"
+                        class="cancel-button"
+                >
                     Cancel
                 </a>
 
-                <button type="submit" class="update-button">
-                    Update
+                <button
+                        type="submit"
+                        class="update-button"
+                >
+                    Update Lesson
                 </button>
 
             </div>
@@ -100,7 +106,8 @@
 
 </main>
 
-<!-- update-lesson.html -->
-<script src="update-lesson.js"></script>
+
+<script type="module" src="update-lesson.js"></script>
+
 </body>
 </html>

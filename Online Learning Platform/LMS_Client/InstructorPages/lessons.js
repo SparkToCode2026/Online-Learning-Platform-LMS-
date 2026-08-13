@@ -1,24 +1,18 @@
-// ==========================================
-// Default Modules
-// ==========================================
-
-const defaultModules = {
-    intro: "Introduction to C#",
-    oop: "Object-Oriented Programming",
-    linq: "Collections & LINQ"
-};
+import {
+    getAllLessons,
+    deleteLesson
+} from "../APIs/LessonApi.js";
 
 
 // ==========================================
-// Custom Modules
+// Page Data
 // ==========================================
 
-const customModules =
-    JSON.parse(localStorage.getItem("modules")) || [];
+// Lessons loaded from the backend.
+let lessons = [];
 
-customModules.forEach(function (module, index) {
-    defaultModules[`custom-${index}`] = module.moduleTitle;
-});
+// Stores the LessonId selected for deletion.
+let lessonToDelete = null;
 
 
 // ==========================================
@@ -45,55 +39,77 @@ const confirmDeleteButton =
 
 
 // ==========================================
-// Add Custom Modules To Filter
+// Load Lessons From Backend
 // ==========================================
 
-customModules.forEach(function (module, index) {
+async function loadLessons() {
 
-    const option =
-        document.createElement("option");
+    try {
 
-    option.value =
-        `custom-${index}`;
+        // Get all lessons from LMS_Server.
+        lessons = await getAllLessons();
 
-    option.textContent =
-        module.moduleTitle;
+        // Build the module filter from database data.
+        loadModuleFilter();
 
-    moduleFilter.appendChild(option);
-});
+        // Display lessons on the page.
+        displayLessons();
+
+    } catch (error) {
+
+        console.error(
+            "Failed to load lessons:",
+            error
+        );
+
+        alert(
+            "Could not load lessons from the server."
+        );
+    }
+}
 
 
 // ==========================================
-// Collect Lessons From All Modules
+// Load Module Filter
 // ==========================================
 
-function getAllLessons() {
+function loadModuleFilter() {
 
-    const allLessons = [];
+    // Keep only the default All Modules option.
+    moduleFilter.innerHTML = `
+        <option value="all">
+            All Modules
+        </option>
+    `;
 
-    Object.keys(defaultModules).forEach(function (moduleKey) {
 
-        const lessons =
-            JSON.parse(
-                localStorage.getItem(`lessons_${moduleKey}`)
-            ) || [];
+    // Store unique modules.
+    const modules = new Map();
 
-        lessons.forEach(function (lesson, lessonIndex) {
 
-            allLessons.push({
-                moduleKey: moduleKey,
-                moduleName: defaultModules[moduleKey],
-                lessonIndex: lessonIndex,
-                orderNumber: lesson.orderNumber,
-                lessonTitle: lesson.lessonTitle,
-                duration: lesson.duration
-            });
+    lessons.forEach(function (lesson) {
 
-        });
-
+        modules.set(
+            lesson.moduleId,
+            lesson.moduleName
+        );
     });
 
-    return allLessons;
+
+    // Add modules to dropdown.
+    modules.forEach(function (moduleName, moduleId) {
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            moduleId;
+
+        option.textContent =
+            moduleName;
+
+        moduleFilter.appendChild(option);
+    });
 }
 
 
@@ -103,7 +119,7 @@ function getAllLessons() {
 
 function displayLessons() {
 
-    // Remove old generated rows.
+    // Remove previously generated lesson rows.
     document
         .querySelectorAll(".dynamic-lesson-row")
         .forEach(function (row) {
@@ -112,27 +128,28 @@ function displayLessons() {
 
 
     const searchValue =
-        searchInput.value.trim().toLowerCase();
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
 
     const selectedModule =
         moduleFilter.value;
 
 
-    const allLessons =
-        getAllLessons();
+    lessons.forEach(function (lesson) {
 
-
-    allLessons.forEach(function (lesson) {
-
+        // Search by lesson title.
         const matchesSearch =
             lesson.lessonTitle
                 .toLowerCase()
                 .includes(searchValue);
 
 
+        // Filter by ModuleId.
         const matchesModule =
             selectedModule === "all" ||
-            lesson.moduleKey === selectedModule;
+            Number(selectedModule) === lesson.moduleId;
 
 
         if (!matchesSearch || !matchesModule) {
@@ -143,6 +160,7 @@ function displayLessons() {
         const lessonRow =
             document.createElement("div");
 
+
         lessonRow.classList.add(
             "table-row",
             "dynamic-lesson-row"
@@ -150,18 +168,32 @@ function displayLessons() {
 
 
         lessonRow.innerHTML = `
-            <span>${lesson.orderNumber}</span>
+            <span>
+                ${lesson.lessonId}
+            </span>
 
-            <span>${lesson.lessonTitle}</span>
+            <span>
+                ${lesson.lessonTitle}
+            </span>
 
-            <span>${lesson.moduleName}</span>
+            <span>
+                ${lesson.moduleName}
+            </span>
 
-            <span>${lesson.duration} min</span>
+            <span>
+                <a
+                    href="${lesson.lessonURL}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Open Lesson
+                </a>
+            </span>
 
             <div class="lesson-actions">
 
                 <a
-                    href="update-lesson.html?module=${lesson.moduleKey}&lessonIndex=${lesson.lessonIndex}"
+                    href="update-lesson.html?lessonId=${lesson.lessonId}"
                     class="edit-button"
                 >
                     Edit
@@ -170,8 +202,7 @@ function displayLessons() {
                 <button
                     class="delete-button"
                     type="button"
-                    data-module="${lesson.moduleKey}"
-                    data-index="${lesson.lessonIndex}"
+                    data-id="${lesson.lessonId}"
                 >
                     Delete
                 </button>
@@ -194,6 +225,7 @@ function displayLessons() {
 searchInput.addEventListener(
     "input",
     function () {
+
         displayLessons();
     }
 );
@@ -206,16 +238,15 @@ searchInput.addEventListener(
 moduleFilter.addEventListener(
     "change",
     function () {
+
         displayLessons();
     }
 );
 
 
 // ==========================================
-// Delete Lesson
+// Open Delete Modal
 // ==========================================
-
-let lessonToDelete = null;
 
 lessonsTable.addEventListener(
     "click",
@@ -224,19 +255,19 @@ lessonsTable.addEventListener(
         const deleteButton =
             event.target.closest(".delete-button");
 
+
         if (!deleteButton) {
             return;
         }
 
-        lessonToDelete = {
-            moduleKey:
-            deleteButton.dataset.module,
 
-            lessonIndex:
-                Number(deleteButton.dataset.index)
-        };
+        lessonToDelete =
+            Number(deleteButton.dataset.id);
 
-        deleteModal.classList.remove("hidden");
+
+        deleteModal.classList.remove(
+            "hidden"
+        );
     }
 );
 
@@ -251,7 +282,9 @@ cancelDeleteButton.addEventListener(
 
         lessonToDelete = null;
 
-        deleteModal.classList.add("hidden");
+        deleteModal.classList.add(
+            "hidden"
+        );
     }
 );
 
@@ -262,46 +295,50 @@ cancelDeleteButton.addEventListener(
 
 confirmDeleteButton.addEventListener(
     "click",
-    function () {
+    async function () {
 
-        if (!lessonToDelete) {
+        if (lessonToDelete === null) {
             return;
         }
 
 
-        const storageKey =
-            `lessons_${lessonToDelete.moduleKey}`;
+        try {
+
+            // Delete lesson from database.
+            await deleteLesson(
+                lessonToDelete
+            );
 
 
-        let lessons =
-            JSON.parse(
-                localStorage.getItem(storageKey)
-            ) || [];
+            lessonToDelete = null;
 
 
-        lessons.splice(
-            lessonToDelete.lessonIndex,
-            1
-        );
+            // Close modal.
+            deleteModal.classList.add(
+                "hidden"
+            );
 
 
-        localStorage.setItem(
-            storageKey,
-            JSON.stringify(lessons)
-        );
+            // Reload lessons from database.
+            await loadLessons();
 
+        } catch (error) {
 
-        lessonToDelete = null;
+            console.error(
+                "Failed to delete lesson:",
+                error
+            );
 
-        deleteModal.classList.add("hidden");
-
-        displayLessons();
+            alert(
+                "Could not delete the lesson."
+            );
+        }
     }
 );
 
 
 // ==========================================
-// Close Modal Outside
+// Close Modal When Clicking Outside
 // ==========================================
 
 deleteModal.addEventListener(
@@ -312,14 +349,16 @@ deleteModal.addEventListener(
 
             lessonToDelete = null;
 
-            deleteModal.classList.add("hidden");
+            deleteModal.classList.add(
+                "hidden"
+            );
         }
     }
 );
 
 
 // ==========================================
-// Load Lessons
+// Start Page
 // ==========================================
 
-displayLessons();
+loadLessons();

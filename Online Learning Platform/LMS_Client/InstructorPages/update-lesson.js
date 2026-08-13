@@ -1,23 +1,28 @@
-// Get module and lesson index from the URL.
-// Example:
-// update-lesson.html?module=oop&lessonIndex=1
+import {
+    getLessonById,
+    updateLesson
+} from "../APIs/LessonApi.js";
 
-const params = new URLSearchParams(window.location.search);
-
-const selectedModule = params.get("module") || "oop";
-const lessonIndex = Number(params.get("lessonIndex"));
-
-
-// Each module has its own lessons storage.
-const lessonsStorageKey = `lessons_${selectedModule}`;
+import {
+    getAllModules
+} from "../APIs/ModuleApi.js";
 
 
-// Get lessons for the selected module.
-let lessons =
-    JSON.parse(localStorage.getItem(lessonsStorageKey)) || [];
+// ==========================================
+// Get Lesson ID
+// ==========================================
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const lessonId =
+    Number(params.get("lessonId"));
 
 
-// Get form elements.
+// ==========================================
+// Page Elements
+// ==========================================
+
 const updateLessonForm =
     document.getElementById("updateLessonForm");
 
@@ -27,74 +32,159 @@ const moduleSelect =
 const lessonTitleInput =
     document.getElementById("lessonTitle");
 
-const orderNumberInput =
-    document.getElementById("orderNumber");
+const lessonURLInput =
+    document.getElementById("lessonURL");
 
-const durationInput =
-    document.getElementById("duration");
-
-
-// Module names.
-const moduleNames = {
-    intro: "Introduction to C#",
-    oop: "Object-Oriented Programming",
-    linq: "Collections & LINQ"
-};
+const cancelButton =
+    document.getElementById("cancelButton");
 
 
-// Show the selected module.
-if (moduleSelect && moduleNames[selectedModule]) {
-    moduleSelect.value = moduleNames[selectedModule];
+// ==========================================
+// Load Modules
+// ==========================================
+
+async function loadModules() {
+
+    const modules =
+        await getAllModules();
+
+
+    modules.forEach(function (module) {
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            module.moduleId;
+
+        option.textContent =
+            module.moduleName;
+
+        moduleSelect.appendChild(option);
+    });
 }
 
 
-// Make sure the selected lesson exists.
-if (lessons[lessonIndex]) {
+// ==========================================
+// Load Lesson
+// ==========================================
 
-    // Fill the form with the old lesson data.
-    lessonTitleInput.value =
-        lessons[lessonIndex].lessonTitle;
+async function loadLesson() {
 
-    orderNumberInput.value =
-        lessons[lessonIndex].orderNumber;
+    try {
 
-    durationInput.value =
-        lessons[lessonIndex].duration;
+        // Get selected lesson from backend.
+        const lesson =
+            await getLessonById(lessonId);
+
+
+        // Fill old lesson data.
+        lessonTitleInput.value =
+            lesson.lessonTitle;
+
+        lessonURLInput.value =
+            lesson.lessonURL;
+
+        moduleSelect.value =
+            lesson.moduleId;
+
+
+        // Cancel returns to the correct module.
+        cancelButton.href =
+            `module-details.html?moduleId=${lesson.moduleId}`;
+
+    } catch (error) {
+
+        console.error(
+            "Failed to load lesson:",
+            error
+        );
+
+        alert(
+            "Could not load the lesson."
+        );
+    }
 }
 
 
-// Update the lesson.
+// ==========================================
+// Update Lesson
+// ==========================================
+
 updateLessonForm.addEventListener(
     "submit",
-    function (event) {
+    async function (event) {
 
         event.preventDefault();
 
-        if (!lessons[lessonIndex]) {
-            return;
+
+        const lessonData = {
+
+            lessonTitle:
+                lessonTitleInput.value.trim(),
+
+            lessonURL:
+                lessonURLInput.value.trim(),
+
+            moduleId:
+                Number(moduleSelect.value)
+        };
+
+
+        try {
+
+            // Update lesson in database.
+            await updateLesson(
+                lessonId,
+                lessonData
+            );
+
+
+            // Return to selected module.
+            window.location.href =
+                `module-details.html?moduleId=${lessonData.moduleId}`;
+
+        } catch (error) {
+
+            console.error(
+                "Failed to update lesson:",
+                error
+            );
+
+            alert(
+                "Could not update the lesson."
+            );
         }
-
-
-        // Save the new values.
-        lessons[lessonIndex].lessonTitle =
-            lessonTitleInput.value.trim();
-
-        lessons[lessonIndex].orderNumber =
-            orderNumberInput.value;
-
-        lessons[lessonIndex].duration =
-            durationInput.value;
-
-
-        // Save lessons for this module.
-        localStorage.setItem(
-            lessonsStorageKey,
-            JSON.stringify(lessons)
-        );
-
-
-        // Return to the same module.
-        window.location.href =
-            `module-details.html?module=${selectedModule}`;
     }
 );
+
+
+// ==========================================
+// Start Page
+// ==========================================
+
+async function startPage() {
+
+    try {
+
+        // Load dropdown first.
+        await loadModules();
+
+        // Then load lesson values.
+        await loadLesson();
+
+    } catch (error) {
+
+        console.error(
+            "Failed to prepare update page:",
+            error
+        );
+
+        alert(
+            "Could not prepare the update page."
+        );
+    }
+}
+
+
+startPage();
