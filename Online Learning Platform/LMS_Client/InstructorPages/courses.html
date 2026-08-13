@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScholarHub - Courses</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Separate CSS File -->
+  <link rel="stylesheet" href="courses.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside>
+    <div>
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <span>ScholarHub</span>
+      </div>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-table-cells-large"></i> Dashboard</a></li>
+        <li class="nav-item active"><a href="courses.html"><i class="fa-solid fa-book-open"></i> Courses</a></li>
+        <li class="nav-item"><a href="git_categories.html"><i class="fa-solid fa-table-cells-large"></i> Categories</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-table-columns"></i> Modules</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-bars-staggered"></i> Lessons</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-regular fa-file-lines"></i> Assignments</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-graduation-cap"></i> Certificates</a></li>
+      </ul>
+    </div>
+    <div class="logout-btn">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Logout</span>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Top Action Header -->
+    <div class="header-bar">
+      <div>
+        <h1 class="page-title">Courses</h1>
+        <p class="page-subtitle">Courses Management</p>
+      </div>
+
+      <div class="controls-bar">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search here...">
+        </div>
+
+        <select id="categoryFilter" class="category-dropdown">
+          <option value="">All Categories</option>
+        </select>
+
+        <button class="btn-action" id="createCourseBtn"><i class="fa-solid fa-plus"></i> Create</button>
+        <a href="course_filter.html" class="btn-action">Filter</a>
+      </div>
+    </div>
+
+    <!-- Top 5 Expensive Courses Section -->
+    <div class="section-divider">
+      <span class="section-title">Top 5 Highest Priced Courses</span>
+    </div>
+    <div class="cards-grid" id="topExpensiveContainer">
+      <!-- Injected from API / JS -->
+    </div>
+
+    <!-- All Courses Section -->
+    <div class="section-divider section-divider-all">
+      <span class="section-title">All Available Courses</span>
+    </div>
+    <div class="cards-grid" id="allCoursesContainer">
+      <!-- Injected from API / JS -->
+    </div>
+  </main>
+
+  <!-- Separate JS File -->
+  <script src="courses.js"></script>
+</body>
+</html>
