@@ -6,6 +6,8 @@
     <File Path="LMS_Client/InstructorPages/course_filter.css" />
     <File Path="LMS_Client/InstructorPages/course_filter.html" />
     <File Path="LMS_Client/InstructorPages/course_filter.js" />
+    <File Path="LMS_Client/InstructorPages/git_categories.html" />
+    <File Path="LMS_Client/InstructorPages/git_categories.js" />
   </Folder>
   <Project Path="LMS_Server/LMS_Server.csproj" />
 </Solution>

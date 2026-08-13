@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScholarHub - Categories Management</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="git_categories.css">
+</head>
+<body>
+
+  <!-- Navigation Sidebar -->
+  <aside>
+    <div>
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <span>ScholarHub</span>
+      </div>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-table-cells-large"></i> Dashboard</a></li>
+        <li class="nav-item"><a href="courses.html"><i class="fa-solid fa-book-open"></i> Courses</a></li>
+        <!-- Active class applies solid orange rounded background -->
+        <li class="nav-item active"><a href="git_categories.html"><i class="fa-solid fa-folder"></i> Categories</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-table-columns"></i> Modules</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-bars-staggered"></i> Lessons</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-regular fa-file-lines"></i> Assignments</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-graduation-cap"></i> Certificates</a></li>
+      </ul>
+    </div>
+    <div class="logout-btn">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Logout</span>
+    </div>
+  </aside>
+
+  <!-- Main Work Area -->
+  <main>
+    <div class="card">
+      <div class="card-header">
+        <h1 class="card-title">Course Categories</h1>
+        <!-- Navigates to Create Category Page -->
+        <a href="create_category.html" class="btn btn-orange">
+          <i class="fa-solid fa-plus"></i> Create
+        </a>
+      </div>
+
+      <!-- Search Section -->
+      <div class="filter-section">
+        <div class="filter-group">
+          <select id="categorySelect" class="select-input">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+        <div class="button-group">
+          <button class="btn btn-orange btn-action" id="clearBtn">Clear</button>
+          <button class="btn btn-orange btn-action" id="searchBtn">Search</button>
+        </div>
+      </div>
+
+      <!-- Categories Table -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Category Name</th>
+              <th>Courses</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="categoryTableBody">
+            <!-- Dynamic Data Renders Here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- External JS -->
+  <script src="git_categories.js"></script>
+</body>
+</html>
