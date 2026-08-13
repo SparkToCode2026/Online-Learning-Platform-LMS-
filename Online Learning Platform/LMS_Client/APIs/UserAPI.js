@@ -77,3 +77,42 @@ export async function registerUser(email, password, fullName, role = 'Student') 
 }
 
 export { registerUser as register };
+
+/**
+ * Sends a GET request to retrieve all users.
+ * @returns {Promise<Array<{id: number, email: string, fullName: string, role: string}>>}
+ */
+export async function getAllUsers() {
+  let response;
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    response = await fetch(`${API_BASE_URL}`, {
+      method: 'GET',
+      headers,
+    });
+  } catch (netErr) {
+    throw new Error(`Connection refused. Please make sure the backend server (LMS_Server) is running.`);
+  }
+
+  let data;
+  try {
+    data = await response.json();
+  } catch (err) {
+    data = [];
+  }
+
+  if (!response.ok) {
+    const errorMessage = data && data.message ? data.message : 'Failed to fetch users.';
+    throw new Error(errorMessage);
+  }
+
+  return data;
+}
+
