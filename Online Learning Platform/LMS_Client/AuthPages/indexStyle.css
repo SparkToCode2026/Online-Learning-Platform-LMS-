@@ -224,3 +224,20 @@ input:focus {
 .form-view.active {
   display: block;
 }
+
+/* Error Message */
+.error-message {
+  color: #d93025;
+  background-color: #fce8e6;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  display: none;
+  word-break: break-word;
+}
+
+.error-message:not(:empty) {
+  display: block;
+}
