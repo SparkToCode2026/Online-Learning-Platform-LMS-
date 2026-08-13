@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes - LMSHub</title>
+    <link rel="stylesheet" href="quiz-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <span class="brand-name">LMSHub</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item"><i class="fa-solid fa-border-all"></i><span>Dashboard</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-book-open"></i><span>My Courses</span></a>
+                <a href="assignments-hub.html" class="nav-item"><i class="fa-solid fa-tasks"></i><span>Assignments</span></a>
+                <a href="quiz-list.html" class="nav-item active"><i class="fa-solid fa-clock-rotate-left"></i><span>Quiz</span></a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-certificate"></i><span>Certificates</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item logout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+            </div>
+        </aside>
+
+        <main class="main-wrapper">
+           <header class="page-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <h1 class="page-heading">Quizzes</h1>
+        <p class="page-subheading">Select a quiz to start, resume, or review your progress.</p>
+    </div>
+    <!-- Button to go to Quiz Management -->
+    <button class="primary-btn" onclick="window.location.href='quiz-management.html'">
+        <i class="fa-solid fa-gear"></i> Manage Quizzes
+    </button>
+</header>
+
+            <div class="quiz-list-container">
+                <div class="quiz-card">
+                    <div>
+                        <h3 class="quiz-card-title">Quiz 1: Introduction to Biology</h3>
+                        <p class="quiz-card-meta">10 Questions • 30 min <span class="badge badge-not-started">Not Started</span></p>
+                    </div>
+                    
+                    <button class="primary-btn btn-start" data-quiz-id="1">Start Quiz</button>
+                </div>
+
+                <div class="quiz-card">
+                    <div>
+                        <h3 class="quiz-card-title">Quiz 2: OOP Concepts Quiz</h3>
+                        <p class="quiz-card-meta">10 Questions • 20 min <span class="badge badge-in-progress">In Progress</span></p>
+                    </div>
+                    <button class="primary-btn btn-start" data-quiz-id="2">Start Quiz</button>
+                </div>
+                
+
+                <div class="quiz-card">
+                    <div>
+                        <h3 class="quiz-card-title">Quiz 3: Genetics Basics</h3>
+                        <p class="quiz-card-meta">12 Questions • 25 min <span class="badge badge-completed">Completed</span></p>
+                    </div>
+                    <button class="primary-btn btn-start" data-quiz-id="3">Start Quiz</button>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+    <script src="quiz-list.js"></script>
+</body>
+</html>
