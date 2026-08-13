@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScholarHub - Filter Course</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Separate CSS File -->
+  <link rel="stylesheet" href="course_filter.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside>
+    <div>
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <span>ScholarHub</span>
+      </div>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-table-cells-large"></i> Dashboard</a></li>
+        <li class="nav-item active"><a href="courses.html"><i class="fa-solid fa-book-open"></i> Courses</a></li>
+        <li class="nav-item"><a href="git_category.html"><i class="fa-solid fa-folder"></i> Categories</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-table-columns"></i> Modules</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-bars-staggered"></i> Lessons</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-regular fa-file-lines"></i> Assignments</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-graduation-cap"></i> Certificates</a></li>
+      </ul>
+    </div>
+    <div class="logout-btn">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Logout</span>
+    </div>
+  </aside>
+
+  <!-- Main Content Body -->
+  <main>
+    <div class="filter-card">
+      <h1 class="card-title">Filter Courses</h1>
+
+      <!-- Filter Controls -->
+      <div class="filter-form">
+        <div class="form-group">
+          <label for="categorySelect" class="form-label">COURSE CATEGORY</label>
+          <select id="categorySelect" class="form-control">
+            <option value="">Select a category...</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="maxPriceInput" class="form-label">MAXIMUM PRICE</label>
+          <input type="number" id="maxPriceInput" class="form-control" placeholder="Enter maximum price..." min="0" step="0.01">
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary" id="clearFiltersBtn">Clear Filters</button>
+        <button type="button" class="btn btn-primary" id="searchCoursesBtn">Search Courses</button>
+      </div>
+
+      <!-- Filter Results Table -->
+      <div class="table-container">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Course Name</th>
+              <th>Price (OMR)</th>
+              <th>Category</th>
+              <th>Instructor</th>
+            </tr>
+          </thead>
+          <tbody id="coursesTableBody">
+            <!-- Dynamic rows rendered via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Separate JS File -->
+  <script src="course_filter.js"></script>
+</body>
+</html>

@@ -1,3 +1,8 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="LMS_Client/InstructorPages/course_filter.css" />
+    <File Path="LMS_Client/InstructorPages/course_filter.html" />
+    <File Path="LMS_Client/InstructorPages/course_filter.js" />
+  </Folder>
   <Project Path="LMS_Server/LMS_Server.csproj" />
 </Solution>
