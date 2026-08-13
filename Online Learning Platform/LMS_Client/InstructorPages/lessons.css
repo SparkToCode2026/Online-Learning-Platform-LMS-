@@ -1,0 +1,466 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #FCF2E5;
+    color: #524646;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+.page-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 235px;
+    min-height: 100vh;
+    background-color: #514646;
+    color: #ffffff;
+
+    padding: 26px 20px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Logo */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    margin-bottom: 40px;
+}
+
+.logo-icon {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #f56645;
+    border-radius: 9px;
+}
+
+.logo-icon svg {
+    width: 24px;
+    height: 24px;
+
+    fill: none;
+    stroke: #ffffff;
+
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.logo-orange {
+    color: #f56645;
+}
+
+
+/* Navigation */
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #f7eeee;
+    text-decoration: none;
+
+    font-size: 14px;
+
+    padding: 12px 14px;
+
+    border-radius: 9px;
+
+    transition: 0.2s ease;
+}
+
+.sidebar-nav a svg {
+    width: 19px;
+    height: 19px;
+
+    fill: none;
+    stroke: currentColor;
+
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.sidebar-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-nav a.active {
+    color: #f56645;
+    font-weight: 600;
+}
+.sidebar-nav a.active {
+    background-color: #EC5B38;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.sidebar-nav a.active svg {
+    stroke: #ffffff;
+}
+/* ==============================
+   Logout
+============================== */
+
+.sidebar-footer {
+    margin-top: auto;
+
+    padding-top: 24px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.logout-button {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 12px 6px;
+
+    border: none;
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    text-align: left;
+}
+
+.logout-button svg {
+    width: 25px;
+    height: 25px;
+
+    fill: none;
+    stroke: currentColor;
+
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.logout-button:hover {
+    color: #f56645;
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
+
+    padding: 38px 42px 50px;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: 24px;
+
+    border-bottom: 1px solid #dfd2c5;
+}
+
+.page-header h1 {
+    margin: 0;
+
+    font-size: 30px;
+}
+
+.page-header p {
+    margin: 8px 0 0;
+
+    color: #8f8178;
+
+    font-size: 14px;
+}
+
+.add-lesson-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px 18px;
+
+    background-color: #EC5B38;
+    color: #ffffff;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Search and filter */
+.lesson-controls {
+    display: flex;
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+.search-box {
+    flex: 1;
+}
+
+.search-box input,
+#moduleFilter {
+    height: 42px;
+
+    padding: 0 14px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #c7b8ad;
+    border-radius: 8px;
+
+    color: #524646;
+
+    outline: none;
+}
+
+.search-box input {
+    width: 100%;
+}
+
+#moduleFilter {
+    min-width: 220px;
+}
+
+/* Lessons table */
+.lessons-section {
+    margin-top: 30px;
+}
+
+.lessons-table {
+    background-color: #ffffff;
+
+    border: 1px solid #b8a89d;
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+.table-row {
+    display: grid;
+
+    grid-template-columns:
+        90px
+        minmax(180px, 1.5fr)
+        minmax(180px, 1fr)
+        120px
+        160px;
+
+    align-items: center;
+
+    min-height: 64px;
+
+    padding: 0 20px;
+
+    border-bottom: 1px solid #eee3da;
+
+    font-size: 14px;
+}
+
+.table-row:last-child {
+    border-bottom: none;
+}
+
+.table-header {
+    background-color: #FEDFC1;
+
+    color: #524646;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.lesson-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-button,
+.delete-button {
+    min-width: 65px;
+
+    padding: 8px 12px;
+
+    border-radius: 7px;
+
+    background-color: #ffffff;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    text-align: center;
+}
+
+.edit-button {
+    border: 1px solid #9c8d84;
+    color: #524646;
+}
+
+.delete-button {
+    border: 1px solid #EC5B38;
+    color: #EC5B38;
+}
+
+/* Delete modal */
+.delete-modal {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgba(82, 70, 70, 0.45);
+
+    z-index: 1000;
+}
+
+.delete-modal.hidden {
+    display: none;
+}
+
+.delete-modal-box {
+    width: 380px;
+
+    background-color: #ffffff;
+
+    padding: 30px;
+
+    border-radius: 14px;
+
+    text-align: center;
+
+    box-shadow: 0 12px 30px rgba(82, 70, 70, 0.20);
+}
+
+.delete-icon {
+    width: 48px;
+    height: 48px;
+
+    margin: 0 auto 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #FEDFC1;
+    color: #EC5B38;
+
+    border-radius: 50%;
+
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.delete-modal-box h3 {
+    margin: 0 0 10px;
+
+    font-size: 22px;
+}
+
+.delete-modal-box p {
+    margin: 0 0 24px;
+
+    color: #8b7d77;
+
+    font-size: 14px;
+}
+
+.delete-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.cancel-delete-button,
+.confirm-delete-button {
+    min-width: 105px;
+    height: 42px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.cancel-delete-button {
+    background-color: #ffffff;
+
+    color: #524646;
+
+    border: 1px solid #a99a91;
+}
+
+.confirm-delete-button {
+    background-color: #EC5B38;
+    color: #ffffff;
+
+    border: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .lesson-controls {
+        flex-direction: column;
+    }
+
+    #moduleFilter {
+        width: 100%;
+    }
+
+    .lessons-table {
+        overflow-x: auto;
+    }
+
+    .table-row {
+        min-width: 850px;
+    }
+}
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Module Details</title>
+
+    <link rel="stylesheet" href="module-details.css">
+</head>
+
+<body>
+
+<main class="module-details-page">
+
+    <!-- Back to Module Management -->
+    <a href="module-management.html" class="back-link">
+        ← Back to Modules
+    </a>
+
+    <!-- Module Information -->
+    <section class="module-header">
+
+        <div>
+            <p class="page-label">Module Details / Lessons</p>
+
+            <h1>Object-Oriented Programming</h1>
+
+            <div class="module-meta">
+                <span>Course: C# Programming</span>
+                <span>Order: 2</span>
+            </div>
+        </div>
+
+        <a href="create-lesson.html" class="add-lesson-button">
+            + Add Lesson
+        </a>
+
+    </section>
+
+
+    <!-- Lessons -->
+    <section class="lessons-section">
+
+        <div class="section-header">
+            <h2>Lessons</h2>
+        </div>
+
+        <div class="lessons-table">
+
+            <!-- Table Header -->
+            <div class="table-row table-header">
+                <span>Order</span>
+                <span>Lesson Title</span>
+                <span>Duration</span>
+                <span>Actions</span>
+            </div>
+
+            <!-- Lessons will be added here by JavaScript -->
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="delete-modal hidden">
+
+    <div class="delete-modal-box">
+
+        <div class="delete-icon">!</div>
+
+        <h3>Delete Lesson?</h3>
+
+        <p>Are you sure you want to delete this lesson?</p>
+
+        <div class="delete-modal-actions">
+
+            <button
+                    id="cancelDelete"
+                    class="cancel-delete-button"
+                    type="button"
+            >
+                Cancel
+            </button>
+
+            <button
+                    id="confirmDelete"
+                    class="confirm-delete-button"
+                    type="button"
+            >
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="module-details.js"></script>
+
+</body>
+</html>

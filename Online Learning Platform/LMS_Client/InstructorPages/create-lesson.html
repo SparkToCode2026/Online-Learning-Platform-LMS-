@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create New Lesson</title>
+
+    <link rel="stylesheet" href="create-lesson.css">
+</head>
+
+<body>
+
+<main class="create-lesson-page">
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <p class="page-label">ScholarHub</p>
+        <h1>Create New Lesson</h1>
+    </section>
+
+
+    <!-- Create Lesson Form -->
+    <section class="form-card">
+        <form id="createLessonForm">
+
+            <!-- Module -->
+            <div class="form-group">
+                <label for="module">Module</label>
+
+                <select id="module" name="module" required>
+                    <option value="">Select Module</option>
+                    <option value="intro">Introduction to C#</option>
+                    <option value="oop">Object-Oriented Programming</option>
+                    <option value="linq">Collections & LINQ</option>
+                </select>
+            </div>
+
+
+            <!-- Lesson Title -->
+            <div class="form-group">
+                <label for="lessonTitle">Lesson Title</label>
+
+                <input
+                        type="text"
+                        id="lessonTitle"
+                        name="lessonTitle"
+                        placeholder="e.g. Classes and Objects"
+                        required
+
+                >
+            </div>
+
+
+            <!-- Order Number -->
+            <div class="form-group">
+                <label for="orderNumber">Order Number</label>
+
+                <input
+                        type="number"
+                        id="orderNumber"
+                        name="orderNumber"
+                        placeholder="e.g. 1"
+                        required
+
+                >
+            </div>
+
+
+            <!-- Duration -->
+            <div class="form-group">
+                <label for="duration">Duration (minutes)</label>
+
+                <input
+                        type="number"
+                        id="duration"
+                        name="duration"
+                        placeholder="e.g. 25"
+                        required
+
+                >
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="form-actions">
+
+                <a href="module-details.html" class="cancel-button">
+                    Cancel
+                </a>
+
+                <button type="submit" class="create-button">
+                    Create Lesson
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+<!-- create-lesson.html -->
+<script src="create-lesson.js"></script>
+</body>
+</html>

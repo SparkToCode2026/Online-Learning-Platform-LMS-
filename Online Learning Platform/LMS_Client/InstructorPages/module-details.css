@@ -1,0 +1,271 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff8ef;
+    color: #403735;
+}
+
+button,
+a {
+    font-family: inherit;
+}
+
+.module-details-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+/* Back link */
+.back-link {
+    display: inline-block;
+    margin-bottom: 28px;
+    color: #f56645;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Module header */
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #dfd2c5;
+}
+
+.page-label {
+    margin: 0 0 10px;
+    color: #9a8b82;
+    font-size: 13px;
+}
+
+.module-header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.module-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 12px;
+    color: #8d7f77;
+    font-size: 14px;
+}
+
+.add-lesson-button {
+    border: none;
+    background-color: #f56645;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.add-lesson-button:hover {
+    background-color: #df4f32;
+}
+
+/* Lessons */
+.lessons-section {
+    margin-top: 38px;
+}
+
+.section-header h2 {
+    margin: 0 0 18px;
+    font-size: 22px;
+}
+
+.lessons-table {
+    background-color: white;
+    border: 1px solid #b8a89d;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 160px 180px;
+    align-items: center;
+    min-height: 64px;
+    padding: 0 20px;
+    border-bottom: 1px solid #eee3da;
+}
+
+.table-row:last-child {
+    border-bottom: none;
+}
+
+.table-header {
+    background-color: #fff1e2;
+    color: #6c5c55;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.table-row:not(.table-header) {
+    font-size: 14px;
+}
+
+.lesson-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-button,
+.delete-button {
+    padding: 8px 13px;
+    border-radius: 7px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.edit-button {
+    border: 1px solid #9c8d84;
+    color: #5f544f;
+}
+
+.edit-button:hover {
+    background-color: #f6f0eb;
+}
+
+.delete-button {
+    border: 1px solid #f56645;
+    color: #f56645;
+}
+
+.delete-button:hover {
+    background-color: #fff0eb;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+    .module-details-page {
+        padding: 24px;
+    }
+
+    .module-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .table-row {
+        grid-template-columns: 70px 1fr 100px;
+    }
+
+    .table-row span:nth-child(3),
+    .table-header span:nth-child(3) {
+        display: none;
+    }
+
+    .lesson-actions {
+        justify-content: flex-end;
+    }
+}
+.delete-modal {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgba(82, 70, 70, 0.45);
+
+    z-index: 1000;
+}
+
+.delete-modal.hidden {
+    display: none;
+}
+
+.delete-modal-box {
+    width: 380px;
+
+    background-color: #ffffff;
+
+    padding: 30px;
+
+    border-radius: 14px;
+
+    text-align: center;
+
+    box-shadow: 0 12px 30px rgba(82, 70, 70, 0.20);
+}
+
+.delete-icon {
+    width: 48px;
+    height: 48px;
+
+    margin: 0 auto 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #FEDFC1;
+    color: #EC5B38;
+
+    border-radius: 50%;
+
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.delete-modal-box h3 {
+    margin: 0 0 10px;
+
+    color: #524646;
+
+    font-size: 22px;
+}
+
+.delete-modal-box p {
+    margin: 0 0 24px;
+
+    color: #8b7d77;
+
+    font-size: 14px;
+}
+
+.delete-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.cancel-delete-button,
+.confirm-delete-button {
+    min-width: 105px;
+    height: 42px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.cancel-delete-button {
+    background-color: #ffffff;
+    color: #524646;
+
+    border: 1px solid #a99a91;
+}
+
+.confirm-delete-button {
+    background-color: #EC5B38;
+    color: #ffffff;
+
+    border: none;
+}

@@ -1,0 +1,153 @@
+/* General setup */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff8ef;
+    color: #403735;
+}
+
+input,
+select,
+button {
+    font-family: inherit;
+}
+
+/* Page container */
+.update-lesson-page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 45px 30px;
+}
+
+/* Header */
+.page-header {
+    margin-bottom: 28px;
+}
+
+.page-label {
+    margin: 0 0 8px;
+    color: #f56645;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 30px;
+    color: #403735;
+}
+
+/* Form card */
+.form-card {
+    background-color: #ffffff;
+    border: 1px solid #c7b7ad;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 4px 12px rgba(70, 55, 48, 0.05);
+}
+
+/* Form fields */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #574c47;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    height: 44px;
+    padding: 0 13px;
+
+    border: 1px solid #b9a99f;
+    border-radius: 8px;
+
+    background-color: #ffffff;
+    color: #463d3a;
+
+    font-size: 14px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #f56645;
+    box-shadow: 0 0 0 2px rgba(245, 102, 69, 0.12);
+}
+
+/* Buttons */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.cancel-button,
+.update-button {
+    min-width: 105px;
+    height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background-color: #ffffff;
+    color: #655954;
+    border: 1px solid #a99a91;
+}
+
+.cancel-button:hover {
+    background-color: #f6f0eb;
+}
+
+.update-button {
+    border: none;
+    background-color: #f56645;
+    color: #ffffff;
+}
+
+.update-button:hover {
+    background-color: #df4f32;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .update-lesson-page {
+        padding: 28px 18px;
+    }
+
+    .form-card {
+        padding: 24px 18px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .cancel-button,
+    .update-button {
+        width: 100%;
+    }
+}

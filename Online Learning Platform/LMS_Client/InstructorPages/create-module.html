@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create New Module</title>
+
+    <link rel="stylesheet" href="create-module.css">
+</head>
+
+<body>
+
+<main class="create-module-page">
+
+    <!-- Page title -->
+    <section class="page-header">
+        <p class="page-label">ScholarHub</p>
+        <h1>Create New Module</h1>
+    </section>
+
+    <!-- Create module form -->
+    <section class="form-card">
+
+        <form id="createModuleForm">
+
+            <!-- Select course -->
+            <div class="form-group">
+                <label for="course">Course</label>
+
+                <select id="course" name="course" required>
+                    <option value="">Select Course</option>
+                    <option>C# Programming</option>
+                    <option>Web Development</option>
+                    <option>Database Design</option>
+                </select>
+            </div>
+
+
+            <!-- Module title -->
+            <div class="form-group">
+                <label for="moduleTitle">Module Title</label>
+
+                <input
+                        type="text"
+                        id="moduleTitle"
+                        name="moduleTitle"
+                        placeholder="e.g. Object-Oriented Programming"
+                        required
+
+                >
+            </div>
+
+
+            <!-- Order number -->
+            <div class="form-group">
+                <label for="orderNumber">Order Number</label>
+
+                <input
+                        type="number"
+                        id="orderNumber"
+                        name="orderNumber"
+                        placeholder="e.g. 2"
+                        required
+
+                >
+            </div>
+
+
+            <!-- Form buttons -->
+            <div class="form-actions">
+
+                <a href="module-management.html" class="cancel-button">
+                    Cancel
+                </a>
+
+                <button type="submit" class="create-button">
+                    Create Module
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+<!-- create-module.html -->
+<script src="create-module.js"></script>
+</body>
+</html>
