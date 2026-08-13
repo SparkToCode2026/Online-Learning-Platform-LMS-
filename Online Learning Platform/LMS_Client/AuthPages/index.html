@@ -30,6 +30,8 @@
 
     <!-- Login Form -->
     <form id="login-form" class="form-view active">
+      <div id="errorMessage" class="error-message"></div>
+
       <div class="form-group">
         <div class="label-row">
           <label for="login-email">Email Address</label>
@@ -52,7 +54,7 @@
         </div>
       </div>
 
-      <button type="submit" class="submit-btn">Sign In to Dashboard</button>
+      <button type="submit" class="submit-btn">Sign In</button>
     </form>
 
     <!-- Registration Form -->
@@ -100,6 +102,6 @@
     </form>
   </div>
 
-  <script src="indexScript.js"></script>
+  <script type="module" src="indexScript.js"></script>
 </body>
 </html>
