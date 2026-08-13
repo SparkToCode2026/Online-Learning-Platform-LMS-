@@ -6,6 +6,9 @@
     <File Path="LMS_Client/InstructorPages/course_filter.css" />
     <File Path="LMS_Client/InstructorPages/course_filter.html" />
     <File Path="LMS_Client/InstructorPages/course_filter.js" />
+    <File Path="LMS_Client/InstructorPages/create_category.css" />
+    <File Path="LMS_Client/InstructorPages/create_category.html" />
+    <File Path="LMS_Client/InstructorPages/create_category.js" />
     <File Path="LMS_Client/InstructorPages/git_categories.html" />
     <File Path="LMS_Client/InstructorPages/git_categories.js" />
     <File Path="LMS_Client/InstructorPages/rename_category.css" />
