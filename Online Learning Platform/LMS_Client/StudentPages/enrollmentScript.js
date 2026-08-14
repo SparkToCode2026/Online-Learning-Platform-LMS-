@@ -70,22 +70,13 @@ function getCurrentUser() {
 }
 
 /**
- * Wires up the "Enroll in a New Course" button and the enrollment modal.
+ * Wires up the enrollment modal. The "Enroll in a New Course" button
+ * navigates directly to enrollCourses.html via its href.
  */
 function initEnrollmentEvents() {
-  const btnEnrollMain = document.getElementById('btn-enroll-main');
   const modal = document.getElementById('enroll-modal');
   const closeModalBtn = document.getElementById('close-modal-btn');
   const searchInput = document.getElementById('course-search-input');
-
-  if (btnEnrollMain && modal) {
-    btnEnrollMain.addEventListener('click', (e) => {
-      e.preventDefault();
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden', 'false');
-      loadAvailableCourses();
-    });
-  }
 
   if (closeModalBtn && modal) {
     closeModalBtn.addEventListener('click', () => {

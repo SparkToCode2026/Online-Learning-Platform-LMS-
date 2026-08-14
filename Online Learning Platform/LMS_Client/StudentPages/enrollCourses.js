@@ -1,23 +1,125 @@
+import { getAllCourses } from '../APIs/CourseApi.js';
+import { enrollStudent, getEnrollmentsByUserId } from '../APIs/EnrollmentAPIs.js';
+
+const PLACEHOLDER_IMAGES = ['images/course1.png', 'images/course2.png', 'images/course3.png', 'images/course4.png'];
+
+let allCourses = [];
+let enrolledCourseIds = new Set();
+
 document.addEventListener('DOMContentLoaded', () => {
   initSearch();
-  initAddButtons();
+  loadCoursesFromServer();
 });
+
+function getCurrentUser() {
+  try {
+    return JSON.parse(localStorage.getItem('user'));
+  } catch (err) {
+    return null;
+  }
+}
+
+async function loadCoursesFromServer() {
+  const grid = document.getElementById('courses-grid');
+  const user = getCurrentUser();
+
+  try {
+    const [courses, enrollments] = await Promise.all([
+      getAllCourses(),
+      user && user.id ? getEnrollmentsByUserId(user.id) : Promise.resolve([]),
+    ]);
+
+    allCourses = courses || [];
+    enrolledCourseIds = new Set((enrollments || []).map(e => e.courseId));
+
+    renderCourses(allCourses);
+  } catch (err) {
+    if (grid) {
+      grid.innerHTML = `<p class="empty-state-text">${err.message || 'Failed to load courses.'}</p>`;
+    }
+  }
+}
+
+function renderCourses(courses) {
+  const grid = document.getElementById('courses-grid');
+  if (!grid) return;
+
+  grid.innerHTML = '';
+
+  if (!courses || courses.length === 0) {
+    grid.innerHTML = '<p class="empty-state-text">No courses are available right now.</p>';
+    return;
+  }
+
+  courses.forEach((course, index) => {
+    const isEnrolled = enrolledCourseIds.has(course.courseId);
+    const image = PLACEHOLDER_IMAGES[index % PLACEHOLDER_IMAGES.length];
+
+    const card = document.createElement('article');
+    card.className = 'course-item-card';
+    card.dataset.id = course.courseId;
+    card.dataset.instructor = course.instructorName;
+
+    card.innerHTML = `
+      <div class="card-img-wrapper">
+        <img src="${image}" alt="${course.courseName}" class="course-img">
+      </div>
+      <div class="card-content-body">
+        <h3 class="course-item-title">${course.courseName}</h3>
+        <div class="card-meta-row">
+          <span class="course-price">Price: ${course.coursePrice} OMR</span>
+          <span class="badge-new">${course.categoryName}</span>
+        </div>
+        <button class="btn-add-course${isEnrolled ? ' added' : ''}">${isEnrolled ? 'Added' : 'Add'}</button>
+      </div>
+    `;
+
+    const addBtn = card.querySelector('.btn-add-course');
+    addBtn.addEventListener('click', () => handleAddClick(course, addBtn));
+
+    grid.appendChild(card);
+  });
+}
+
+async function handleAddClick(course, button) {
+  if (button.classList.contains('added')) return;
+
+  const user = getCurrentUser();
+  if (!user || !user.id) {
+    alert('Please log in to enroll in a course.');
+    return;
+  }
+
+  button.disabled = true;
+  const originalText = button.textContent;
+  button.textContent = 'Enrolling...';
+
+  try {
+    await enrollStudent(user.id, course.courseId);
+    enrolledCourseIds.add(course.courseId);
+    button.classList.add('added');
+    button.textContent = 'Added';
+    button.disabled = false;
+    showToast(`Enrolled in "${course.courseName}" successfully!`);
+  } catch (err) {
+    button.disabled = false;
+    button.textContent = originalText;
+    showToast(err.message || 'Failed to enroll in this course.');
+  }
+}
 
 function initSearch() {
   const searchInput = document.getElementById('search-input');
   const searchBtn = document.getElementById('search-btn');
-  const courseCards = document.querySelectorAll('.course-item-card');
 
   function filterCourses() {
     const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
-    courseCards.forEach(card => {
+    const cards = document.querySelectorAll('#courses-grid .course-item-card');
+    cards.forEach(card => {
       const title = card.querySelector('.course-item-title').textContent.toLowerCase();
-      const price = card.querySelector('.course-price').textContent.toLowerCase();
-      if (title.includes(query) || price.includes(query)) {
-        card.style.display = 'flex';
-      } else {
-        card.style.display = 'none';
-      }
+      const instructor = (card.dataset.instructor || '').toLowerCase();
+      const matches = title.includes(query) || instructor.includes(query);
+      card.style.display = matches ? 'flex' : 'none';
     });
   }
 
@@ -28,53 +130,6 @@ function initSearch() {
   if (searchBtn) {
     searchBtn.addEventListener('click', filterCourses);
   }
-}
-
-function initAddButtons() {
-  const addBtns = document.querySelectorAll('.btn-add-course');
-  
-  // Load existing enrolled courses from localStorage
-  let enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
-
-  addBtns.forEach(btn => {
-    const card = btn.closest('.course-item-card');
-    const courseId = card.getAttribute('data-id');
-    
-    if (enrolledCourses.includes(courseId)) {
-      btn.classList.add('added');
-      btn.textContent = 'Added';
-    }
-
-    btn.addEventListener('click', () => {
-      if (!btn.classList.contains('added')) {
-        const title = card.querySelector('.course-item-title').textContent;
-        const instructor = card.getAttribute('data-instructor') || 'Dr. Mike Andrew';
-        
-        btn.classList.add('added');
-        btn.textContent = 'Added';
-
-        // Add course object to stored array
-        const newCourseObj = {
-          id: courseId || Date.now(),
-          title: title,
-          instructor: instructor,
-          progress: '0%',
-          status: 'Active'
-        };
-
-        let storedList = JSON.parse(localStorage.getItem('myNewEnrollments') || '[]');
-        storedList.unshift(newCourseObj);
-        localStorage.setItem('myNewEnrollments', JSON.stringify(storedList));
-
-        if (!enrolledCourses.includes(courseId)) {
-          enrolledCourses.push(courseId);
-          localStorage.setItem('enrolledCourses', JSON.stringify(enrolledCourses));
-        }
-
-        showToast(`Enrolled in "${title}" successfully!`);
-      }
-    });
-  });
 }
 
 function showToast(message) {
