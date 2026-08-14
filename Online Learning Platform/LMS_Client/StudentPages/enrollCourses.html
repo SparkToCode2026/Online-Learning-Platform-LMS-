@@ -38,132 +38,14 @@
       </div>
     </header>
 
-    <!-- Courses Grid (4 Columns, 2 Rows) -->
-    <section class="courses-grid">
-      <!-- Row 1 Card 1 -->
-      <article class="course-item-card" data-id="course-1" data-instructor="Dr. Mike Andrew">
-        <div class="card-img-wrapper">
-          <img src="images/course1.png" alt="Product 1" class="course-img">
-        </div>
-        <div class="card-content-body">
-          <h3 class="course-item-title">Product 1</h3>
-          <div class="card-meta-row">
-            <span class="course-price">Price: 50 OMR</span>
-            <span class="badge-new">New</span>
-          </div>
-          <button class="btn-add-course">Add</button>
-        </div>
-      </article>
-
-      <!-- Row 1 Card 2 -->
-      <article class="course-item-card" data-id="course-2" data-instructor="Kelly M.">
-        <div class="card-img-wrapper">
-          <img src="images/course2.png" alt="Product 2" class="course-img">
-        </div>
-        <div class="card-content-body">
-          <h3 class="course-item-title">Product 2</h3>
-          <div class="card-meta-row">
-            <span class="course-price">Price: 20 OMR</span>
-            <span class="badge-new">New</span>
-          </div>
-          <button class="btn-add-course">Add</button>
-        </div>
-      </article>
-
-      <!-- Row 1 Card 3 -->
-      <article class="course-item-card" data-id="course-3" data-instructor="Alex Rivera">
-        <div class="card-img-wrapper">
-          <img src="images/course3.png" alt="Product 3" class="course-img">
-        </div>
-        <div class="card-content-body">
-          <h3 class="course-item-title">Product 3</h3>
-          <div class="card-meta-row">
-            <span class="course-price">price: 30 OMR</span>
-            <span class="badge-new">New</span>
-          </div>
-          <button class="btn-add-course">Add</button>
-        </div>
-      </article>
-
-      <!-- Row 1 Card 4 -->
-      <article class="course-item-card" data-id="course-4" data-instructor="Prof. James Wilson">
-        <div class="card-img-wrapper">
-          <img src="images/course4.png" alt="Product 4" class="course-img">
-        </div>
-        <div class="card-content-body">
-          <h3 class="course-item-title">Product 4</h3>
-          <div class="card-meta-row">
-            <span class="course-price">Price: 40 OMR</span>
-            <span class="badge-new">New</span>
-          </div>
-          <button class="btn-add-course">Add</button>
-        </div>
-      </article>
-
-      <!-- Row 2 Card 5 -->
-      <article class="course-item-card" data-id="course-5" data-instructor="Dr. Robert Chen">
-        <div class="card-img-wrapper">
-          <img src="images/course1.png" alt="Product 1" class="course-img">
-        </div>
-        <div class="card-content-body">
-          <h3 class="course-item-title">Product 1</h3>
-          <div class="card-meta-row">
-            <span class="course-price">$29</span>
-            <span class="badge-new">New</span>
-          </div>
-          <button class="btn-add-course">Add</button>
-        </div>
-      </article>
-
-      <!-- Row 2 Card 6 -->
-      <article class="course-item-card" data-id="course-6" data-instructor="Sarah Jenkins">
-        <div class="card-img-wrapper">
-          <img src="images/course2.png" alt="Product 2" class="course-img">
-        </div>
-        <div class="card-content-body">
-          <h3 class="course-item-title">Product 2</h3>
-          <div class="card-meta-row">
-            <span class="course-price">$39</span>
-            <span class="badge-new">New</span>
-          </div>
-          <button class="btn-add-course">Add</button>
-        </div>
-      </article>
-
-      <!-- Row 2 Card 7 -->
-      <article class="course-item-card" data-id="course-7" data-instructor="Dr. Elena Rostova">
-        <div class="card-img-wrapper">
-          <img src="images/course3.png" alt="Product 3" class="course-img">
-        </div>
-        <div class="card-content-body">
-          <h3 class="course-item-title">Product 3</h3>
-          <div class="card-meta-row">
-            <span class="course-price">$49</span>
-            <span class="badge-new">New</span>
-          </div>
-          <button class="btn-add-course">Add</button>
-        </div>
-      </article>
-
-      <!-- Row 2 Card 8 -->
-      <article class="course-item-card" data-id="course-8" data-instructor="Prof. Marcus Vance">
-        <div class="card-img-wrapper">
-          <img src="images/course4.png" alt="Product 4" class="course-img">
-        </div>
-        <div class="card-content-body">
-          <h3 class="course-item-title">Product 4</h3>
-          <div class="card-meta-row">
-            <span class="course-price">$59</span>
-            <span class="badge-new">New</span>
-          </div>
-          <button class="btn-add-course">Add</button>
-        </div>
-      </article>
+    <!-- Courses Grid (populated from the database) -->
+    <section class="courses-grid" id="courses-grid">
+      <p class="empty-state-text" id="courses-empty-text">Loading courses...</p>
     </section>
   </main>
 
   <!-- Script -->
-  <script src="enrollCourses.js"></script>
+  <script type="module" src="enrollCourses.js"></script>
 </body>
 
 </html>

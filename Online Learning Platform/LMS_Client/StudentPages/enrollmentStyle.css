@@ -394,6 +394,22 @@ body {
   color: var(--badge-completed-text);
 }
 
+.status-badge.pending {
+  background-color: #fff4d6;
+  color: #8a6d1f;
+}
+
+.status-badge.dropped {
+  background-color: #fde2e2;
+  color: #a33636;
+}
+
+.empty-state-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  padding: 24px 4px;
+}
+
 .instructor-name {
   font-size: 13px;
   color: var(--text-muted);
