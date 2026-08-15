@@ -241,3 +241,34 @@ async function fetchQuizzesFromAPI() {
         console.log("Using static dummy data (API offline).");
     }
 }
+// quiz-management.js - Instructor Quiz CRUD Logic
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadManagedQuizzes();
+});
+
+async function loadManagedQuizzes() {
+    try {
+        const quizzes = await customFetch('/api/Quiz/manage', 'GET');
+        console.log('Managed quizzes loaded:', quizzes);
+    } catch (error) {
+        console.error('Error fetching quiz management table:', error);
+    }
+}
+
+/**
+ * Deletes a quiz by ID
+ * @param {number|string} quizId 
+ */
+async function deleteQuiz(quizId) {
+    if (confirm('Are you sure you want to delete this quiz?')) {
+        try {
+            await customFetch(`/api/Quiz/${quizId}`, 'DELETE');
+            alert('Quiz deleted successfully!');
+            loadManagedQuizzes(); // Refresh list
+        } catch (error) {
+            alert('Failed to delete the quiz.');
+            console.error('Delete error:', error);
+        }
+    }
+}
