@@ -1,61 +1,7 @@
-// --- Static Mock Data ---
-const staticCategories = [
-  { id: 1, name: "Development" },
-  { id: 2, name: "Design" },
-  { id: 3, name: "Business" },
-  { id: 4, name: "Data Science" }
-];
-
-const staticCourses = [
-  {
-    courseId: 101,
-    courseName: "Full-Stack Web Development Bootcamp",
-    categoryName: "Development",
-    categoryId: 1,
-    coursePrice: 350.00,
-    instructorName: "Sarah Jenkins"
-  },
-  {
-    courseId: 102,
-    courseName: "Advanced UI/UX Design Masterclass",
-    categoryName: "Design",
-    categoryId: 2,
-    coursePrice: 280.00,
-    instructorName: "Alex Rivera"
-  },
-  {
-    courseId: 103,
-    courseName: "Data Science & Machine Learning with Python",
-    categoryName: "Data Science",
-    categoryId: 4,
-    coursePrice: 420.00,
-    instructorName: "Dr. Michael Chen"
-  },
-  {
-    courseId: 104,
-    courseName: "Digital Marketing & Brand Strategy",
-    categoryName: "Business",
-    categoryId: 3,
-    coursePrice: 150.00,
-    instructorName: "Emma Watson"
-  },
-  {
-    courseId: 105,
-    courseName: "Cloud Computing & AWS Architecture",
-    categoryName: "Development",
-    categoryId: 1,
-    coursePrice: 310.00,
-    instructorName: "David Miller"
-  },
-  {
-    courseId: 106,
-    courseName: "Financial Modeling & Business Analysis",
-    categoryName: "Business",
-    categoryId: 3,
-    coursePrice: 190.00,
-    instructorName: "Robert Vance"
-  }
-];
+import {
+  getAllCourses,
+  getTopExpensiveCourses
+} from './CourseApi.js';
 
 // Local variables to hold our state
 let allCoursesData = [];
@@ -84,34 +30,110 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 1. Populate Top 5 Highest Priced Courses (Derived locally from static data)
-function loadTopExpensiveCourses() {
-  // Sort courses by price descending and take top 5
-  topCoursesData = [...staticCourses]
-    .sort((a, b) => b.coursePrice - a.coursePrice)
-    .slice(0, 5);
+async function loadTopExpensiveCourses() {
 
-  renderCourseCards(topCoursesData, 'topExpensiveContainer');
+  try {
+
+    topCoursesData = await getTopExpensiveCourses();
+
+    renderCourseCards(
+      topCoursesData,
+      'topExpensiveContainer'
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    const container =
+      document.getElementById('topExpensiveContainer');
+
+    if (container) {
+      container.innerHTML = `
+        <p style="color:red; grid-column:1/-1;">
+          ${error.message}
+        </p>
+      `;
+    }
+  }
 }
 
 // 2. Populate All Courses
-function loadAllCourses() {
-  allCoursesData = [...staticCourses];
-  renderCourseCards(allCoursesData, 'allCoursesContainer');
+async function loadAllCourses() {
+
+  try {
+
+    allCoursesData = await getAllCourses();
+
+    renderCourseCards(
+      allCoursesData,
+      'allCoursesContainer'
+    );
+
+    populateCategoryDropdown();
+
+  } catch (error) {
+
+    console.error(error);
+
+    const container =
+      document.getElementById('allCoursesContainer');
+
+    if (container) {
+      container.innerHTML = `
+        <p style="color:red; grid-column:1/-1;">
+          ${error.message}
+        </p>
+      `;
+    }
+  }
 }
 
-// 3. Load Static Categories into Dropdown
+// 3. Load Categories into Dropdown
 function populateCategoryDropdown() {
-  const dropdown = document.getElementById('categoryFilter');
+
+  const dropdown =
+    document.getElementById('categoryFilter');
+
   if (!dropdown) return;
 
-  // Clear existing options except the default one
-  dropdown.innerHTML = '<option value="">All Categories</option>';
+  dropdown.innerHTML =
+    '<option value="">All Categories</option>';
 
-  staticCategories.forEach(cat => {
-    const opt = document.createElement('option');
-    opt.value = cat.id;
-    opt.textContent = cat.name;
-    dropdown.appendChild(opt);
+  const categories = [];
+
+  allCoursesData.forEach(course => {
+
+    if (
+      course.categoryId &&
+      course.categoryName
+    ) {
+
+      const exists = categories.some(
+        category =>
+          category.id === course.categoryId
+      );
+
+      if (!exists) {
+
+        categories.push({
+          id: course.categoryId,
+          name: course.categoryName
+        });
+
+      }
+    }
+  });
+
+  categories.forEach(category => {
+
+    const option =
+      document.createElement('option');
+
+    option.value = category.id;
+    option.textContent = category.name;
+
+    dropdown.appendChild(option);
   });
 }
 
