@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Solution Items/">
+    <File Path="../../../CategoryApi.js" />
     <File Path="LMS_Client/InstructorPages/course_details.css" />
     <File Path="LMS_Client/InstructorPages/course_details.html" />
     <File Path="LMS_Client/InstructorPages/course_details.js" />
