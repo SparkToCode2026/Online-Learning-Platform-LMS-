@@ -1,41 +1,58 @@
 import {
   getAllCourses,
   getTopExpensiveCourses
-} from './CourseApi.js';
+} from '../CourseApi.js';
 
-// Local variables to hold our state
+// Store course data locally
 let allCoursesData = [];
 let topCoursesData = [];
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  // Load data from API
   loadTopExpensiveCourses();
   loadAllCourses();
-  populateCategoryDropdown();
 
-  // Attach event listeners dynamically
+  // Search input
   const searchInput = document.getElementById('searchInput');
+
   if (searchInput) {
     searchInput.addEventListener('input', handleSearch);
   }
 
+  // Category filter
   const categoryFilter = document.getElementById('categoryFilter');
+
   if (categoryFilter) {
     categoryFilter.addEventListener('change', applyFilters);
   }
 
+  // Create course button
   const createCourseBtn = document.getElementById('createCourseBtn');
+
   if (createCourseBtn) {
     createCourseBtn.addEventListener('click', openCreateCourse);
   }
 });
 
-// 1. Populate Top 5 Highest Priced Courses (Derived locally from static data)
+
+/* =========================================================
+   1. LOAD TOP 5 EXPENSIVE COURSES
+   ========================================================= */
+
 async function loadTopExpensiveCourses() {
 
   try {
 
+    // Get top courses from API
     topCoursesData = await getTopExpensiveCourses();
 
+    console.log(
+      'Top expensive courses received from API:',
+      topCoursesData
+    );
+
+    // Display courses
     renderCourseCards(
       topCoursesData,
       'topExpensiveContainer'
@@ -43,12 +60,16 @@ async function loadTopExpensiveCourses() {
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      'Error loading top expensive courses:',
+      error
+    );
 
     const container =
       document.getElementById('topExpensiveContainer');
 
     if (container) {
+
       container.innerHTML = `
         <p style="color:red; grid-column:1/-1;">
           ${error.message}
@@ -58,28 +79,44 @@ async function loadTopExpensiveCourses() {
   }
 }
 
-// 2. Populate All Courses
+
+/* =========================================================
+   2. LOAD ALL COURSES
+   ========================================================= */
+
 async function loadAllCourses() {
 
   try {
 
+    // Get all courses from API
     allCoursesData = await getAllCourses();
 
+    console.log(
+      'All courses received from API:',
+      allCoursesData
+    );
+
+    // Display courses
     renderCourseCards(
       allCoursesData,
       'allCoursesContainer'
     );
 
+    // Create category dropdown
     populateCategoryDropdown();
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      'Error loading courses:',
+      error
+    );
 
     const container =
       document.getElementById('allCoursesContainer');
 
     if (container) {
+
       container.innerHTML = `
         <p style="color:red; grid-column:1/-1;">
           ${error.message}
@@ -89,19 +126,28 @@ async function loadAllCourses() {
   }
 }
 
-// 3. Load Categories into Dropdown
+
+/* =========================================================
+   3. POPULATE CATEGORY DROPDOWN
+   ========================================================= */
+
 function populateCategoryDropdown() {
 
   const dropdown =
     document.getElementById('categoryFilter');
 
-  if (!dropdown) return;
+  if (!dropdown) {
+    return;
+  }
 
-  dropdown.innerHTML =
-    '<option value="">All Categories</option>';
+  // Clear existing options
+  dropdown.innerHTML = `
+    <option value="">All Categories</option>
+  `;
 
   const categories = [];
 
+  // Get unique categories from courses
   allCoursesData.forEach(course => {
 
     if (
@@ -125,6 +171,7 @@ function populateCategoryDropdown() {
     }
   });
 
+  // Add categories to dropdown
   categories.forEach(category => {
 
     const option =
@@ -137,83 +184,217 @@ function populateCategoryDropdown() {
   });
 }
 
-// 4. Render Course Cards
-function renderCourseCards(courses, containerId) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  
-  container.innerHTML = '';
 
-  if (!courses || courses.length === 0) {
-    container.innerHTML = `<p style="color:#888; grid-column: 1/-1;">No courses available.</p>`;
+/* =========================================================
+   4. RENDER COURSE CARDS
+   ========================================================= */
+
+function renderCourseCards(courses, containerId) {
+
+  const container =
+    document.getElementById(containerId);
+
+  if (!container) {
     return;
   }
 
+  // Clear container
+  container.innerHTML = '';
+
+  // No courses
+  if (!courses || courses.length === 0) {
+
+    container.innerHTML = `
+      <p style="
+        color:#888;
+        grid-column:1/-1;
+        text-align:center;
+      ">
+        No courses available.
+      </p>
+    `;
+
+    return;
+  }
+
+  // Create card for every course
   courses.forEach(course => {
-    const card = document.createElement('div');
+
+    const card =
+      document.createElement('div');
+
     card.className = 'course-card';
-    card.setAttribute('data-name', (course.courseName || '').toLowerCase());
-    card.setAttribute('data-category-id', course.categoryId || '');
+
+    // Store information for searching/filtering
+    card.setAttribute(
+      'data-name',
+      (course.courseName || '').toLowerCase()
+    );
+
+    card.setAttribute(
+      'data-category-id',
+      course.categoryId || ''
+    );
 
     card.innerHTML = `
       <div class="course-icon-box">
         <i class="fa-solid fa-book-open-reader"></i>
       </div>
-      <h3 class="course-name">${course.courseName || 'Untitled Course'}</h3>
-      <p class="course-category">Category: ${course.categoryName || 'General'}</p>
-      <p class="course-price">OMR ${Number(course.coursePrice || 0).toFixed(2)}</p>
-      <p class="instructor-name">Instructor: ${course.instructorName || 'N/A'}</p>
-      <button class="btn-details" data-id="${course.courseId}">View Details</button>
+
+      <h3 class="course-name">
+        ${course.courseName || 'Untitled Course'}
+      </h3>
+
+      <p class="course-category">
+        Category:
+        ${course.categoryName || 'General'}
+      </p>
+
+      <p class="course-price">
+        OMR ${Number(
+          course.coursePrice || 0
+        ).toFixed(2)}
+      </p>
+
+      <p class="instructor-name">
+        Instructor:
+        ${course.instructorName || 'N/A'}
+      </p>
+
+      <button
+        class="btn-details"
+        data-id="${course.courseId}"
+      >
+        View Details
+      </button>
     `;
 
-    // Attach click handler for details button
-    const btnDetails = card.querySelector('.btn-details');
+    // View Details button
+    const btnDetails =
+      card.querySelector('.btn-details');
+
     if (btnDetails) {
-      btnDetails.addEventListener('click', () => viewDetails(course.courseId));
+
+      btnDetails.addEventListener(
+        'click',
+        () => viewDetails(course.courseId)
+      );
     }
 
+    // Add card to page
     container.appendChild(card);
   });
 }
 
-// 5. Category Dropdown Filter Implementation (Filtering locally)
+
+/* =========================================================
+   5. CATEGORY FILTER
+   ========================================================= */
+
 function applyFilters() {
-  const selectedCat = document.getElementById('categoryFilter').value;
 
-  let filteredCourses = allCoursesData;
+  const categoryFilter =
+    document.getElementById('categoryFilter');
 
-  if (selectedCat) {
-    filteredCourses = allCoursesData.filter(
-      course => String(course.categoryId) === String(selectedCat)
-    );
+  if (!categoryFilter) {
+    return;
   }
 
-  renderCourseCards(filteredCourses, 'allCoursesContainer');
-  // Re-apply current live search query on the newly filtered list
+  const selectedCategory =
+    categoryFilter.value;
+
+  let filteredCourses =
+    allCoursesData;
+
+  // Filter by category
+  if (selectedCategory) {
+
+    filteredCourses =
+      allCoursesData.filter(
+        course =>
+          String(course.categoryId) ===
+          String(selectedCategory)
+      );
+  }
+
+  // Display filtered courses
+  renderCourseCards(
+    filteredCourses,
+    'allCoursesContainer'
+  );
+
+  // Apply search after category filtering
   handleSearch();
 }
 
-// 6. Live Search Bar Filter Implementation
+
+/* =========================================================
+   6. LIVE SEARCH
+   ========================================================= */
+
 function handleSearch() {
-  const query = document.getElementById('searchInput').value.trim().toLowerCase();
-  const allCards = document.querySelectorAll('.course-card');
+
+  const searchInput =
+    document.getElementById('searchInput');
+
+  if (!searchInput) {
+    return;
+  }
+
+  const query =
+    searchInput.value
+      .trim()
+      .toLowerCase();
+
+  const allCards =
+    document.querySelectorAll(
+      '#allCoursesContainer .course-card'
+    );
 
   allCards.forEach(card => {
-    const name = card.getAttribute('data-name') || '';
+
+    const name =
+      card.getAttribute('data-name') || '';
+
     if (name.includes(query)) {
+
       card.style.display = 'flex';
+
     } else {
+
       card.style.display = 'none';
+
     }
   });
 }
 
-// Redirect to Course Details page with query string ID
+
+/* =========================================================
+   7. VIEW COURSE DETAILS
+   ========================================================= */
+
 function viewDetails(courseId) {
-  window.location.href = `course_details.html?id=${courseId}`;
+
+  console.log(
+    'Opening course details for ID:',
+    courseId
+  );
+
+  window.location.href =
+    `course_details.html?id=${courseId}`;
 }
+
+
+/* =========================================================
+   8. CREATE COURSE
+   ========================================================= */
 
 function openCreateCourse() {
-  alert('Redirecting to Create Course page...');
-}
 
+  console.log(
+    'Opening Create Course page...'
+  );
+
+  window.location.href =
+    'create_course.html';
+}

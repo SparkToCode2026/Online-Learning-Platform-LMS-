@@ -1,138 +1,438 @@
-// Initial seed dataset used if localStorage is empty
-const defaultCategories = [
-  { id: 1, name: "Development", courseCount: 12 },
-  { id: 2, name: "Design", courseCount: 8 },
-  { id: 3, name: "Business", courseCount: 5 },
-  { id: 4, name: "Data Science", courseCount: 4 },
-  { id: 5, name: "Marketing (Empty)", courseCount: 0 }
-];
+// ==========================================
+// API Configuration
+// ==========================================
 
-// Helper to load categories from localStorage or initialize defaults
-function getCategories() {
-  const stored = localStorage.getItem('scholarhub_categories');
-  if (!stored) {
-    localStorage.setItem('scholarhub_categories', JSON.stringify(defaultCategories));
-    return defaultCategories;
-  }
-  return JSON.parse(stored);
-}
+const CATEGORY_API_URL = "http://localhost:5236/Category";
 
-// Helper to save categories back to localStorage
-function saveCategories(data) {
-  localStorage.setItem('scholarhub_categories', JSON.stringify(data));
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-  initCategories();
+// ==========================================
+// Page Load
+// ==========================================
 
-  // Attach action button event listeners
-  const searchBtn = document.getElementById('searchBtn');
-  if (searchBtn) {
-    searchBtn.addEventListener('click', applyFilter);
-  }
+document.addEventListener("DOMContentLoaded", () => {
 
-  const clearBtn = document.getElementById('clearBtn');
-  if (clearBtn) {
-    clearBtn.addEventListener('click', resetFilter);
-  }
+    loadCategories();
+
+
+    // Search button
+    const searchBtn =
+        document.getElementById("searchBtn");
+
+    if (searchBtn) {
+        searchBtn.addEventListener(
+            "click",
+            applyFilter
+        );
+    }
+
+
+    // Clear button
+    const clearBtn =
+        document.getElementById("clearBtn");
+
+    if (clearBtn) {
+        clearBtn.addEventListener(
+            "click",
+            resetFilter
+        );
+    }
+
 });
 
-function initCategories() {
-  const categories = getCategories();
-  populateDropdown(categories);
-  renderTable(categories);
+
+// ==========================================
+// GET All Categories
+// ==========================================
+
+async function loadCategories() {
+
+    try {
+
+        const response = await fetch(
+            `${CATEGORY_API_URL}/GetAllCategories`
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load categories."
+            );
+
+        }
+
+
+        const categories =
+            await response.json();
+
+
+        console.log(
+            "Categories received:",
+            categories
+        );
+
+
+        populateDropdown(categories);
+
+        renderTable(categories);
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading categories:",
+            error
+        );
+
+
+        showError(
+            "Unable to load categories."
+        );
+
+    }
+
 }
 
-function populateDropdown(data) {
-  const select = document.getElementById('categorySelect');
-  if (!select) return;
 
-  select.innerHTML = '<option value="">All Categories</option>';
-  
-  data.forEach(item => {
-    const opt = document.createElement('option');
-    opt.value = item.id;
-    opt.textContent = item.name;
-    select.appendChild(opt);
-  });
+// ==========================================
+// Populate Category Dropdown
+// ==========================================
+
+function populateDropdown(categories) {
+
+    const select =
+        document.getElementById(
+            "categorySelect"
+        );
+
+
+    if (!select) {
+        return;
+    }
+
+
+    select.innerHTML =
+        '<option value="">All Categories</option>';
+
+
+    categories.forEach(category => {
+
+        const option =
+            document.createElement("option");
+
+
+        option.value =
+            category.categoryId;
+
+
+        option.textContent =
+            category.categoryName;
+
+
+        select.appendChild(option);
+
+    });
+
 }
 
-function renderTable(data) {
-  const tbody = document.getElementById('categoryTableBody');
-  if (!tbody) return;
 
-  tbody.innerHTML = '';
+// ==========================================
+// Render Categories Table
+// ==========================================
 
-  if (data.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #888;">No categories found</td></tr>`;
-    return;
-  }
+function renderTable(categories) {
 
-  data.forEach(item => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><strong>${item.name}</strong></td>
-      <td>${item.courseCount}</td>
-      <td>
-        <div class="action-cell">
-          <!-- Navigates to Rename Category Page passing Query Parameters -->
-          <a href="rename_category.html?id=${item.id}&name=${encodeURIComponent(item.name)}" class="icon-btn" title="Rename">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </a>
-          <button class="icon-btn" title="Delete" onclick="deleteCategory(${item.id})">
-            <i class="fa-regular fa-trash-can"></i>
-          </button>
-        </div>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
+    const tbody =
+        document.getElementById(
+            "categoryTableBody"
+        );
+
+
+    if (!tbody) {
+        return;
+    }
+
+
+    tbody.innerHTML = "";
+
+
+    if (!categories ||
+        categories.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="3"
+                    style="text-align: center; color: #888;">
+                    No categories found
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    categories.forEach(category => {
+
+        const tr =
+            document.createElement("tr");
+
+
+        const id =
+            category.categoryId;
+
+
+        const name =
+            category.categoryName || "N/A";
+
+
+        tr.innerHTML = `
+
+            <td>
+                <strong>${name}</strong>
+            </td>
+
+            <td>
+                -
+            </td>
+
+            <td>
+
+                <div class="action-cell">
+
+                    <a
+                        href="rename_category.html?id=${id}&name=${encodeURIComponent(name)}"
+                        class="icon-btn"
+                        title="Rename">
+
+                        <i class="fa-regular fa-pen-to-square"></i>
+
+                    </a>
+
+
+                    <button
+                        class="icon-btn"
+                        title="Delete"
+                        onclick="deleteCategory(${id}, '${escapeForAttribute(name)}')">
+
+                        <i class="fa-regular fa-trash-can"></i>
+
+                    </button>
+
+                </div>
+
+            </td>
+        `;
+
+
+        tbody.appendChild(tr);
+
+    });
+
 }
 
-function deleteCategory(id) {
-  let categories = getCategories();
-  const category = categories.find(cat => Number(cat.id) === Number(id));
 
-  if (!category) return;
+// ==========================================
+// Search Category
+// ==========================================
 
-  // Validation: Only allow deleting empty categories
-  if (category.courseCount > 0) {
-    alert(`Cannot delete '${category.name}' because it contains ${category.courseCount} course(s). You can only delete empty categories.`);
-    return;
-  }
+async function applyFilter() {
 
-  if (!confirm(`Are you sure you want to delete the empty category '${category.name}'?`)) {
-    return;
-  }
+    const select =
+        document.getElementById(
+            "categorySelect"
+        );
 
-  // Remove category locally and persist
-  categories = categories.filter(cat => Number(cat.id) !== Number(id));
-  saveCategories(categories);
 
-  // Re-render components
-  populateDropdown(categories);
-  resetFilter();
-  alert('Category deleted successfully.');
+    const selectedId =
+        select ? select.value : "";
+
+
+    // If "All Categories" selected
+    if (!selectedId) {
+
+        loadCategories();
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${CATEGORY_API_URL}/GetCategoryById?id=${selectedId}`
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Category not found."
+            );
+
+        }
+
+
+        const category =
+            await response.json();
+
+
+        renderTable([category]);
+
+
+    } catch (error) {
+
+        console.error(
+            "Error searching category:",
+            error
+        );
+
+
+        showError(
+            "Unable to find category."
+        );
+
+    }
+
 }
 
-function applyFilter() {
-  const categories = getCategories();
-  const select = document.getElementById('categorySelect');
-  const selectedId = select ? select.value : '';
 
-  if (!selectedId) {
-    renderTable(categories);
-  } else {
-    const filtered = categories.filter(cat => String(cat.id) === String(selectedId));
-    renderTable(filtered);
-  }
+// ==========================================
+// Delete Category
+// ==========================================
+
+async function deleteCategory(id, name) {
+
+    const confirmed =
+        confirm(
+            `Are you sure you want to delete the category "${name}"?`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${CATEGORY_API_URL}/DeleteEmptyCategory?id=${id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            const errorMessage =
+                await response.text();
+
+
+            alert(errorMessage);
+
+            return;
+        }
+
+
+        const result =
+            await response.text();
+
+
+        console.log(
+            "Delete response:",
+            result
+        );
+
+
+        alert(
+            "Category deleted successfully."
+        );
+
+
+        // Reload categories from database
+        loadCategories();
+
+
+    } catch (error) {
+
+        console.error(
+            "Delete error:",
+            error
+        );
+
+
+        alert(
+            "Unable to delete category."
+        );
+
+    }
+
 }
+
+
+// ==========================================
+// Clear Filter
+// ==========================================
 
 function resetFilter() {
-  const categories = getCategories();
-  const select = document.getElementById('categorySelect');
-  if (select) {
-    select.value = '';
-  }
-  renderTable(categories);
+
+    const select =
+        document.getElementById(
+            "categorySelect"
+        );
+
+
+    if (select) {
+        select.value = "";
+    }
+
+
+    loadCategories();
+
+}
+
+
+// ==========================================
+// Display Error
+// ==========================================
+
+function showError(message) {
+
+    const tbody =
+        document.getElementById(
+            "categoryTableBody"
+        );
+
+
+    if (!tbody) {
+        return;
+    }
+
+
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="3"
+                style="text-align: center; color: #888;">
+                ${message}
+            </td>
+        </tr>
+    `;
+
+}
+
+
+// ==========================================
+// Helper
+// ==========================================
+
+function escapeForAttribute(value) {
+
+    return String(value)
+        .replace(/'/g, "\\'")
+        .replace(/"/g, "&quot;");
+
 }
