@@ -6,28 +6,63 @@
     <title>OOP Concepts Quiz - LMSHub</title>
     <link rel="stylesheet" href="quiz-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      /* Back button - same style as assignmnetSubmission.html's back button */
+      .back-btn {
+        background-color: #ee5d36;
+        color: #ffffff;
+        border: none;
+        width: 46px;
+        height: 46px;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background-color 0.2s ease, transform 0.15s ease;
+      }
+
+      .back-btn svg {
+        width: 24px;
+        height: 24px;
+        stroke: currentColor;
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: transform 0.15s ease;
+      }
+
+      .back-btn:hover {
+        background-color: #d6502e;
+        transform: scale(1.06);
+      }
+
+      .back-btn:hover svg {
+        transform: translateX(-2px);
+      }
+
+      .back-btn:active {
+        transform: scale(0.95);
+      }
+    </style>
 </head>
 <body>
     <div class="app-layout">
-        <aside class="sidebar">
-            <div class="brand">
-                <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                <span class="brand-name">LMSHub</span>
-            </div>
-            <nav class="sidebar-nav">
-                <a href="#" class="nav-item"><i class="fa-solid fa-border-all"></i><span>Dashboard</span></a>
-                <a href="#" class="nav-item"><i class="fa-solid fa-book-open"></i><span>My Courses</span></a>
-                <a href="assignments-hub.html" class="nav-item"><i class="fa-solid fa-tasks"></i><span>Assignments</span></a>
-                <a href="quiz-list.html" class="nav-item active"><i class="fa-solid fa-clock-rotate-left"></i><span>Quiz</span></a>
-            </nav>
-        </aside>
-
-        <main class="main-wrapper">
+        <main class="main-wrapper" style="width: 100%;">
             <div class="quiz-container">
                 <header style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <h1 style="font-size: 22px; font-weight: 800; margin: 0;">OOP Concepts Quiz</h1>
-                        <p style="font-size: 13px; color: #706865; margin-top: 4px;">Course: C# Programming</p>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <button class="back-btn" id="backBtn" aria-label="Go Back">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <line x1="19" y1="12" x2="5" y2="12"></line>
+                                <polyline points="12 19 5 12 12 5"></polyline>
+                            </svg>
+                        </button>
+                        <div>
+                            <h1 style="font-size: 22px; font-weight: 800; margin: 0;">OOP Concepts Quiz</h1>
+                            <p style="font-size: 13px; color: #706865; margin-top: 4px;">Course: C# Programming</p>
+                        </div>
                     </div>
                     <div style="display: flex; gap: 16px; font-size: 12px; font-weight: 700; color: #554e4b;">
                         <span>Total Questions: 10</span>
@@ -39,7 +74,7 @@
                     <span class="question-badge">Question 1 of 10</span>
                     <h3 class="question-text">What is encapsulation in Object-Oriented Programming?</h3>
 
-                    <div class="option-item selected">
+                    <div class="option-item selected" data-correct="true">
                         <input type="radio" name="question1" checked>
                         <span>A. Combining data and methods inside a class</span>
                     </div>
@@ -85,11 +120,6 @@
         </div>
     </div>
 
-    
-<!-- 1. Centralized API Helper (Always First) -->
-    <script src="quizAPI.js"></script>
-
-    <!-- 2. Page-Specific JavaScript File -->
-    <script src="student-quiz.js"></script>
+    <script type="module" src="student-quiz.js"></script>
 </body>
 </html>

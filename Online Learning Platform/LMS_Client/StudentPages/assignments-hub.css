@@ -1,0 +1,87 @@
+/* Submissions Hub - page-specific styles (sidebar & layout come from enrollmentStyle.css) */
+
+.page-header h1 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.page-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.page-header hr {
+  border: none;
+  border-top: 1px solid var(--card-border);
+  opacity: 0.15;
+  margin-bottom: 36px;
+}
+
+/* Table */
+.table-container {
+  background-color: #FFFFFF;
+  border-radius: 14px;
+  border: 1px solid var(--card-border);
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(63, 53, 53, 0.08);
+}
+
+.submissions-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.submissions-table th {
+  background-color: var(--text-light);
+  padding: 16px 24px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.submissions-table td {
+  padding: 18px 24px;
+  border-bottom: 1px solid #F0E5D8;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.submissions-table tr:last-child td {
+  border-bottom: none;
+}
+
+.font-bold {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+/* Action Button */
+.btn-submit {
+  background-color: #FFFFFF;
+  border: 1px solid var(--card-border);
+  color: var(--text-dark);
+  padding: 6px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+.btn-submit:hover {
+  background-color: var(--accent-orange);
+  border-color: var(--accent-orange);
+  color: #FFFFFF;
+}
