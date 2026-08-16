@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Quiz</title>
+    <link rel="stylesheet" href="create-new-quiz-modal.css">
+</head>
+<body>
+<div id="createQuizModal" class="modal-overlay">
+    <div class="modal-card">
+        <!-- Header -->
+        <div class="modal-header">
+            <div>
+                <h2>Create New Quiz</h2>
+                <p>Create a quiz and assign it to a course.</p>
+            </div>
+            <button
+                    type="button"
+                    id="closeModalBtn"
+                    class="close-btn">
+                &times;
+            </button>
+        </div>
+
+        <!-- Error Message -->
+        <div
+                id="errorMessage"
+                class="error-message">
+        </div>
+
+        <!-- Form -->
+        <form id="createQuizForm">
+            <!-- Quiz Title -->
+            <div class="form-group">
+                <label for="quizTitle">
+                    Quiz Title
+                </label>
+                <input
+                        type="text"
+                        id="quizTitle"
+                        placeholder="e.g. Introduction to C#"
+                        required>
+            </div>
+
+            <!-- Quiz Score -->
+            <div class="form-group">
+                <label for="quizScore">
+                    Quiz Score
+                </label>
+                <input
+                        type="number"
+                        id="quizScore"
+                        placeholder="e.g. 20"
+                        min="0"
+                        required>
+            </div>
+
+            <!-- Course -->
+            <div class="form-group">
+                <label for="courseId">
+                    Course
+                </label>
+                <select
+                        id="courseId"
+                        required>
+                    <option value="">
+                        Select Course
+                    </option>
+                </select>
+            </div>
+
+            <!-- Buttons -->
+            <div class="modal-actions">
+                <button
+                        type="button"
+                        id="cancelBtn"
+                        class="cancel-btn">
+                    Cancel
+                </button>
+                <button
+                        type="submit"
+                        id="createBtn"
+                        class="create-btn">
+                    Create Quiz
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="create-new-quiz-modal.js"></script>
+</body>
+</html>
+
+

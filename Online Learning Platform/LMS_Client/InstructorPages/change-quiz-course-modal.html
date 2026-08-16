@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Quiz Course</title>
+    <link rel="stylesheet" href="change-quiz-course-modal.css">
+</head>
+<body>
+<div class="modal-overlay active" id="changeCourseModal">
+    <div class="modal-card">
+        <!-- Header -->
+        <div class="modal-header">
+            <div>
+                <h2>Change Quiz Course</h2>
+                <p>Move this quiz to another course</p>
+            </div>
+            <button
+                    type="button"
+                    class="close-btn"
+                    id="closeModalBtn"
+            >
+                &times;
+            </button>
+        </div>
+
+        <!-- Form -->
+        <form id="changeCourseForm">
+            <!-- Quiz ID - hidden -->
+            <input
+                    type="hidden"
+                    id="quizId"
+            >
+
+            <!-- Quiz Title -->
+            <div class="form-group">
+                <label for="quizTitle">
+                    Quiz Title
+                </label>
+                <input
+                        type="text"
+                        id="quizTitle"
+                >
+            </div>
+
+            <!-- Current Course -->
+            <div class="form-group">
+                <label for="currentCourse">
+                    Current Course
+                </label>
+                <input
+                        type="text"
+                        id="currentCourse"
+                        readonly
+                        class="readonly-input"
+                >
+            </div>
+
+            <!-- New Course -->
+            <div class="form-group">
+                <label for="newCourse">
+                    New Course
+                </label>
+                <select
+                        id="newCourse"
+                        required
+                >
+                    <option value="">
+                        Select New Course
+                    </option>
+                </select>
+            </div>
+
+            <!-- Buttons -->
+            <div class="modal-actions">
+                <button
+                        type="button"
+                        class="cancel-btn"
+                        id="cancelBtn"
+                >
+                    Cancel
+                </button>
+                <button
+                        type="submit"
+                        class="update-btn"
+                >
+                    Update Course
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="change-quiz-course-modal.js"></script>
+</body>
+</html>
