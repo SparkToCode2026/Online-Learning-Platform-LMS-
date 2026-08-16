@@ -1,40 +1,46 @@
-// api.js - Centralized API Service
-const BASE_URL = 'https://localhost:7123'; // Replace with your backend server URL
+/**
+ * quizAPI.js - API client module for quiz management.
+ */
+
+const API_BASE_URL = 'https://localhost:7135/Quiz';
+
+function getAuthHeaders() {
+  const token = localStorage.getItem('token');
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  return headers;
+}
 
 /**
- * Utility function to handle all HTTP fetch requests
- * @param {string} endpoint - API route (e.g., '/api/quiz')
- * @param {string} method - HTTP method ('GET', 'POST', 'PUT', 'DELETE')
- * @param {object|null} body - Data payload for POST/PUT requests
+ * Sends a GET request to retrieve all quizzes, each including its course name.
+ * @returns {Promise<Array<{quizId: number, quizTitle: string, quizScore: number, courseId: number, courseName: string}>>}
  */
-async function customFetch(endpoint, method = 'GET', body = null) {
-    const headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    };
+export async function getAllQuizzes() {
+  let response;
+  try {
+    response = await fetch(`${API_BASE_URL}/GetAllQuizzes`, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+    });
+  } catch (netErr) {
+    throw new Error(`Connection refused. Please make sure the backend server (LMS_Server) is running.`);
+  }
 
-    const config = {
-        method: method,
-        headers: headers
-    };
+  let data;
+  try {
+    data = await response.json();
+  } catch (err) {
+    data = [];
+  }
 
-    if (body) {
-        config.body = JSON.stringify(body);
-    }
+  if (!response.ok) {
+    const errorMessage = data && data.message ? data.message : 'Failed to fetch quizzes.';
+    throw new Error(errorMessage);
+  }
 
-    try {
-        const response = await fetch(`${BASE_URL}${endpoint}`, config);
-        
-        if (!response.ok) {
-            throw new Error(`Server Error: ${response.status} ${response.statusText}`);
-        }
-
-        // Return empty response if HTTP 204 No Content
-        if (response.status === 204) return null;
-
-        return await response.json();
-    } catch (error) {
-        console.error(`[API Error] Request failed for ${endpoint}:`, error);
-        throw error;
-    }
+  return data;
 }

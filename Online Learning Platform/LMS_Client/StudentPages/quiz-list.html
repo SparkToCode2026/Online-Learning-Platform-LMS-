@@ -5,76 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizzes - LMSHub</title>
     <link rel="stylesheet" href="quiz-styles.css">
+    <link rel="stylesheet" href="enrollmentStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <style>
+      /* Neutralize quiz-styles.css .nav-item rules now that .nav-item is the <li> wrapper (enrollment sidebar markup) */
+      #student-sidebar .nav-item {
+        display: block;
+        padding: 0;
+        background: none;
+        border-radius: 0;
+      }
+
+      .text-muted {
+        color: var(--text-muted);
+      }
+    </style>
 </head>
 <body>
-    <div class="app-layout">
-        <aside class="sidebar">
-            <div class="brand">
-                <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                <span class="brand-name">LMSHub</span>
+    <div class="app-container">
+      <div id="sidebar-container">
+        <aside class="sidebar" id="student-sidebar">
+          <div class="sidebar-header">
+            <div class="logo">
+              <div class="logo-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2L2 12L12 22L22 12L12 2Z" fill="white"/>
+                </svg>
+              </div>
+              <span class="logo-text">LMSHub</span>
             </div>
-            <nav class="sidebar-nav">
-                <a href="#" class="nav-item"><i class="fa-solid fa-border-all"></i><span>Dashboard</span></a>
-                <a href="#" class="nav-item"><i class="fa-solid fa-book-open"></i><span>My Courses</span></a>
-                <a href="assignments-hub.html" class="nav-item"><i class="fa-solid fa-tasks"></i><span>Assignments</span></a>
-                <a href="quiz-list.html" class="nav-item active"><i class="fa-solid fa-clock-rotate-left"></i><span>Quiz</span></a>
-                <a href="#" class="nav-item"><i class="fa-solid fa-certificate"></i><span>Certificates</span></a>
-            </nav>
-            <div class="sidebar-footer">
-                <a href="#" class="nav-item logout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
-            </div>
-        </aside>
+          </div>
 
-        <main class="main-wrapper">
+          <nav class="sidebar-nav">
+            <ul class="nav-list">
+              <li class="nav-item">
+                <a href="enrollment.html" class="nav-link" data-page="enrollment">
+                  <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                  </svg>
+                  <span class="nav-label">Enroll</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="assignments-hub.html" class="nav-link" data-page="assignments">
+                  <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                  </svg>
+                  <span class="nav-label">Assignments</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="quiz-list.html" class="nav-link active" data-page="quiz">
+                  <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <circle cx="12" cy="14" r="1"></circle>
+                    <path d="M12 11c0-1 1-1.5 1.5-2.25.5-.75.5-1.5 0-2.25C13 5.75 12 5.5 11 6"></path>
+                  </svg>
+                  <span class="nav-label">Quiz</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../AuthPages/index.html" class="nav-link" data-page="logout">
+                  <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                  </svg>
+                  <span class="nav-label">log out</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="sidebar-footer">
+            <div class="user-profile">
+              <div class="avatar">
+                <span class="avatar-initials">MA</span>
+              </div>
+              <div class="user-info">
+                <span class="user-name">Dr. Mike Andrew</span>
+                <span class="user-role">Administrator</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+        <main class="main-content">
+          <div class="content-wrapper">
            <header class="page-header" style="display: flex; justify-content: space-between; align-items: center;">
     <div>
         <h1 class="page-heading">Quizzes</h1>
         <p class="page-subheading">Select a quiz to start, resume, or review your progress.</p>
     </div>
-    <!-- Button to go to Quiz Management -->
-    <button class="primary-btn" onclick="window.location.href='quiz-management.html'">
-        <i class="fa-solid fa-gear"></i> Manage Quizzes
-    </button>
+    
 </header>
 
-            <div class="quiz-list-container">
-                <div class="quiz-card">
-                    <div>
-                        <h3 class="quiz-card-title">Quiz 1: Introduction to Biology</h3>
-                        <p class="quiz-card-meta">10 Questions • 30 min <span class="badge badge-not-started">Not Started</span></p>
-                    </div>
-                    
-                    <button class="primary-btn btn-start" data-quiz-id="1">Start Quiz</button>
-                </div>
-
-                <div class="quiz-card">
-                    <div>
-                        <h3 class="quiz-card-title">Quiz 2: OOP Concepts Quiz</h3>
-                        <p class="quiz-card-meta">10 Questions • 20 min <span class="badge badge-in-progress">In Progress</span></p>
-                    </div>
-                    <button class="primary-btn btn-start" data-quiz-id="2">Start Quiz</button>
-                </div>
-                
-
-                <div class="quiz-card">
-                    <div>
-                        <h3 class="quiz-card-title">Quiz 3: Genetics Basics</h3>
-                        <p class="quiz-card-meta">12 Questions • 25 min <span class="badge badge-completed">Completed</span></p>
-                    </div>
-                    <button class="primary-btn btn-start" data-quiz-id="3">Start Quiz</button>
-                </div>
+            <div class="quiz-list-container" id="quiz-list-container">
+                <p class="text-muted">Loading quizzes...</p>
             </div>
-            
+          </div>
         </main>
     </div>
 
-    
-    <!-- 1. Centralized API Helper (Always First) -->
-    <script src="quizAPI.js"></script>
-
-    <!-- 2. Page-Specific JavaScript File -->
-    <script src="quiz-list.js"></script>
+    <script type="module" src="quiz-list.js"></script>
 </body>
 </html>
