@@ -1,0 +1,389 @@
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+
+/* =========================
+
+   Body
+
+========================= */
+
+body {
+
+    background-color: #f1ede8;
+
+    color: #2d2b2a;
+
+}
+
+
+/* =========================
+
+   Modal Overlay
+
+========================= */
+
+.modal-overlay {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.4);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 1000;
+
+}
+
+
+/* =========================
+
+   Modal Card
+
+========================= */
+
+.modal-card {
+
+    width: 100%;
+
+    max-width: 440px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #e3dad1;
+
+    border-radius: 14px;
+
+    padding: 26px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+}
+
+
+/* =========================
+
+   Header
+
+========================= */
+
+.modal-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    margin-bottom: 24px;
+
+}
+
+.modal-header h2 {
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    color: #221f1e;
+
+    margin-bottom: 5px;
+
+}
+
+.modal-header p {
+
+    font-size: 13px;
+
+    color: #706865;
+
+}
+
+
+/* =========================
+
+   Close Button
+
+========================= */
+
+.close-btn {
+
+    width: 32px;
+
+    height: 32px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #777777;
+
+    font-size: 25px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    border-radius: 6px;
+
+}
+
+.close-btn:hover {
+
+    background-color: #f1ede8;
+
+    color: #333333;
+
+}
+
+
+/* =========================
+
+   Form
+
+========================= */
+
+.form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    margin-bottom: 18px;
+
+}
+
+.form-group label {
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #554e4b;
+
+}
+
+
+/* =========================
+
+   Inputs
+
+========================= */
+
+.form-group input,
+
+.form-group select {
+
+    width: 100%;
+
+    height: 44px;
+
+    padding: 0 12px;
+
+    border: 1px solid #d9d0c7;
+
+    border-radius: 8px;
+
+    background-color: #ffffff;
+
+    color: #333333;
+
+    font-size: 14px;
+
+    outline: none;
+
+}
+
+.form-group input::placeholder {
+
+    color: #aaa19b;
+
+}
+
+.form-group input:focus,
+
+.form-group select:focus {
+
+    border-color: #e75a38;
+
+    box-shadow: 0 0 0 2px rgba(231, 90, 56, 0.1);
+
+}
+
+
+/* =========================
+
+   Error Message
+
+========================= */
+
+.error-message {
+
+    display: none;
+
+    margin-bottom: 15px;
+
+    padding: 10px;
+
+    border-radius: 7px;
+
+    background-color: #fce8e8;
+
+    color: #c73535;
+
+    font-size: 13px;
+
+}
+
+.error-message.show {
+
+    display: block;
+
+}
+
+
+/* =========================
+
+   Actions
+
+========================= */
+
+.modal-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 25px;
+
+}
+
+
+/* =========================
+
+   Buttons
+
+========================= */
+
+.cancel-btn,
+
+.create-btn {
+
+    min-width: 110px;
+
+    height: 42px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+/* Cancel */
+
+.cancel-btn {
+
+    background-color: #ffffff;
+
+    border: 1px solid #d9d0c7;
+
+    color: #554e4b;
+
+}
+
+.cancel-btn:hover {
+
+    background-color: #f5f1ed;
+
+}
+
+
+/* Create */
+
+.create-btn {
+
+    background-color: #e75a38;
+
+    border: none;
+
+    color: #ffffff;
+
+}
+
+.create-btn:hover {
+
+    background-color: #d44d2d;
+
+}
+
+.create-btn:disabled {
+
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+}
+
+
+/* =========================
+
+   Responsive
+
+========================= */
+
+@media (max-width: 500px) {
+
+    .modal-card {
+
+        padding: 20px;
+
+    }
+
+    .modal-actions {
+
+        flex-direction: column-reverse;
+
+    }
+
+    .cancel-btn,
+
+    .create-btn {
+
+        width: 100%;
+
+    }
+
+}
+ 

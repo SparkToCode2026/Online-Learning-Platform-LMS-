@@ -1,0 +1,164 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f1ede8;
+    color: #2d2b2a;
+}
+
+/* ==============================
+  Modal Overlay
+============================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* ==============================
+  Modal Card
+============================== */
+.modal-card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    padding: 24px;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* ==============================
+  Header
+============================== */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.modal-header h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #221f1e;
+}
+
+.modal-header p {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #706865;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 25px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+/* ==============================
+  Form
+============================== */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #554e4b;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #d9d0c7;
+    border-radius: 8px;
+    background-color: #ffffff;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #e75a38;
+    box-shadow: 0 0 0 2px rgba(231, 90, 56, 0.1);
+}
+
+/* ==============================
+  Actions
+============================== */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 26px;
+}
+
+.cancel-btn {
+    background-color: #ffffff;
+    color: #555;
+    border: 1px solid #d9d0c7;
+    border-radius: 8px;
+    padding: 10px 17px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: #f5f1ed;
+}
+
+.update-btn {
+    background-color: #e75a38;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.update-btn:hover {
+    background-color: #d44d2d;
+}
+
+/* ==============================
+  Responsive
+============================== */
+@media (max-width: 500px) {
+    .modal-card {
+        width: calc(100% - 30px);
+        padding: 20px;
+    }
+    .modal-actions {
+        flex-direction: column;
+    }
+    .cancel-btn,
+    .update-btn {
+        width: 100%;
+    }
+}
+

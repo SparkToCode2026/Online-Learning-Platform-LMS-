@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Creator - LMSHub</title>
+    <link rel="stylesheet" href="quiz-creator.css">
+    <link
+
+            rel="stylesheet"
+
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+</head>
+<body>
+<div class="app-layout">
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <span class="brand-name">ScholarHub</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-gauge"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Courses</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-folder-open"></i>
+                <span>Categories</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-cubes"></i>
+                <span>Modules</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-file-lines"></i>
+                <span>Lessons</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-list-check"></i>
+                <span>Assignments</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Quiz</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-certificate"></i>
+                <span>Certificates</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main-wrapper">
+        <header class="page-header">
+            <div>
+                <h1>Assessment Creator</h1>
+                <p>
+
+                    Design custom quizzes and interactive assessments
+                </p>
+            </div>
+        </header>
+
+        <!-- ================= CREATOR ================= -->
+        <section class="creator-container">
+
+            <!-- LEFT SIDE -->
+            <div class="creator-panel">
+                <div class="creator-tabs">
+                    <button
+
+                            class="creator-tab active"
+
+                            id="quizTab"
+                    >
+
+                        Quiz Creator
+                    </button>
+                    <button
+
+                            class="creator-tab"
+
+                            id="assignmentTab"
+                    >
+
+                        Assignment Creator
+                    </button>
+                </div>
+
+                <!-- QUIZ INFORMATION -->
+                <div class="section-title">
+                    <h3>Quiz Information</h3>
+                </div>
+
+                <form id="quizCreatorForm">
+                    <div class="form-group">
+                        <label for="quizTitle">
+
+                            Quiz Title
+                        </label>
+                        <input
+
+                                type="text"
+
+                                id="quizTitle"
+
+                                placeholder="e.g. C# Basics Quiz"
+
+                                required
+                        >
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quizScore">
+
+                                Total Points
+                            </label>
+                            <input
+
+                                    type="number"
+
+                                    id="quizScore"
+
+                                    min="1"
+
+                                    value="20"
+
+                                    required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quizCourse">
+
+                                Course
+                            </label>
+                            <select
+
+                                    id="quizCourse"
+
+                                    required
+                            >
+                                <option value="">
+
+                                    Select Course
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- QUESTION -->
+                    <div class="section-title question-title">
+                        <div>
+                            <h3>Question 1</h3>
+                            <span>Multiple Choice</span>
+                        </div>
+                        <button
+
+                                type="button"
+
+                                class="remove-question"
+
+                                id="removeQuestionBtn"
+                        >
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="questionText">
+
+                            Question
+                        </label>
+                        <textarea
+
+                                id="questionText"
+
+                                rows="3"
+
+                                placeholder="Write your question here..."
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+
+                            Answer Options
+                        </label>
+
+                        <div class="answer-option">
+                            <input
+
+                                    type="radio"
+
+                                    name="correctAnswer"
+
+                                    value="0"
+
+                                    checked
+                            >
+                            <input
+
+                                    type="text"
+
+                                    class="answer-input"
+
+                                    placeholder="Answer option 1"
+                            >
+                        </div>
+
+                        <div class="answer-option">
+                            <input
+
+                                    type="radio"
+
+                                    name="correctAnswer"
+
+                                    value="1"
+                            >
+                            <input
+
+                                    type="text"
+
+                                    class="answer-input"
+
+                                    placeholder="Answer option 2"
+                            >
+                        </div>
+
+                        <div class="answer-option">
+                            <input
+
+                                    type="radio"
+
+                                    name="correctAnswer"
+
+                                    value="2"
+                            >
+                            <input
+
+                                    type="text"
+
+                                    class="answer-input"
+
+                                    placeholder="Answer option 3"
+                            >
+                        </div>
+
+                        <div class="answer-option">
+                            <input
+
+                                    type="radio"
+
+                                    name="correctAnswer"
+
+                                    value="3"
+                            >
+                            <input
+
+                                    type="text"
+
+                                    class="answer-input"
+
+                                    placeholder="Answer option 4"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="question-actions">
+                        <button
+
+                                type="button"
+
+                                class="secondary-btn"
+
+                                id="addQuestionBtn"
+                        >
+                            <i class="fa-solid fa-plus"></i>
+
+                            Add Question
+                        </button>
+                    </div>
+
+                    <div class="creator-actions">
+                        <button
+
+                                type="button"
+
+                                class="cancel-btn"
+
+                                id="cancelBtn"
+                        >
+
+                            Cancel
+                        </button>
+                        <button
+
+                                type="submit"
+
+                                class="primary-btn"
+                        >
+                            <i class="fa-solid fa-floppy-disk"></i>
+
+                            Create Quiz
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ================= PREVIEW ================= -->
+            <div class="preview-panel">
+                <div class="preview-header">
+                    <div>
+                        <h3>Quiz Preview</h3>
+                        <p>
+
+                            Preview how your quiz will appear
+                        </p>
+                    </div>
+                    <span class="draft-badge">
+
+                        DRAFT
+</span>
+                </div>
+
+                <div class="preview-card">
+                    <div class="preview-question-number">
+
+                        QUESTION 1
+                    </div>
+                    <h2 id="previewQuestion">
+
+                        Your question will appear here
+                    </h2>
+
+                    <div class="preview-options">
+                        <label class="preview-option">
+                            <span class="radio-circle"></span>
+                            <span id="previewOption1">
+
+                                Answer option 1
+</span>
+                        </label>
+
+                        <label class="preview-option">
+                            <span class="radio-circle"></span>
+                            <span id="previewOption2">
+
+                                Answer option 2
+</span>
+                        </label>
+
+                        <label class="preview-option">
+                            <span class="radio-circle"></span>
+                            <span id="previewOption3">
+
+                                Answer option 3
+</span>
+                        </label>
+
+                        <label class="preview-option">
+                            <span class="radio-circle"></span>
+                            <span id="previewOption4">
+
+                                Answer option 4
+</span>
+                        </label>
+                    </div>
+
+                    <div class="preview-footer">
+<span>
+<i class="fa-solid fa-star"></i>
+<span id="previewScore">20</span> Points
+</span>
+                        <span>
+<i class="fa-regular fa-clock"></i>
+
+                            No time limit
+</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="quiz-creator.js"></script>
+</body>
+</html>
+ 
