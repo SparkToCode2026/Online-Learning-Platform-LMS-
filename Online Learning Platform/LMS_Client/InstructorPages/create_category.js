@@ -1,4 +1,4 @@
-import { addCategory } from '..APIs/CategoryApi.js';
+import { addCategory } from '../APIs/CategoryApi';
 
 
 document.addEventListener('DOMContentLoaded', () => {

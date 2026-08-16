@@ -1,4 +1,8 @@
-import { updateCategoryName } from './CategoryApi.js';
+import {getAllCategories,
+        getElementById,
+        searchCategory,
+    countCoursesPerCategory
+} from '../APIs/CourseApi';
 
 
 let currentCategoryId = null;

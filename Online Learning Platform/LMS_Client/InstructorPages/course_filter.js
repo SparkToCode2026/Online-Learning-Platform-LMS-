@@ -1,9 +1,14 @@
+import {
+  getAllCourses,
+  getTopExpensiveCourses
+} from '../APIs/CourseApi.js';
+
 // ==========================================
 // API Configuration
 // ==========================================
 
-const COURSE_API_URL = "http://localhost:5236/Course";
-const CATEGORY_API_URL = "http://localhost:5236/Category";
+const COURSE_API_URL = "https://localhost:7135/Course";
+const CATEGORY_API_URL = "https://localhost:7135/Category";
 
 
 // ==========================================

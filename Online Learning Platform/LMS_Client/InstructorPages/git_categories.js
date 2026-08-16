@@ -1,8 +1,14 @@
+import {getAllCategories,
+        getElementById,
+        searchCategory,
+    countCoursesPerCategory
+} from '../APIs/CourseApi';
+
 // ==========================================
 // API Configuration
 // ==========================================
 
-const CATEGORY_API_URL = "http://localhost:5236/Category";
+const CATEGORY_API_URL = "https://localhost:7135/Category";
 
 
 // ==========================================

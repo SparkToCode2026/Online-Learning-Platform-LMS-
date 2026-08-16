@@ -1,8 +1,12 @@
+import {
+  getAllCourses,
+  getTopExpensiveCourses
+} from '../APIs/CourseApi.js';
 // ===============================
 // API Configuration
 // ===============================
 
-const API_URL = "http://localhost:5236/Course";
+const API_URL = "https://localhost:7135/Course";
 
 // ===============================
 // Get Course ID from URL

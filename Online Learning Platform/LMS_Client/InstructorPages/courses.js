@@ -1,7 +1,7 @@
 import {
   getAllCourses,
   getTopExpensiveCourses
-} from '../CourseApi.js';
+} from '../APIs/CourseApi.js';
 
 // Store course data locally
 let allCoursesData = [];
