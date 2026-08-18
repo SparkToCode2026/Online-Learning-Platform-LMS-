@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const roleRedirects = {
           'admin': '../AdminPages/admin.html',
           'student': '../StudentPages/enrollment.html',
-          'instructor': '../Instructor profile/instructor-profile-create.html'
+          'instructor': '../InstructorPages/courses.html'
         };
 
         if (roleRedirects[role]) {
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const roleRedirects = {
           'admin': '../AdminPages/admin.html',
           'student': '../StudentPages/enrollment.html',
-          'instructor': '../Instructor profile/instructor-profile-create.html'
+          'instructor': '../InstructorPages/courses.html'
         };
 
         if (roleRedirects[userRole]) {
